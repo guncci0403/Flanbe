@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+  <definition name="basic.layout" template="/WEB-INF/views/common/layout.jsp">
+    <put-attribute name="header" value="/WEB-INF/views/common/header.jsp" />
+    <!-- <put-attribute name="left" value="/WEB-INF/views/common/left.jsp" /> -->
+    <put-attribute name="body" value="" />
+    <put-attribute name="footer" value="/WEB-INF/views/common/bottom.jsp" />
+  </definition>
+  
+  <definition name="t/*/*" extends="basic.layout">
+  	<put-attribute name="body" value="/WEB-INF/views/{1}/{2}Body.jsp" />
+  </definition>
+  <definition name="t/*" extends="basic.layout">
+  	<put-attribute name="body" value="/WEB-INF/views/{1}Body.jsp" />
+  </definition>
+  
+  <!--   
+  <definition name="/login/*" extends="basic.layout">
+  	<put-attribute name="body" value="/WEB-INF/views/Body.jsp" />
+  </definition>
+  
+  <definition name="/*" extends="basic.layout">
+  	<put-attribute name="body" value="/WEB-INF/views/{1}.jsp" />
+  </definition>
+  <definition name="/*/*" extends="basic.layout">
+  	<put-attribute name="body" value="/WEB-INF/views/{1}/{2}Body.jsp" />
+  </definition>
+  <definition name="/*/*/*" extends="basic.layout">
+  	<put-attribute name="body" value="/WEB-INF/views/{1}/{2}/{3}Body.jsp" />
+  </definition>
+  
+  <definition name="/template/main" extends="basic.layout">
+  	<put-attribute name="body" value="/WEB-INF/views/{viewName}.jsp" />
+  </definition>
+  
+  <definition name="/template/login">
+  	<put-attribute name="body" value="/WEB-INF/views/login.jsp" />
+  </definition>
+  
+  
+   -->
+  
+</tiles-definitions>

@@ -1,0 +1,364 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="project">
+	
+	<!-- 프로젝트 상세조회 -->
+   	<select id="viewProject" resultType="projectVo" parameterType="int">
+   		SELECT p.*, u.intro FROM project p, users u WHERE p.user_id = u.user_id AND p.p_code = #{value}
+   	</select>
+
+   	<select id="selectAllProject" resultType="projectVo">
+		SELECT * FROM project
+	</select>
+
+	<insert id="insertProject" parameterType="projectVo">
+		INSERT INTO project VALUES (project_seq.NEXTVAL, #{p_title}, #{user_id}, '01',
+		#{p_cont}, #{p_field}, #{p_money}, #{deadline}, #{period}, #{p_sdt}, #{p_sdt} + #{period},
+		0, sysdate)
+	</insert>
+	
+	<!-- p_skill==프로젝트 관련기술 등록 쿼리 -->
+	<insert id="insertPskill" parameterType="String">
+		INSERT INTO p_skill
+		VALUES(p_skill_seq.NEXTVAL, project_seq.currval, #{ps_no})
+	</insert>
+	
+	
+	<!-- 프로젝트 페이징처리 -->
+	<select id="selectProjectCnt" resultType="int">
+		SELECT COUNT(*) cnt FROM project WHERE p_state = '03'
+	</select>
+	<select id="PagingProject" resultType="projectVo" parameterType="pageVo">
+		SELECT *
+		FROM
+		(SELECT ROWNUM rn, a.*
+		FROM
+			(SELECT *
+			FROM project
+			WHERE p_state = '03'
+			ORDER BY p_code DESC) a
+		WHERE ROWNUM &lt;= #{page} * #{pageSize})
+		WHERE rn BETWEEN (#{page}-1)* #{pageSize} + 1 AND #{page} * #{pageSize}
+	</select>
+
+	<!-- 지원자수 -->
+	<select id="applicantCnt" resultType="int" parameterType="int">
+		SELECT count(*)
+		FROM p_attend
+		WHERE p_code = #{value}
+		AND p_state = '03'
+	</select>
+	
+	<!-- 관심프로젝트 등록 -->
+	<insert id="insertLike" parameterType="pattendVo">
+		INSERT INTO p_attend VALUES(#{p_code}, #{user_id}, '01')
+	</insert>
+	
+	<!-- 관심프로젝트 01? 인지 조회 -->
+	<select id="selectPstate" parameterType="pattendVo" resultType="String">
+		SELECT p_state
+		FROM p_attend WHERE p_code = #{p_code} AND user_id = #{user_id}
+	</select>
+	
+	<!-- 관심프로젝트 삭제 -->
+	<delete id="deletelike" parameterType="pattendVo">
+		DELETE FROM p_attend WHERE p_code = #{p_code} AND user_id = #{user_id}
+	</delete>
+	
+	<!-- 프로젝트 지원하기(파트너스, p_state값이 없을때) -->
+	<insert id="insertApply" parameterType="pattendVo">
+		INSERT INTO p_attend VALUES(#{p_code}, #{user_id}, '03')
+	</insert>
+	
+	<!-- 프로젝트 지원하기(p_state값이 있을때) -->
+	<update id="updateApply" parameterType="pattendVo">
+		UPDATE p_attend SET p_state = '03'
+		WHERE p_code = #{p_code} AND user_id = #{user_id}
+	</update>
+	
+	<!-- 프로젝트찾기 아이디 검색 -->
+	<select id="searchProjectid" resultType="projectVo" parameterType="pageVo">
+		SELECT *
+		FROM
+		   (SELECT ROWNUM rn, a.*
+		    FROM (SELECT * FROM project WHERE p_state = '03' AND user_id LIKE '%'||#{s_value} ||'%' ORDER BY p_regdt DESC) a
+		    WHERE ROWNUM &lt;= #{page} * #{pageSize})
+		WHERE rn BETWEEN (#{page} -1)* #{pageSize} + 1 AND #{page} * #{pageSize}
+	</select>
+	
+	<!-- 프로젝트찾기 아이디 검색 -->
+	<select id="searchProjectidCnt" resultType="int" parameterType="String">
+		SELECT COUNT(*) FROM project WHERE p_state = '03' AND user_id LIKE '%'||#{value} ||'%'
+	</select>
+	
+	<!-- 프로젝트찾기 프로젝트제목 검색 -->
+	<select id="searchProjectnm" resultType="projectVo" parameterType="pageVo">
+		SELECT *
+		FROM
+		    (SELECT ROWNUM rn, a.*
+		     FROM (SELECT * FROM project WHERE p_state = '03' AND p_title LIKE '%'||#{s_value} ||'%' ORDER BY p_regdt DESC) a
+		     WHERE ROWNUM &lt;= #{page} * #{pageSize})
+		WHERE rn BETWEEN (#{page} -1)* #{pageSize} + 1 AND #{page} * #{pageSize}
+	</select>
+	
+	<!-- 프로젝트찾기 프로젝트제목 검색 -->	
+	<select id="searchProjectnmCnt" resultType="int" parameterType="String">
+		SELECT COUNT(*) FROM project WHERE p_state = '03' AND p_title LIKE '%'||#{value}||'%'
+	</select>
+	
+	<!-- 관심프로젝트 리스트 -->
+   	<select id="selectLike" resultType="projectVo" parameterType="String">
+	    SELECT p.*
+	    FROM project p, P_ATTEND a
+	    WHERE p.p_code = a.p_code AND a.user_id = #{user_id}
+	    AND a.p_state = '01'
+   	</select>
+   
+   	<!--지원내역 리스트 -->
+   	<select id="applyList" resultType="projectVo" parameterType="String">
+	    SELECT p.*
+		FROM project p, P_ATTEND a
+		WHERE p.p_code = a.p_code AND a.user_id = #{value}
+		AND a.p_state IN ('03','06','07')
+   	</select>
+   	
+   	<!-- 진행중인 프로젝트 리스트 클라이언트 -->
+   	<select id="ingProjectListC" resultType="projectVo" parameterType="String">
+	   	SELECT *
+		FROM project
+		WHERE p_state = '06'
+		AND user_id = #{user_id}
+	</select>
+	
+	   	<!-- 진행중인 프로젝트 리스트 파트너스 -->
+   	<select id="ingProjectListP" resultType="projectVo" parameterType="String">
+		SELECT p.*
+		FROM project p, p_attend a
+		WHERE p.p_code = a.p_code AND
+		a.user_id = #{user_id} AND 
+		a.p_state = '04'
+	</select>
+
+	   	<!-- 완료 프로젝트 리스트 클라이언트 -->		   	
+	<select id="finishProjectListC" resultType="projectVo" parameterType="String">
+		SELECT *
+		FROM project
+		WHERE p_state = '09'
+		AND user_id = #{user_id} 	
+	</select>
+
+	   	<!-- 완료 프로젝트 리스트 파트너스 -->	
+	<select id="finishProjectListP" resultType="projectVo" parameterType="String">
+		SELECT p.*
+		FROM project p, p_attend a
+		WHERE p.p_code = a.p_code AND
+		a.user_id = #{user_id} AND 
+		a.p_state = '05'	
+	</select>
+	
+		<!-- 검수중인 프로젝트 리스트 -->
+	<select id="beforeProject" resultType="projectVo" parameterType="String">
+		SELECT *
+		FROM project
+		WHERE p_state ='01' OR p_state ='02'
+		AND user_id = #{user_id}
+	</select>
+	
+	<!-- p_skill==프로젝트 관련기술 리스트 쿼리 -->   
+	<select id="listPskill" resultType="pskillVo" parameterType="int">
+	   SELECT * FROM p_skill
+	   WHERE p_code = #{p_code}
+	</select>
+	
+	<!-- 수진
+ 클라이언트가 본인 진행중인 프로젝트 조회 -->
+
+	<select id="selectUserProject" resultType="projectVo" parameterType="projectVo">
+		SELECT *
+		FROM
+			(SELECT ROWNUM rn, a.*
+			 FROM
+				(SELECT *
+				 FROM project
+				 WHERE p_state = '03' and user_id=#{user_id}
+				 ORDER BY p_code DESC) a
+			 WHERE ROWNUM &lt;= #{page} * #{pageSize})
+		WHERE rn
+		BETWEEN (#{page}-1) * #{pageSize} + 1 AND #{page} * #{pageSize}
+	</select>
+
+	<!-- 프로젝트 갯수 -->
+	<select id="selectUserProjectCnt" resultType="int" parameterType="String">
+		SELECT COUNT(*) FROM project WHERE p_state = '03' AND
+		user_id=#{user_id}
+	</select>
+
+	<!-- 프로젝트 마감중 상태 변경 -->
+	<update id="updateProjectState" parameterType="projectVo">
+		 UPDATE project SET p_state = '04' WHERE p_code = #{p_code} AND user_id=#{user_id}
+	</update>
+	
+	<!-- 프로젝트 필터 검색 -->
+	<!-- 기간 검색 -->
+	<select id="searchFilterPreiod" resultType="projectVo" parameterType="pageVo">
+		SELECT *
+		FROM
+			(SELECT ROWNUM rn, a.*
+			FROM (SELECT * FROM project WHERE p_state = '03' and
+		<choose>
+			<when test="end == null or end == ''">
+				  period >= #{start} ORDER BY p_regdt DESC) a
+				WHERE ROWNUM &lt;= #{page} * #{pageSize})
+			WHERE rn BETWEEN (#{page}-1)* #{pageSize} + 1 AND #{page} * #{pageSize}
+			</when>
+			<when test="start != null and end != null">
+					period between #{start} and #{end} ORDER BY p_regdt DESC) a
+				WHERE ROWNUM &lt;= #{page} * #{pageSize})
+			WHERE rn BETWEEN (#{page}-1)* #{pageSize} + 1 AND #{page} * #{pageSize}
+			</when>
+			<otherwise>
+					ORDER BY p_regdt DESC) a
+				WHERE ROWNUM &lt;= #{page} * #{pageSize})
+			WHERE rn BETWEEN (#{page}-1)* #{pageSize} + 1 AND #{page} * #{pageSize}
+			</otherwise>
+		</choose>
+	</select>
+	
+	<!--  기간 검색 수  -->
+	<select id="searchFilterPreiodCnt" resultType="int" parameterType="pageVo">
+		SELECT count(*) FROM project WHERE p_state = '03' and
+		<choose>
+			<when test="end == null or end == ''">
+				  period >= #{start} ORDER BY p_regdt DESC
+			</when>
+			<when test="start != null and end != null">
+					period between #{start} and #{end} ORDER BY p_regdt DESC
+			</when>
+			<otherwise>
+					ORDER BY p_regdt DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<!-- 금액 검색 -->
+	<select id="searchFilterPrice" resultType="projectVo" parameterType="pageVo">
+		SELECT *
+		FROM
+			(SELECT ROWNUM rn, a.*
+			FROM (SELECT * FROM project WHERE p_state = '03' and
+		<choose>
+			<when test="end == null or end == ''">
+				  p_money >= #{start} ORDER BY p_regdt DESC) a
+				WHERE ROWNUM &lt;= #{page} * #{pageSize})
+			WHERE rn BETWEEN (#{page}-1)* #{pageSize} + 1 AND #{page} * #{pageSize}
+			</when>
+			<when test="start != null and end != null">
+					p_money between #{start} and #{end} ORDER BY p_regdt DESC) a
+				WHERE ROWNUM &lt;= #{page} * #{pageSize})
+			WHERE rn BETWEEN (#{page}-1)* #{pageSize} + 1 AND #{page} * #{pageSize}
+			</when>
+			<otherwise>
+					ORDER BY p_regdt DESC) a
+				WHERE ROWNUM &lt;= #{page} * #{pageSize})
+			WHERE rn BETWEEN (#{page}-1)* #{pageSize} + 1 AND #{page} * #{pageSize}
+			</otherwise>
+		</choose>
+	</select>
+	
+	<!-- 금액 검색 수 -->
+	<select id="searchFilterPriceCnt" resultType="int" parameterType="pageVo">
+		SELECT count(*) FROM project WHERE p_state = '03' and
+		<choose>
+			<when test="end == null or end == ''">
+				  p_money >= #{start} ORDER BY p_regdt DESC
+			</when>
+			<when test="start != null and end != null">
+					p_money between #{start} and #{end} ORDER BY p_regdt DESC
+			</when>
+			<otherwise>
+					ORDER BY p_regdt DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<!-- 체크박스 - 분류 검색 -->
+<!-- 	<select id="searchFilterPfiled" resultType="projectVo" parameterType="pageVo"> -->
+<!-- 	SELECT * -->
+<!-- 		FROM -->
+<!-- 		    (SELECT ROWNUM rn, a.* -->
+<!-- 		    FROM -->
+<!-- 		        (select * -->
+<!--                     from project -->
+<!--                     where p_state = '03' -->
+<!--                     and p_field = #{p_field} -->
+<!-- 		        ORDER BY user_id) a -->
+<!-- 		    WHERE ROWNUM &lt;= #{page} * #{pageSize}) -->
+<!-- 		WHERE rn BETWEEN (#{page} - 1)* #{pageSize} + 1 AND #{page} * #{pageSize} -->
+<!-- 	</select> -->
+	
+	<!-- 체크박스 - 분류 검색 -->
+	<select id="searchFilterPfileds" resultType="projectVo" parameterType="searchVo">
+	SELECT *
+		FROM
+		    (SELECT ROWNUM rn, a.*
+		    FROM
+		        (select p_title, user_id, p_money, period, p_regdt, deadline, p_code
+                    from project
+                    where p_state = '03'
+              <choose>
+              	<when test="valueSize == 1">
+					and p_field = #{value1}
+              	</when>
+              	<when test="valueSize == 2">
+					and p_field IN (#{value1},#{value2})
+              	</when>
+              	<when test="valueSize == 3">
+					 and p_field IN (#{value1},#{value2},#{value3})
+              	</when>
+              	<when test="valueSize == 4">
+					 and p_field IN (#{value1},#{value2},#{value3},#{value4})
+              	</when>
+              </choose>
+		        ORDER BY user_id) a
+		    WHERE ROWNUM &lt;= #{page} * #{pageSize})
+		WHERE rn BETWEEN (#{page} - 1)* #{pageSize} + 1 AND #{page} * #{pageSize}
+	</select>
+
+	<select id="searchFilterPfiledCnt" resultType="int" parameterType="searchVo">
+		select count(*)
+		from project
+		where p_state = '03'
+		<choose>
+        	<when test="valueSize == 1">
+				and p_field = (#{value1})
+			</when>
+            <when test="valueSize == 2">
+				and p_field IN (#{value1},#{value2})
+        	</when>
+            <when test="valueSize == 3">
+				and p_field IN (#{value1},#{value2},#{value3})
+            </when>
+            <when test="valueSize == 4">
+				and p_field IN (#{value1},#{value2},#{value3},#{value4})
+            </when>
+		</choose>
+	</select>
+	
+	<select id="requestProjectList" resultType="projectVo" parameterType="String">
+		SELECT p_code, p_title FROM project 
+		WHERE user_id = #{value} AND p_state = '03'
+	</select>
+	
+	<update id="requestSend" parameterType="pattendVo">
+		MERGE INTO p_attend
+		USING dual
+		ON (p_code = #{p_code} AND user_id = #{user_id})
+		WHEN matched THEN 
+		   UPDATE SET p_state = '02'
+		WHEN NOT MATCHED THEN
+		INSERT (P_CODE,USER_ID,P_STATE) VALUES (#{p_code}, #{user_id}, '02')
+	</update>
+</mapper>

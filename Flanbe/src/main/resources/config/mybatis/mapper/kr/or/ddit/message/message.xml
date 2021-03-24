@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="message">
+
+	<!-- 받은쪽지함 리스트 출력 -->
+	<select id="inboxMessage" parameterType="String" resultType="messageVo">
+		SELECT *
+		FROM message m,users u
+		WHERE m.r_id=u.user_id
+		AND u.user_id=#{user_id}
+		ORDER BY m_regdt DESC
+	</select>	
+	
+	<!-- 보낸쪽지함 리스트 출력 -->
+	<select id="sentMessage" parameterType="String" resultType="messageVo">
+		SELECT *
+		FROM message m,users u
+		WHERE m.s_id=u.user_id
+		AND u.user_id=#{user_id}
+		ORDER BY m_regdt DESC
+	</select>
+	
+	<!-- 쪽지 상세 -->
+	<select id="detailMessage" parameterType="int" resultType="messageVo">
+		SELECT *
+		FROM message
+		WHERE m_no=#{m_no}
+	</select>
+	
+	<!-- 받은 쪽지함 갯수 출력 -->
+	<select id="countMessage" parameterType="String" resultType="int">
+		SELECT count(*)
+		FROM message m,users u
+		WHERE m.r_id=u.user_id
+		AND u.user_id=#{user_id}
+	</select>
+	
+	<!-- 해당 쪽지함을 눌렀을 때 상태변경(읽음상태) -->
+	<update id="stateMessage" parameterType="int">
+		UPDATE 
+		    (SELECT *
+		     FROM  message m , users u
+		     WHERE  m.s_id = u.user_id 
+		     )
+		SET m_state = 'Y'
+		WHERE m_no=#{m_no}
+	</update>
+	
+	<!-- 쪽지 알림 메시지 -->
+	<select id="alarmMessage" parameterType="String" resultType="messageVo">
+		SELECT *
+		FROM message
+		WHERE r_id=#{user_id}
+		AND m_state='N'
+		ORDER BY m_regdt DESC
+	</select>
+	
+	<!-- 쪽지 삭제 -->
+	<delete id="deleteMessage" parameterType="int">
+		DELETE FROM message WHERE m_no=#{m_no}
+	</delete>
+	
+	<!-- 쪽지 등록 -->
+	<insert id="registMessage" parameterType="messageVo">
+		INSERT INTO message(m_no, m_cont, m_regdt, m_state, r_id, s_id) 
+		VALUES (MESSAGE_SEQ.NEXTVAL, #{m_cont}, SYSDATE, 'N', #{r_id}, #{s_id})
+	</insert>
+
+</mapper>

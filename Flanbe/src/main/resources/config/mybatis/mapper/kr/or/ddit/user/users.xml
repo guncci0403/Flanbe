@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="users">
+	
+	<select id="userPurpose" resultType="String" parameterType="String">
+		SELECT purpose FROM users WHERE user_id = #{value}
+	</select>
+	
+	<insert id="insertHistory" parameterType="String">
+		INSERT INTO history (user_id, h_web, h_app, h_pub, h_game, h_etc) VALUES (#{value}, 0, 0, 0, 0, 0)
+	</insert>
+
+	<select id="loginUser" resultType="userVo" parameterType="String">
+		<!-- SELECT * FROM users WHERE user_id = #{value} AND u_act = '02' -->
+		SELECT * FROM users WHERE user_id = #{value} AND u_act IN ('02','M')
+	</select>
+
+	<select id="selectUser" resultType="userVo" parameterType="String">
+		SELECT * FROM users WHERE user_id= #{value}	
+	</select>
+	
+	<insert id="insertUser" parameterType="userVo">
+		INSERT INTO users (user_id, user_nm, group_nm, pass, phone, email, base_addr, detail_addr, zipcode, purpose, u_div, regdt, u_act)
+		VALUES (#{user_id}, #{user_nm}, #{group_nm}, #{pass}, #{phone}, #{email}, #{base_addr}, #{detail_addr}, #{zipcode}, #{purpose}, #{u_div}, SYSDATE, '01')
+	</insert>
+	
+	<select id="selectUserid" parameterType="userVo" resultType="String">
+		SELECT user_id FROM users WHERE user_nm = #{user_nm} AND email = #{email}
+	</select>
+	
+	<update id="updateKey" parameterType="userVo">
+		UPDATE users set u_act = #{u_act} WHERE user_id = #{user_id}
+	</update>
+	
+	<update id="updateUAct" parameterType="userVo">
+		UPDATE users set u_act = '02' WHERE user_id = #{user_id} AND u_act= #{u_act}
+	</update>
+	
+	<update id="updatePass" parameterType="userVo">
+		UPDATE users set pass = #{pass} WHERE user_id = #{user_id}
+	</update>
+	
+	<select id="selectUserWhether" parameterType="userVo" resultType="int">
+		SELECT COUNT(*) FROM users WHERE user_id = #{user_id} AND email = #{email}
+	</select>
+	
+	<!-- 파트너스 조회 페이징 -->
+	<select id="selectPartnerList" parameterType="pageVo" resultType="userVo">
+		SELECT *
+		FROM
+	  		(SELECT ROWNUM rn, a.*
+	    	 FROM
+	      		(SELECT u.user_id, u.group_nm, u.email, s.skill u_skills
+				 FROM users u LEFT OUTER JOIN
+	    		( SELECT LISTAGG(DECODE(us_kind , '01' ,'자바' , '02' , 'C언어' , '03' , '파이썬' , '04' , '자바스크립트' , us_kind   ), ', ')
+	    		  WITHIN GROUP (ORDER BY us_prof DESC) skill , user_id
+	    		  FROM u_skill  
+	    		  GROUP BY user_id ) s  ON u.user_id = s.user_id 
+			WHERE purpose = 'P'
+			ORDER BY u.user_id) a
+	  		WHERE ROWNUM &lt;= #{page} * #{pageSize})
+		WHERE rn BETWEEN (#{page}-1) * #{pageSize} + 1 AND #{page} * #{pageSize}
+	
+		<!-- SELECT *
+		FROM
+		    (SELECT ROWNUM rn, a.*
+		    FROM
+		        (SELECT *
+		        FROM users
+		        WHERE purpose = 'P'
+		        ORDER BY user_id) a
+		    WHERE ROWNUM &lt;= #{page} * #{pageSize})
+		WHERE rn BETWEEN (#{page}-1) * #{pageSize} + 1 AND #{page} * #{pageSize} -->
+	</select>
+	
+	<select id="selectPartnerCnt" resultType="int">
+		SELECT COUNT(*) FROM users WHERE purpose = 'P'
+	</select>
+	
+	<select id="idsearchPartnerList" parameterType="String" resultType="userVo">
+		<!-- SELECT * FROM users WHERE purpose = 'P' AND user_id LIKE '%'||#{value}||'%' ORDER BY user_id -->
+		SELECT u.user_id, u.group_nm, u.email, s.skill u_skills
+		FROM users u LEFT OUTER JOIN
+		    ( SELECT LISTAGG(DECODE(us_kind , '01' ,'자바' , '02' , 'C언어' , '03' , '파이썬' , '04' , '자바스크립트' , us_kind   ), ',') WITHIN GROUP (ORDER BY us_prof DESC) skill , user_id
+		    FROM u_skill  
+		    GROUP BY user_id ) s  ON u.user_id = s.user_id 
+		WHERE purpose = 'P'
+		AND u.user_id LIKE '%'||#{value}||'%'
+		ORDER BY u.user_id
+	</select>
+	
+	<select id="tnmsearchPartnerList" parameterType="String" resultType="userVo">
+		<!-- SELECT * FROM users WHERE purpose = 'P' AND group_nm LIKE '%'||#{value}||'%' ORDER BY user_id -->
+		SELECT u.user_id, u.group_nm, u.email, s.skill u_skills
+		FROM users u LEFT OUTER JOIN
+		    ( SELECT LISTAGG(DECODE(us_kind , '01' ,'자바' , '02' , 'C언어' , '03' , '파이썬' , '04' , '자바스크립트' , us_kind   ), ',') WITHIN GROUP (ORDER BY us_prof DESC) skill , user_id
+		    FROM u_skill  
+		    GROUP BY user_id ) s  ON u.user_id = s.user_id 
+		WHERE purpose = 'P'
+		AND u.group_nm LIKE '%'||#{value}||'%'
+		ORDER BY u.user_id	
+	</select>
+	
+	<!-- 파트너스 필터검색 -->
+	<select id="filterPartnerList" parameterType="pageVo" resultType="userVo">
+		SELECT *
+		FROM
+	  		(SELECT ROWNUM rn, a.*
+	    	 FROM
+	      		(SELECT u.user_id, u.group_nm, u.email, s.skill u_skills
+				 FROM users u LEFT OUTER JOIN
+	    		( SELECT LISTAGG(DECODE(us_kind , '01' ,'자바' , '02' , 'C언어' , '03' , '파이썬' , '04' , '자바스크립트' , us_kind   ), ', ')
+	    		  WITHIN GROUP (ORDER BY us_prof DESC) skill , user_id
+	    		  FROM u_skill  
+	    		  GROUP BY user_id ) s  ON u.user_id = s.user_id 
+			WHERE purpose = 'P'
+			AND u_div = #{s_value}
+			ORDER BY u.user_id) a
+	  		WHERE ROWNUM &lt;= #{page} * #{pageSize})
+		WHERE rn BETWEEN (#{page}-1) * #{pageSize} + 1 AND #{page} * #{pageSize}
+		<!-- SELECT *
+		FROM
+		    (SELECT ROWNUM rn, a.*
+		    FROM
+		        (SELECT *
+		        FROM users
+		        WHERE purpose = 'P'
+		        AND u_div = #{s_value}
+		        ORDER BY user_id) a
+		    WHERE ROWNUM &lt;= #{page} * #{pageSize})
+		WHERE rn BETWEEN (#{page} - 1)* #{pageSize} + 1 AND #{page} * #{pageSize} -->
+	</select>
+	<select id="filterPartnerCnt" parameterType="String" resultType="int">
+		SELECT COUNT(*) FROM users WHERE purpose = 'P' AND u_div = #{value}
+	</select>
+	
+	<select id="skilFilterList" parameterType="searchVo" resultType="userVo">
+		SELECT *
+		FROM
+		      (SELECT ROWNUM rn, a.*
+		      FROM
+		          (SELECT u.user_id, u.group_nm, u.email, s.skill u_skills
+		        FROM users u right OUTER JOIN
+		        ( SELECT LISTAGG(DECODE(us_kind , '01' ,'자바' , '02' , 'C언어' , '03' , '파이썬' , '04' , '자바스크립트' , us_kind   ), ', ')
+		          WITHIN GROUP (ORDER BY us_prof DESC) skill , user_id
+		          FROM u_skill 
+		          
+		          WHERE user_id IN (
+		          					SELECT user_id
+		                            FROM u_skill
+		                            WHERE us_kind = #{value1}
+		          <choose>
+		          	<when test="valueSize == 2">
+		                            INTERSECT
+		                            SELECT user_id
+		                            FROM u_skill
+		                            WHERE us_kind = #{value2}
+		          	</when>
+		          	<when test="valueSize == 3">
+		          					INTERSECT
+		                            SELECT user_id
+		                            FROM u_skill
+		                            WHERE us_kind = #{value3}
+		          	</when>
+		          	<when test="valueSize == 4">
+		          					INTERSECT
+		                            SELECT user_id
+		                            FROM u_skill
+		                            WHERE us_kind = #{value4}
+		          	</when>
+		          </choose>
+		                            )
+		          GROUP BY user_id ) s  ON u.user_id = s.user_id 
+		    WHERE purpose = 'P'
+		    ORDER BY u.user_id) a
+		      WHERE ROWNUM &lt;= #{page} * #{pageSize})
+		WHERE rn BETWEEN (#{page}-1) * #{pageSize} + 1 AND #{page} * #{pageSize} 
+	</select>
+	
+	<select id="skilFilterListCnt" parameterType="searchVo" resultType="int">
+		SELECT COUNT(*)
+		FROM (SELECT ROWNUM rn, a.*
+		      FROM
+		          (SELECT u.user_id, u.group_nm, u.email, s.skill u_skills
+		        FROM users u right OUTER JOIN
+		        ( SELECT LISTAGG(DECODE(us_kind , '01' ,'자바' , '02' , 'C언어' , '03' , '파이썬' , '04' , '자바스크립트' , us_kind   ), ', ')
+		          WITHIN GROUP (ORDER BY us_prof DESC) skill , user_id
+		          FROM u_skill 
+		          
+		          WHERE user_id IN (
+		          					SELECT user_id
+		                            FROM u_skill
+		                            WHERE us_kind = #{value1}
+		         <choose>
+		          	<when test="valueSize == 2">
+		                            INTERSECT
+		                            SELECT user_id
+		                            FROM u_skill
+		                            WHERE us_kind = #{value2}
+		          	</when>
+		          	<when test="valueSize == 3">
+		          					INTERSECT
+		                            SELECT user_id
+		                            FROM u_skill
+		                            WHERE us_kind = #{value3}
+		          	</when>
+		          	<when test="valueSize == 4">
+		          					INTERSECT
+		                            SELECT user_id
+		                            FROM u_skill
+		                            WHERE us_kind = #{value4}
+		          	</when>
+		          </choose>
+		                            )
+		          GROUP BY user_id ) s  ON u.user_id = s.user_id 
+		       WHERE purpose = 'P'
+		   	   ORDER BY u.user_id) a)
+	</select>
+	
+	
+	
+	
+</mapper>
