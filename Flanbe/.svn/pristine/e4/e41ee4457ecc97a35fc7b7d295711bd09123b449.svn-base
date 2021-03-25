@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+
+
+	<context:property-placeholder location="classpath:/config/db/dbinfo.properties"/>
+	
+	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" >
+		<property name="driverClassName" value="${jdbc.driverClassName}" />
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+		<property name="initialSize" value="3" />
+	</bean>
+	
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="configLocation" value="classpath:/config/mybatis/mybatis-config.xml" />
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	
+	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg ref="sqlSessionFactory" />
+	</bean>
+	
+	<!-- 1. bean 선언 순서는 중요하지 않다
+		 2. 다른 설정파일에 선언한 스프링 빈도 참조하는게 가능하다  -->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"/>
+	</bean>
+	
+	<!-- advice : 공통의 관심사 -->
+	<!-- 선언적 트랜잭션 : 개발자가 별도로 commit, rollback을 호출하지 않음
+		 				상황에 따라 자동으로 commit, rollback이 됨
+		 				commit : pointcut으로 설정된 메소드가 실행될 때 해당 메소드에서
+		 					     RuntimeException이 발생하지 않고 정상적으로 실행될 경우
+		 				rollback : RuntimeException이 발생될 때
+	-->
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="*" rollback-for="Exception" />
+		</tx:attributes>
+	</tx:advice>
+	
+	<!-- advisor : advice + pointcut -->
+	<aop:config>
+		<aop:advisor advice-ref="txAdvice" pointcut="execution(* kr.or.ddit.*.service.*.*(..))"/>
+	</aop:config>
+</beans>

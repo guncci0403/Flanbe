@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="board">
+	<!-- 사이드바 게시판 목록 -->
+	<select id="selectAllBoardList" resultType="boardVo">
+		SELECT * FROM board ORDER BY b_no
+	</select>
+	
+	<select id="selectBoard" resultType="boardVo" parameterType="int">
+		SELECT * FROM board WHERE b_no = #{b_no}
+  	</select>
+  	
+	<!-- 게시글 리스트 페이징 -->
+	<select id="selectPagingPost" resultType="postVo" parameterType="pageVo">
+      SELECT *
+      FROM
+          (SELECT ROWNUM rn, a.*
+           FROM (SELECT level, p_no, user_id, b_no, p_title, p_cont, p_regdt, p_act, p_gno, p_parent, p_view
+                  FROM post
+                  WHERE b_no = #{b_no}
+                  START WITH p_parent IS NULL
+                  CONNECT BY PRIOR p_no = p_parent
+                  ORDER SIBLINGS BY p_gno DESC, p_no ASC) a
+           WHERE ROWNUM &lt;= #{page} * #{pageSize})
+      WHERE rn BETWEEN (#{page}-1) * #{pageSize} + 1 AND #{page} * #{pageSize}
+    </select>
+	
+	<select id="selectPostCnt" resultType="int" parameterType="int">
+      SELECT COUNT(*) cnt FROM post WHERE b_no = #{b_no}
+    </select>
+    
+	<!-- 검색해서 리스트 조회 -->   
+	<select id="searchPagingPost" resultType="postVo" parameterType="pageVo" >
+		SELECT *
+      FROM
+          (SELECT ROWNUM rn, a.*
+           FROM (SELECT level, p_no, user_id, b_no, p_title, p_cont, p_regdt, p_act, p_gno, p_parent, p_view
+                  FROM post
+                  WHERE b_no = #{b_no}
+                  AND p_title LIKE '%'||#{p_field}||'%'
+                  START WITH p_parent IS NULL
+                  CONNECT BY PRIOR p_no = p_parent
+                  ORDER SIBLINGS BY p_gno DESC, p_no ASC) a
+           WHERE ROWNUM &lt;= #{page} * #{pageSize})
+      WHERE rn BETWEEN (#{page}-1) * #{pageSize} + 1 AND #{page} * #{pageSize}
+	</select>
+	<select id="searchPostCnt" resultType="int" parameterType="pageVo">
+      SELECT COUNT(*) cnt 
+      FROM post 
+      WHERE b_no = #{b_no} 
+      AND p_title LIKE '%'||#{p_field}||'%'
+    </select>
+    
+	<!-- 게시글 조회 -->
+	<select id="selectPost" resultType="postVo" parameterType="int">
+	   SELECT *
+	   FROM post
+	   WHERE p_no = #{p_no}
+	</select>
+	
+  	<!-- 게시글 등록 -->
+	<insert id="insertPost" parameterType="postVo">
+		INSERT INTO post
+		   	   (p_no, user_id, b_no, p_title, p_cont, p_regdt, p_act, p_gno, p_parent, p_view)
+		VALUES (post_seq.nextval, 
+		#{user_id}, #{b_no}, #{p_title}, #{p_cont}, #{p_regdt}, 'N', post_seq.nextval, null, 0)
+	</insert>
+	
+	<!-- 게시글 수정 -->
+	<update id="updatePost" parameterType="postVo">
+	 	UPDATE post SET p_title = #{p_title},
+	                p_cont = #{p_cont}
+		WHERE p_no = #{p_no}
+	</update>
+	
+   <!-- 게시글 삭제 -->
+   <update id="deletePost" parameterType="int">
+      UPDATE post SET p_act = 'Y'
+      WHERE p_no = #{p_no }
+   </update>
+	
+	<!-- 추가된 게시글 번호 조회 -->
+	<select id="selectSeq" resultType="int">
+		SELECT MAX(p_no) cnt FROM post 
+	</select>
+	
+	<!-- 답글 등록 -->
+	<insert id="insertRePost" parameterType="postVo">
+		INSERT INTO post 
+			   (p_no, user_id, b_no, p_title, p_cont, p_regdt, p_act, p_gno, p_parent, p_view)
+		VALUES (post_seq.NEXTVAL , #{user_id} , #{b_no}, #{p_title}, #{p_cont},
+									#{p_regdt}, 'N', #{p_gno}, #{p_parent}, 0)
+	</insert>
+	
+	<!-- 조회수 증가 -->
+	<update id="countView" parameterType="int">
+		UPDATE post SET p_view = p_view + 1 WHERE p_no = #{p_no}
+	</update>
+	
+	<!-- 첨부파일 -->
+	<select id="attachList" parameterType="int" resultType="attachVo">
+		SELECT * FROM attach WHERE a_seq = '01' AND no = #{no}
+	</select>
+
+	<insert id="addAttach" parameterType="attachVo">
+		INSERT INTO attach VALUES(attach_seq.NEXTVAL, #{no}, '01', #{a_nm}, #{a_route})
+	</insert>
+
+	<delete id="deleteAttach" parameterType="int">
+		DELETE FROM attach WHERE a_no = #{a_no}
+	</delete>
+
+	<select id="selectAttach" parameterType="int" resultType="attachVo">
+		SELECT * FROM attach WHERE a_no = #{a_no}
+	</select>
+
+</mapper>

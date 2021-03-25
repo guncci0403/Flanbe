@@ -1,0 +1,216 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+ <meta charset="UTF-8">
+        <title>메인</title>
+        <link rel="shortcut icon" href="dist/images/favicon.ico" />
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+
+		<%@ include file="/WEB-INF/views/common/common_css.jsp" %>
+		
+		<!-- START: Page CSS-->
+        <link rel="stylesheet"  href="${cp }/dist/vendors/chartjs/Chart.min.css">
+        <!-- END: Page CSS-->
+
+        <!-- START: Page CSS-->
+        <link rel="stylesheet" href="${cp }/dist/vendors/morris/morris.css">
+        <link rel="stylesheet" href="${cp }/dist/vendors/weather-icons/css/pe-icon-set-weather.min.css">
+        <link rel="stylesheet" href="${cp }/dist/vendors/chartjs/Chart.min.css">
+        <link rel="stylesheet" href="${cp }/dist/vendors/starrr/starrr.css">
+        <link rel="stylesheet" href="${cp }/dist/vendors/fontawesome/css/all.min.css">
+        <link rel="stylesheet" href="${cp }/dist/vendors/ionicons/css/ionicons.min.css">
+        <link rel="stylesheet" href="${cp }/dist/vendors/jquery-jvectormap/jquery-jvectormap-2.0.3.css">
+        <!-- END: Page CSS-->
+
+        <!-- START: Custom CSS-->
+        <link rel="stylesheet" href="${cp }/dist/css/main.css">
+        <!-- END: Custom CSS-->
+
+    </head>
+    <!-- END Head-->
+
+    <!-- START: Body-->
+    <body id="main-container" class="default">
+
+        <!-- START: Pre Loader-->
+        <div class="se-pre-con">
+            <div class="loader"></div>
+        </div>
+        <!-- END: Pre Loader-->
+
+                <!-- START: Header-->
+        <div id="header-fix" class="header fixed-top">
+            <div class="site-width">
+                <nav class="navbar navbar-expand-xl  p-0">
+                    <div class="navbar-header  h-100 h4 mb-0 align-self-center logo-bar text-left">
+                        <a href="${cp }/main/view" class="horizontal-logo text-left">
+                            <span class="h4 font-weight-bold align-self-center mb-0"> 프랜비 </span>
+                        </a>
+                    </div>
+         
+              <div class="navbar-collapse collapse" id="navbarsExample05" style="">
+                <ul class="navbar-nav mr-auto">
+                  <li class="nav-item active">
+                    <a class="nav-link p-3" href="#"> <i class="icon-layers"></i> 프로젝트 관리 </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link p-3" href="#"> <i class="icon-briefcase"></i> 프로젝트 찾기 </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link p-3" href="#"> <i class="icon-people"></i> 파트너스 찾기 </a>
+                  </li>
+                  <li class="nav-item dropdown">
+                    <a class="nav-link p-3" href="${cp }/board/view"> <i class="icon-book-open"></i> 프랜비 소식 </a>
+                  </li>
+                </ul>
+                <div class="navbar-right ml-auto h-100">
+                        <ul class="ml-auto p-0 m-0 list-unstyled d-flex top-icon h-100">
+                            <li class="dropdown align-self-center">
+                                <a href="#" class="nav-link" data-toggle="dropdown" aria-expanded="false"><i class="icon-reload h4"></i>
+                                    <span class="badge badge-default"> <span class="ring">
+                                        </span><span class="ring-point">
+                                        </span> </span>
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-right border  py-0">
+                                    <li>
+                                        <a class="dropdown-item px-2 py-2 border border-top-0 border-left-0 border-right-0" href="#">
+                                            <div class="media">
+                                                <img src="dist/images/author.jpg" alt="" class="d-flex mr-3 img-fluid rounded-circle">
+                                                <div class="media-body">
+                                                    <p class="mb-0">john</p>
+                                                    <span class="text-success">New user registered.</span>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item px-2 py-2 border border-top-0 border-left-0 border-right-0" href="#">
+                                            <div class="media">
+                                                <img src="dist/images/author2.jpg" alt="" class="d-flex mr-3 img-fluid rounded-circle">
+                                                <div class="media-body">
+                                                    <p class="mb-0">Peter</p>
+                                                    <span class="text-success">Server #12 overloaded.</span>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item px-2 py-2 border border-top-0 border-left-0 border-right-0" href="#">
+                                            <div class="media">
+                                                <img src="dist/images/author3.jpg" alt="" class="d-flex mr-3 img-fluid rounded-circle">
+                                                <div class="media-body">
+                                                    <p class="mb-0">Bill</p>
+                                                    <span class="text-danger">Application error.</span>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+
+                                    <li><a class="dropdown-item text-center py-2" href="#"> See All Tasks <i class="icon-arrow-right pl-2 small"></i></a></li>
+                                </ul>
+
+                            </li>
+                            <li class="dropdown align-self-center d-inline-block">
+                                <a href="#" class="nav-link" data-toggle="dropdown" aria-expanded="false">
+                                <!-- <i class="icon-envelope" ></i> -->
+                                 <img src="${cp }/images/message.png" alt="" class="d-flex img-fluid rounded-circle" width="21">
+                                    <span class="badge badge-default"> <span class="ring">
+                                        </span><span class="ring-point">
+                                        </span> </span>
+                                </a>
+                              <ul class="dropdown-menu dropdown-menu-right border py-0">
+                                    <li>
+                                        <a class="dropdown-item px-2 py-2 border border-top-0 border-left-0 border-right-0" href="#">
+                                            <div class="media">
+                                                <img src="dist/images/author.jpg" alt="" class="d-flex mr-3 img-fluid rounded-circle w-50">
+                                                <div class="media-body">
+                                                    <p class="mb-0 text-success">john send a message</p>
+                                                    12 min ago
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li >
+                                        <a class="dropdown-item px-2 py-2 border border-top-0 border-left-0 border-right-0" href="#">
+                                            <div class="media">
+                                                <img src="dist/images/author2.jpg" alt="" class="d-flex mr-3 img-fluid rounded-circle">
+                                                <div class="media-body">
+                                                    <p class="mb-0 text-danger">Peter send a message</p>
+                                                    15 min ago
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li >
+                                        <a class="dropdown-item px-2 py-2 border border-top-0 border-left-0 border-right-0" href="#">
+                                            <div class="media">
+                                                <img src="dist/images/author3.jpg" alt="" class="d-flex mr-3 img-fluid rounded-circle">
+                                                <div class="media-body">
+                                                    <p class="mb-0 text-warning">Bill send a message</p>
+                                                    5 min ago
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+
+                                    <li><a class="dropdown-item text-center py-2" href="${cp }/message/main?user_id=${S_USER.user_id }"> 쪽지함 <i class="icon-arrow-right pl-2 small"></i></a></li>
+                                </ul>
+                            </li>
+                     <li class="dropdown user-profile align-self-center d-inline-block">
+                                <a href="#" class="nav-link py-0" data-toggle="dropdown" aria-expanded="false">
+                                    <div class="media">
+                                        <img src="${cp }/dist/images/author.jpg" alt="" class="d-flex img-fluid rounded-circle" width="29">
+                                    </div>
+                                </a>
+
+                                <div class="dropdown-menu border dropdown-menu-right p-0">
+                                    <a href="" class="dropdown-item px-2 align-self-center d-flex">
+                                        <span class="icon-pencil mr-2 h6 mb-0"></span> Edit Profile</a>
+                                    <a href="" class="dropdown-item px-2 align-self-center d-flex">
+                                        <span class="icon-user mr-2 h6 mb-0"></span> View Profile</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a href="" class="dropdown-item px-2 align-self-center d-flex">
+                                        <span class="icon-support mr-2 h6  mb-0"></span> Help Center</a>
+                                    <a href="" class="dropdown-item px-2 align-self-center d-flex">
+                                        <span class="icon-globe mr-2 h6 mb-0"></span> Forum</a>
+                                    <a href="" class="dropdown-item px-2 align-self-center d-flex">
+                                        <span class="icon-settings mr-2 h6 mb-0"></span> Account Settings</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a href="" class="dropdown-item px-2 text-danger align-self-center d-flex">
+                                        <span class="icon-logout mr-2 h6  mb-0"></span> Sign Out</a>
+                                </div>
+
+                            </li>
+
+                        </ul>
+                    </div>
+               
+              </div>
+         </nav>
+            </div>
+        </div>
+        <!-- END: Header-->
+        <main>
+            <div class="container-fluid site-width">
+            
+            <!-- 입력 -->
+            
+			</div>
+        </main>
+        <!-- END: Content-->
+        <!-- START: Footer-->
+        <footer class="site-footer">
+            2020 © PICK
+            프랜비
+        </footer>
+        <!-- END: Footer-->
+        
+		<!-- START: APP JS-->
+        <script src="${cp }/dist/js/app.js"></script>
+        <!-- END: APP JS-->
+		<%@ include file="/WEB-INF/views/common/common_js.jsp" %>
+    </body>
+    <!-- END: Body-->
+</html>

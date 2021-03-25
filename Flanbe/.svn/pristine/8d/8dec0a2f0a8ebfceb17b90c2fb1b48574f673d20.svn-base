@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="contract">
+	
+	<insert id="insertContract" parameterType="meetingVo">
+		INSERT INTO meeting (m_no, p_code, ptn_id, mtdt, mtway) VALUES (meeting_seq.NEXTVAL, #{p_code} , #{ptn_id} , #{mtdt} , #{mtway})
+	</insert>
+</mapper>
