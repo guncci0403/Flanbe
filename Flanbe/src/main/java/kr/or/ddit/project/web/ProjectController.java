@@ -332,6 +332,17 @@ public class ProjectController {
 		return "t/project/beforeProjectList";
 	}
 
+	// 클라이언트 --> 파트너스 지원요청받은 리스트
+	@RequestMapping("requestedapplylist")
+	public String requestedapplylist(Model model, ProjectVo projectVo, HttpSession session) {
+		 
+		logger.debug("여기왔니?{}");
+		String user_id = ((UserVo) session.getAttribute("S_USER")).getUser_id();
+		 
+		model.addAttribute("reqapplyList", projectService.requestedApply(user_id));
+		return "t/project/requestedApplyList";
+	}
+	
 	/**
 	 * 수진
 	 */
@@ -356,7 +367,7 @@ public class ProjectController {
 	// 지원자 조회
 	@RequestMapping("viewPattendUser")
 	public String viewPattendUser(@RequestParam(defaultValue = "1") int page,
-			@RequestParam(defaultValue = "5") int pageSize, int p_code, String user_id, Model model,
+			@RequestParam(defaultValue = "10") int pageSize, int p_code , String user_id, Model model,
 			RedirectAttributes ra, HttpSession session) {
 		model.addAttribute("alarmList",
 				messageService.alarmMessage(((UserVo) session.getAttribute("S_USER")).getUser_id()));
@@ -369,15 +380,15 @@ public class ProjectController {
 		}
 		PageVo pageVo = new PageVo(page, pageSize);
 		pageVo.setP_code(p_code);
+		model.addAllAttributes(projectService.viewPattendUser(pageVo));
 
 		List<UserVo> userList = (List<UserVo>) projectService.viewPattendUser(pageVo).get("userList");
-		Map<String, Object> map = projectService.viewPattendUser(pageVo);
+//		Map<String, Object> map = projectService.viewPattendUser(pageVo);
 		if (userList.isEmpty()) {
 			ra.addFlashAttribute("msg", "지원자가 없습니다.");
 			return "redirect:/project/selectUserProject?user_id=" + user_id;
 		}
 
-		model.addAllAttributes(projectService.viewPattendUser(pageVo));
 		return "t/project/recruitmentUser";
 
 	}

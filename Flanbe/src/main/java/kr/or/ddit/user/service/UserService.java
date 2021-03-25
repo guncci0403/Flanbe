@@ -105,7 +105,6 @@ public interface UserService {
 	//경력 년수
 	String selectCareerDate(String user_id);
 
-///////////////////////////////////////////////////////////////////////////
 	//보유기술 리스트 조회
 	List<USkillVo> selectSkillList(String user_id);
 
@@ -117,6 +116,10 @@ public interface UserService {
 
 	//보유기술 수정
 	int updateSkill(USkillVo uskillVo);
+	
+	// 대표 포트폴리오만 조회 
+	List<PortfolioVo> selectReprePopol(String user_id);
+	
 	
 	/**
 	 * 수연

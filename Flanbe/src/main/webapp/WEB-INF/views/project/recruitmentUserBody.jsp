@@ -17,8 +17,10 @@ $(function (){
 	
 	$(".userDetail").on("click", function(){
 		var user_id = $(this).data("userid");
-		$("#user_id").val(user_id);
-		console.log(user_id);
+// 		$("#user_id").val(user_id);
+// 		console.log(user_id);
+		location.href="${cp}/user/profile?user_id="+user_id;
+		
 	})
 	$('.OK').on('click', function() {
 		$("#uid").val($(this).data('userid'));
@@ -88,16 +90,16 @@ $(function (){
 									</thead>
 									<tbody id="transactionHistoryTrns">
 										<c:forEach items="${userList }" var="user">
-											<tr class="userDetail" data-userid="${user.user_id }">
+											<tr>
 	<%-- 												<th scope="row" style="padding: 20px;"><img src="${cp }/user/profileImg?user_id=${user.user_id }" alt="${user.user_nm }" class="user-image img-fluid" style="width: 150px; height: 150px;"> &nbsp;&nbsp;</th> --%>
-												<td style="font-size: 15px;">${user.user_nm }</td>
+												<td  class="userDetail" data-userid="${user.user_id }" style="font-size: 15px;">${user.user_nm }</td>
 
 												<c:choose>
 													<c:when test="${user.us_kind!= null }">
 														<td style="font-size: 15px;">${user.us_kind }</td>
 													</c:when>
 													<c:otherwise>
-														<td style="font-size: 15px;">x</td>
+														<td style="font-size: 15px;"> x</td>
 													</c:otherwise>
 												</c:choose>
 
@@ -112,7 +114,7 @@ $(function (){
 
 												<c:choose>
 													<c:when test="${user.u_div eq 'S'}">
-														<td style="font-size: 15px;">&nbsp;X</td>
+														<td style="font-size: 15px;">&nbsp;개인</td>
 													</c:when>
 													<c:when test="${user.u_div eq 'T'}">
 														<td style="font-size: 15px;">&nbsp;${user.group_nm }</td>
@@ -144,37 +146,36 @@ $(function (){
 									</tbody>
 								</table>
 							</div>
+							<nav aria-label="member list Navigation">
+								<ul class="pagination justify-content-center m-0">
+									<c:set var="cnt" value="${pagination}" />
+									<li class="page-item"><a class="page-link" href="${cp }/project/viewPattendUser?p_code=${p_code }&page=1&pageSize=${pageVo.pageSize}"><i class="fas fa-angle-double-left"></i></a></li>
+									<li class="page-item"><a class="page-link" href="${cp }/project/viewPattendUser?p_code=${p_code }&page=
+																<c:choose>
+																	<c:when test="${pageVo.getPage() -1 > 0 }">${pageVo.page - 1}</c:when>
+																	<c:otherwise>${pageVo.page }</c:otherwise>
+																</c:choose>&pageSize=${pageVo.pageSize}"><i class="fas fa-angle-left"></i></a></li>
+									<c:forEach begin="1" end="${pagination}" var="i">
+										<c:choose>
+											<c:when test="${pageVo.page == i}">
+												<li class="page-item active"><a class="page-link" href="${cp}/project/viewPattendUser?p_code=${p_code }&page=${i}&pageSize=${pageVo.pageSize}">${i}</a></li>
+											</c:when>
+											<c:otherwise>
+												<li class="page-item"><a class="page-link" href="${cp}/project/viewPattendUser?p_code=${p_code }&page=${i}&pageSize=${pageVo.pageSize}">${i}</a></li>
+											</c:otherwise>
+										</c:choose>
+									</c:forEach>
+									<li class="page-item"><a class="page-link" href="${cp}/project/viewPattendUser?p_code=${p_code }&page=<c:choose>
+														<c:when test="${pageVo.getPage() + 1 > pagination }">${pagination }</c:when>
+														<c:otherwise>${pageVo.getPage() + 1}</c:otherwise>
+													</c:choose>&pageSize=${pageVo.pageSize }"><i class="fas fa-angle-right"></i></a></li>
+									<li class="page-item"><a class="page-link" href="${cp}/project/viewPattendUser?p_code=${p_code }&page=${pagination}&pageSize=${pageVo.pageSize}"><i class="fas fa-angle-double-right"></i></a></li>
+								</ul>
+							</nav>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-		<div class="card-body">
-			<nav aria-label="member list Navigation">
-				<ul class="pagination justify-content-center m-0">
-					<c:set var="cnt" value="${pagination}" />
-					<li class="page-item"><a class="page-link" href="${cp }/project/viewPattendUser?p_code=${p_code }&page=1&pageSize=${pageVo.pageSize}"><i class="fas fa-angle-double-left"></i></a></li>
-					<li class="page-item"><a class="page-link" href="${cp }/project/viewPattendUser?p_code=${p_code }&page=
-												<c:choose>
-												<c:when test="${pageVo.getPage() > 0 }">${pageVo.page}</c:when>
-												</c:choose>&pageSize=${pageVo.pageSize}"><i class="fas fa-angle-left"></i></a></li>
-					<c:forEach begin="1" end="${pagination}" var="i">
-						<c:choose>
-							<c:when test="${pageVo.page == i}">
-								<li class="page-item active"><a class="page-link" href="${cp}/project/viewPattendUser?p_code=${p_code }&page=${i}&pageSize=${pageVo.pageSize}">${i}</a></li>
-							</c:when>
-							<c:otherwise>
-								<li class="page-item"><a class="page-link" href="${cp}/project/viewPattendUser?p_code=${p_code }&page=${i}&pageSize=${pageVo.pageSize}">${i}</a></li>
-							</c:otherwise>
-						</c:choose>
-					</c:forEach>
-					<li class="page-item"><a class="page-link" href="${cp}/project/viewPattendUser?p_code=${p_code }&page=<c:choose>
-										<c:when test="${pageVo.getPage() + 1 > pagination }">${pagination }</c:when>
-										<c:otherwise>${pageVo.getPage() + 1}</c:otherwise>
-									</c:choose>&pageSize=${pageVo.pageSize }"><i class="fas fa-angle-right"></i></a></li>
-					<li class="page-item"><a class="page-link" href="${cp}/project/viewPattendUser?p_code=${p_code }&page=${pagination}&pageSize=${pageVo.pageSize}"><i class="fas fa-angle-double-right"></i></a></li>
-				</ul>
-			</nav>
 		</div>
 	</div>
 	<!-- END: Card DATA-->

@@ -59,7 +59,7 @@
 	border-radius: 20px 20px;
 }
 /* 자기소개 5줄까지만 출력 하고 나머지 숨기기 */
-p {
+#introCont {
 	/* 한 줄 자르기 */ 
 	display: inline-block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; 
 	/* 여러 줄 자르기 추가 스타일 */ 
@@ -132,7 +132,7 @@ p {
 												</c:when>
 												<c:otherwise>
 													<div style="width: 90%">
-														<p>${user.intro }</p>
+														<p id="introCont">${user.intro }</p>
 													</div>
 												</c:otherwise>
 											</c:choose>
@@ -143,58 +143,96 @@ p {
 									</div>
 									<br> <br>
 								</div>
-								<div class="form-group col-12" style="border-bottom: 2px dashed lightgray;">
-									<div class="form-control part col-4" style="margin-left: 2%">
-										<span style="border: none; text-align: center; padding-top: 8px; color: #999999; font-size: 16px;">포트폴리오</span>
-									</div>
-									<div class="form-control part col-8" style="margin-left: 12%">
-										<br> <span style="border: none; font-size: 14px;"> <c:choose>
-												<c:when test="${popolVo== null}">
-													<div class="p5-assign-component" style="display: table; width: 100%; height: 100%; text-align: center; margin: 0 auto;">
-														<div style="display: table-cell; vertical-align: middle;">
-															<div>
-																<img src="${cp }/images/project_history_no.png" style="vertical-align: middle;">
-																<p class="p5-no-partners-info-text" style="margin-top: 15px; margin-bottom: 0; color: #999 !important; line-height: 1;">
-																	등록된 <span class="text-center p5-bold" style="font-weight: bold;">'포트폴리오'</span>가 없습니다.
+								<c:choose>
+									<c:when test="${popolVo[0] == null}">
+										<div class="form-group col-12" style="border-bottom: 2px dashed lightgray;">
+											<div class="form-control part col-4" style="margin-left: 2%">
+												<span style="border: none; text-align: center; padding-top: 8px; color: #999999; font-size: 16px;">포트폴리오</span>
+											</div>
+											<div class="form-control part col-8" style="margin-left: 12%">
+												<br>
+												<div class="p5-assign-component" style="display: table; width: 100%; height: 100%; text-align: center; margin: 0 auto;">
+													<div style="display: table-cell; vertical-align: middle;">
+														<div style="font-size: 14px;">
+															<img src="${cp }/images/project_history_no.png" style="vertical-align: middle;">
+															<p class="p5-no-partners-info-text" style="margin-top: 15px; margin-bottom: 0; color: #999 !important; line-height: 1;">
+																등록된 <span class="text-center p5-bold" style="font-weight: bold;">'포트폴리오'</span>가 없습니다.
+															</p>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="form-control part col-11">
+												<a class="pull-right" href="${cp }/user/mainpopol?user_id=${user.user_id}" style="border: none; text-align: center; padding-top: 8px; color: #2099bb; font-size: 16px;">포트폴리오 더 보기 <i class="fas fa-chevron-right"></i></a>
+											</div>
+											<br> <br>
+										</div>
+									</c:when>
+									<c:when test="${reprePopolVo[0] == null}">
+										<div class="form-group col-12" style="border-bottom: 2px dashed lightgray;">
+											<div class="form-control part col-4" style="margin-left: 2%">
+												<span style="border: none; text-align: center; padding-top: 8px; color: #999999; font-size: 16px;">포트폴리오</span>
+											</div>
+											<div class="form-control part col-8" style="margin-left: 12%">
+												<br>
+												<div class="p5-assign-component" style="display: table; width: 100%; height: 100%; text-align: center; margin: 0 auto;">
+													<div style="display: table-cell; vertical-align: middle;">
+														<div style="font-size: 14px;">
+															<img src="${cp }/images/project_history_no.png" style="vertical-align: middle;">
+															<p class="p5-no-partners-info-text" style="margin-top: 15px; margin-bottom: 0; color: #999 !important; line-height: 1;">
+																<span class="text-center p5-bold" style="font-weight: bold;">'대표 포트폴리오'</span>를 등록해 주세요.
+															</p>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="form-control part col-11">
+												<a class="pull-right" href="${cp }/user/mainpopol?user_id=${user.user_id}" style="border: none; text-align: center; padding-top: 8px; color: #2099bb; font-size: 16px;">포트폴리오 더 보기 <i class="fas fa-chevron-right"></i></a>
+											</div>
+											<br> <br>
+										</div>
+									</c:when>
+									<c:otherwise>
+										<div class="form-group col-12" style="border-bottom: 2px dashed lightgray;">
+											<div class="form-control part col-4" style="margin-left: 2%">
+												<span style="border: none; text-align: center; padding-top: 8px; color: #999999; font-size: 16px;">포트폴리오</span>
+											</div>
+											<div class="form-control part col-8" style="margin-left: 12%; height: 350px;">
+												<br>
+												<div class="p5-description-hasvalue">						
+													<c:forEach items="${reprePopolVo}" var="reprePopolVo" varStatus="status">
+														<div class="portfolio-thumbnail"style="margin-top: 0;" >
+															<a href="${cp }/user/detailpopol?po_no=${reprePopolVo.po_no}"> 
+																<img class="portfolio-thumbnail-image" src="${cp }/user/popolimg?po_no=${reprePopolVo.po_no}">
+															</a>
+														
+															<div class="portfolio-thumbnail-caption-top">
+															<span class="badge badge-pill badge-warning p-1 mb-1"><strong>대표작품</strong></span>
+															<br>
+																<a class="popol_title">${reprePopolVo.po_title} </a> 
+																<p class="popol_field_skil">
+																	개발&nbsp;|&nbsp;<span class="category-field-splitter"></span>
+																	<c:set var="poopl_field" value="${reprePopolVo.po_field}" />
+																	<c:forEach items="${poopl_field }" var="poopl_field">
+																		<c:if test="${poopl_field eq '01'}"> 웹 </c:if>
+																		<c:if test="${poopl_field eq '02'}"> 애플리케이션 </c:if>
+																		<c:if test="${poopl_field eq '03'}"> 퍼블리싱 </c:if>
+																		<c:if test="${poopl_field eq '04'}"> 게임 </c:if>
+																		<c:if test="${poopl_field eq '05'}"> 기타 </c:if>
+																	</c:forEach>
 																</p>
 															</div>
 														</div>
-													</div>
-												</c:when>
-												<c:otherwise>
-													<c:if test="${popolVo.po_repre eq 'Y'}">
-+														<div class="portfolio-thumbnail"style="margin-top: 0;" >
-+															<a href="${cp }/user/detailpopol?po_no=${popolVo.po_no}"> 
-+																<img class="portfolio-thumbnail-image" src="${cp }/user/popolimg?po_no=${popolVo.po_no}">
-+															</a>
-+														
-+															<div class="portfolio-thumbnail-caption-top">
-+															<span class="badge badge-pill badge-warning p-1 mb-1"><strong>대표작품</strong></span>
-+															<br>
-+																<a class="popol_title">${popolVo.po_title} </a> 
-+																<p class="popol_field_skil">
-+																	개발&nbsp;|&nbsp;<span class="category-field-splitter"></span>
-+																	<c:set var="poopl_field" value="${popolVo.po_field}" />
-+																	<c:forEach items="${poopl_field }" var="poopl_field">
-+																		<c:if test="${poopl_field eq '01'}"> 웹 </c:if>
-+																		<c:if test="${poopl_field eq '02'}"> 애플리케이션 </c:if>
-+																		<c:if test="${poopl_field eq '03'}"> 퍼블리싱 </c:if>
-+																		<c:if test="${poopl_field eq '04'}"> 게임 </c:if>
-+																		<c:if test="${poopl_field eq '05'}"> 기타 </c:if>
-+																	</c:forEach>
-+																</p>
-+															</div>
-+														</div>
-+													</c:if>	
-												</c:otherwise>
-											</c:choose>
-										</span>
-									</div>
-									<div class="form-control part col-11">
-										<a class="pull-right" href="" style="border: none; text-align: center; padding-top: 8px; color: #2099bb; font-size: 16px;">포트폴리오 더 보기 <i class="fas fa-chevron-right"></i></a>
-									</div>
-									<br> <br>
-								</div>
+													</c:forEach>
+												</div>
+											</div>
+											<div class="form-control part col-11">
+												<a class="pull-right" href="${cp }/user/mainpopol?user_id=${user.user_id}" style="border: none; text-align: center; padding-top: 8px; color: #2099bb; font-size: 16px;">포트폴리오 더 보기 <i class="fas fa-chevron-right"></i></a>
+											</div>
+											<br> <br>
+										</div>
+									</c:otherwise>
+								</c:choose>
 								<div class="form-group col-12" style="border-bottom: 2px dashed lightgray;">
 									<div class="form-control part col-4" style="margin-left: 2%">
 										<span style="border: none; text-align: center; padding-top: 8px; color: #999999; font-size: 16px;">보유 기술</span>

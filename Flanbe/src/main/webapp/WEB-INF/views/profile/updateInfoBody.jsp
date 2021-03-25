@@ -8,7 +8,7 @@
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
 $(function(){
-	
+	// 주소 검색API 호출 버튼
 	$('#addrBtn').on('click',function(){
 	    new daum.Postcode({
 	        oncomplete: function(data) {
@@ -22,6 +22,7 @@ $(function(){
 	    }).open();
 	})
 	
+	// 그룹명 입력 인풋 활성화
 	$("input:radio[name=u_div]").on("click", function() {
 		if($("#r1").is(':checked')){
 			$("#group_nm1").val("");
@@ -36,14 +37,47 @@ $(function(){
 			$('#group_nm2').attr("disabled", false)
 		}					
 	})
-	
+	// 프로필 사진 삭제
 	$("#imgDelete").on("click", function() {
 		$("#photoroute").val("");
 		$("#fileName").val("");
 	});
 	
+////////////정규식 /////////////
+	var a = true;
+	var b = true;
+	// 이름 정규식 체크
+	$('#user_nm').focus(function(){
+		a = false;
+	});
+	$('#user_nm').blur(function(){
+		if(!namecheck()) {
+			$('#user_nm').addClass("form-control is-invalid");
+			return false;
+		}
+		$('#user_nm').removeClass("form-control is-invalid").addClass("form-control is-valid");
+		$('#nmspan').html("");
+		a = true;
+	});
+	
+	// 전화번호 정규식 체크
+	$('#phone').focus(function(){
+		b = false;
+	});
+	$('#phone').blur(function(){
+		if(!phonecheck()) {
+			$('#phone').addClass("form-control is-invalid");
+			return false;
+		}
+		$('#phone').removeClass("form-control is-invalid").addClass("form-control is-valid");
+		$('#phspan').html("");
+		b = true;
+	});
+	
+	
 	$('#updateinfo').on('click', function() {
-		if($("#user_nm").val() == "" || $("#phone").val() == "" || $("#base_addr").val() == "" || $("#detail_addr").val() == "" || $("#zipcode").val() == ""){
+		//null 체크
+		if($("#base_addr").val() == "" || $("#detail_addr").val() == "" || $("#zipcode").val() == ""){
 			swal({
 				title: "Info",
 				text: "필수 입력항목을 모두 입력해주세요",
@@ -67,6 +101,19 @@ $(function(){
 			});
 			return false;
 		}
+		//정규식 통과 체크
+		if(a==false||b==false) {
+			swal({
+				title: "Info",
+				text: "모든 항목을 형식에 맞춰서 입력해주세요",
+				type: "info",
+				showCancelButton: false,
+				confirmButtonClass: 'btn-info',
+				confirmButtonText: '확인',	
+				closeOnConfirm: false
+			});
+			return false;
+		}
 		else{
 			swal({
 	            title: "Success!!",
@@ -81,6 +128,44 @@ $(function(){
 		}
 	})
 })
+</script>
+<script>
+// 이름 정규식 검사
+function namecheck() {
+	// 이름 - 공백, 길이, 정규식
+	nmvalue = $('#user_nm').val().trim();
+	// 이름 정규식 - 한글만 2 ~ 5를 입력
+	nmreg = /^[가-힣]{2,5}$/;
+	
+	if (nmvalue.length < 1) {
+		$('#nmspan').html("이름을 입력하시오.").css('color','red');
+		return false;
+	} else if(nmvalue.length < 2 || nmvalue.length > 5 ){			// 이름 길이 2 ~ 5 
+		$('#nmspan').html("이름은 한글 2~5 글자").css('color','red');
+		return false;
+	} else if(!(nmreg.test(nmvalue)))  {
+		$('#nmspan').html("이름은 한글 2~5 글자").css('color','red');
+		return false;
+	}
+	return true;
+}
+
+// 전화번호 정규식 검사
+function phonecheck() {
+	// 전화번호 - 공백, 정규식
+	phvalue = $('#phone').val().trim();
+	// 전화번호 정규식 
+	phreg = /^[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}$/;
+	if (phvalue.length < 1) {
+		$('#phspan').html("전화번호를 입력하시오.").css('color','red');
+		return false;
+	} else if(!(phreg.test(phvalue))) {
+		$('#phspan').html("전화번호는 '-'를 포함하여 입력 (예: 010-1234-5678)").css('color','red');
+		return false;
+	}
+	return true;
+	
+}
 </script>
 <style>
 .pull-right {
@@ -113,10 +198,10 @@ $(function(){
 							<br>
 							<div class="p5-2spanInfo" style="height: auto;">
 								<div class="form-group">
-									<label>아이디</label> <input type="text" class="form-control col-6" id="user_id" name="user_id" value="${user.user_id }" readonly="readonly">
+									<label>아이디</label> <input type="text" class="form-control col-4" id="user_id" name="user_id" value="${user.user_id }" readonly="readonly">
 								</div>
 								<div class="form-group">
-									<label>이메일</label> <input type="text" class="form-control col-6" id="email" name="email" value="${user.email }" readonly="readonly">
+									<label>이메일</label> <input type="text" class="form-control col-4" id="email" name="email" value="${user.email }" readonly="readonly">
 								</div>
 							</div>
 						</section>
@@ -133,8 +218,10 @@ $(function(){
 								</div>
 
 								<div class="form-group">
-									<label><span style="color: red; font-weight: bold;">*</span> 이름</label> <input type="text" class="form-control col-6" id="user_nm" name="user_nm" placeholder="이름" value="${user.user_nm }">
-								</div>
+                                    <label><span style="color: red; font-weight: bold;">*</span> 이름</label>
+                                    	 &nbsp; &nbsp;<span id="nmspan"></span>
+                                    <input type="text" class="form-control col-4" id="user_nm" name="user_nm" placeholder="이름은 한글 2~5 글자" value="${user.user_nm}">
+                                </div>
 								<div class="form-group">
 									<label><span style="color: red; font-weight: bold;">*</span> 그룹여부</label><br>
 									<c:if test="${user.u_div == 'S'}">
@@ -145,12 +232,14 @@ $(function(){
 									<c:if test="${user.u_div == 'T'}">
 			                    		&nbsp; &nbsp; <input type="radio" id="r3" name="u_div" value="S"> 개인 &nbsp; &nbsp; &nbsp; &nbsp;   
 			                    		<input type="radio" id="r4" name="u_div" value="T" checked="checked"> 팀 &nbsp; &nbsp;   
-		                        		<label><input type="text" class="form-control col-12" id="group_nm2" name="group_nm" placeholder="그룹 이름" value="${user.group_nm} "></label>
+		                        		<label><input type="text" class="form-control col-12" id="group_nm2" name="group_nm" placeholder="그룹 이름" value="${user.group_nm}"></label>
 									</c:if>
 								</div>
-								<div class="form-group">
-									<label><span style="color: red; font-weight: bold;">*</span> 전화번호</label> <input type="text" class="form-control col-6" id="phone" name="phone" placeholder="010-1234-5678" value="${user.phone }">
-								</div>
+                                <div class="form-group">
+                                    <label><span style="color: red; font-weight: bold;">*</span> 전화번호</label>
+                                    &nbsp; &nbsp;<span id="phspan"></span>
+                                    <input type="text" class="form-control col-4" id="phone" name="phone" placeholder="전화번호는 '-'를 포함하여 입력 (예: 010-1234-5678)" value="${user.phone}">
+                                </div>
 								<div class="form-row">
 									<div class="form-group col-md-4">
 										<label for="inputCity"><span style="color: red; font-weight: bold;">*</span> 기본주소</label> <input type="text" class="form-control" id="base_addr" name="base_addr" value="${user.base_addr }">

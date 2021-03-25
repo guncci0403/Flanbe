@@ -40,7 +40,15 @@
 $(function(){
 	$(".todo-item").on("click", function(){
 	   	if($(this).data("p_act") == 'Y'){
-	         alert("삭제된 게시글 입니다.");
+	         swal({
+					title: "Error",
+					text: "삭제된 게시글 입니다.",
+					type: "error",
+					showCancelButton: false,
+					/* cancelButtonClass: 'btn-danger', */
+					confirmButtonClass: 'btn-primary',
+					confirmButtonText: '확인'
+				});
       	}
 		else{
 	         var page = $(this).data("page");

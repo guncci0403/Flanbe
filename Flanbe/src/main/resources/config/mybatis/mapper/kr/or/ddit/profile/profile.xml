@@ -42,13 +42,12 @@
 	</update>
 	
 <!-- 진행한 프로젝트 페이지 -->	
-	<!-- 진행한 (진행중 포함) 프로젝트 갯수 -->
+	<!-- 진행한(완료)  프로젝트 갯수 -->
 	<select id="countJoinProject" parameterType="String" resultType="int">
 		SELECT count(*)
 		FROM p_attend
 		WHERE user_id = #{user_id}
-		AND (p_state = '04'
-		OR p_state = '05')
+		AND p_state = '05'
 	</select>
 	
 	<!-- 진행한 프로젝트 누적 금액 -->
@@ -56,8 +55,7 @@
         SELECT NVL(sum(p_money),0) sum
 		FROM p_attend pa, project pr 
 		WHERE pa.user_id = #{user_id}
-		AND (pa.p_state = '04'
-		OR pa.p_state = '05')
+		AND pa.p_state = '05'
 		AND pa.p_code = pr.p_code
 	</select>
 
@@ -73,8 +71,7 @@
 		SELECT NVL(round(avg(p_money), 1),0) avg_money
 		FROM p_attend pa, project pr 
 		WHERE pa.user_id = #{user_id}
-		AND (pa.p_state = '04'
-		OR pa.p_state = '05')
+		AND pa.p_state = '05'
 		AND pa.p_code = pr.p_code
 	</select>
 	
@@ -83,8 +80,7 @@
 		SELECT NVL(round(avg(period), 1),0) avg_money
 		FROM p_attend pa, project pr 
 		WHERE pa.user_id = #{user_id}
-		AND (pa.p_state = '04'
-		OR pa.p_state = '05')
+		AND pa.p_state = '05'
 		AND pa.p_code = pr.p_code
 	</select>
 
@@ -97,8 +93,7 @@
 			(SELECT pr.*
              FROM p_attend pa, project pr 
              WHERE pa.user_id = #{user_id}
-             AND (pa.p_state = '04'
-             OR pa.p_state = '05')
+             AND pa.p_state = '05'
              AND pa.p_code = pr.p_code
 			 ORDER BY pr.p_code DESC) a
 		WHERE ROWNUM &lt;= #{page} * #{pageSize})
@@ -109,8 +104,7 @@
         SELECT count(*)
 		FROM p_attend pa, project pr 
 		WHERE pa.user_id = #{user_id}
-		AND (pa.p_state = '04'
-		OR pa.p_state = '05')
+		AND pa.p_state = '05'
 		AND pa.p_code = pr.p_code
 	</select>
 	
@@ -177,7 +171,24 @@
 		  AND user_id = #{user_id}
 	</update>
 	
-	
+<!-- 포트폴리오  -->
+	<!-- 해당 유저의 대표 포트 폴리오만 select 프로필 메인 페이지용-->
+	<select id="selectReprePopol" parameterType="String" resultType="portfolioVo">
+		SELECT po_no
+			  ,user_id
+			  ,po_title
+			  ,po_repre
+			  ,po_field
+			  ,po_cont
+			  ,po_sdt
+			  ,po_edt
+			  ,po_skil
+			  ,po_image
+		FROM portfolio
+		WHERE user_id=#{user_id}
+		  AND po_repre = 'Y'
+	</select>
+
 	<!-- 포트폴리오 메인페이지, 포트폴리오 상세페이지에 출력 할 쿼리 SELECT-->
 	<select id="selectPopol" parameterType="String" resultType="portfolioVo">
 		SELECT po_no

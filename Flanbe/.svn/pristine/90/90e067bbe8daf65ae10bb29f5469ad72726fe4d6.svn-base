@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="pattend">
+
+	<!-- 현재 채용중인 공고의 지원자 보기 -->
+	<select id="viewPattendUser" resultType="userVo" parameterType="pageVo">
+		SELECT *
+		FROM
+		(SELECT ROWNUM AS rn, a.*
+		FROM (SELECT u.*, p.p_state
+		FROM p_attend p, users u WHERE p.user_id = u.user_id
+		AND p_code = #{p_code} AND p.p_state IN('03','06','08')
+		ORDER BY u.user_id DESC) a
+		WHERE ROWNUM &lt;= #{page} * #{pageSize})
+		WHERE rn BETWEEN (#{page}-1)* #{pageSize} + 1 AND #{page} * #{pageSize}
+	</select>
+
+	<!-- 지원자 수를 조회 -->
+	<select id="viewPattendUserCnt" resultType="int" parameterType="int">
+		<!-- select COUNT(*) FROM p_attend WHERE p_code = #{p_code} -->
+		SELECT COUNT(*) FROM p_attend p, users u
+		WHERE p.user_id = u.user_id
+		AND p_code = #{p_code}
+		AND p.p_state IN('03','06','08')
+	</select>
+
+	<!-- 지원자 채용 -->
+	<update id="updateProjectOk" parameterType="pattendVo">
+		UPDATE p_attend SET p_state = '08' WHERE p_code = #{p_code} AND user_id = #{user_id}
+	</update>
+
+	<!-- 지원자 거절 -->
+	<update id="updateProjectNo" parameterType="pattendVo">
+		UPDATE p_attend SET p_state = '07' WHERE p_code = #{p_code} AND user_id = #{user_id}
+	</update>
+
+	<!-- 지원자에게 쪽지 -->
+	<insert id="projectStateMsg" parameterType="messageVo">
+		INSERT INTO
+		message(m_no, m_cont, m_regdt, m_state, r_id, s_id)
+		VALUES (MESSAGE_SEQ.NEXTVAL, #{m_cont}, SYSDATE, 'N', #{r_id}, #{s_id})
+	</insert>
+
+
+	<!-- 보유 기술 조회 쿼리 -->
+	<select id="selectUserSkillList" parameterType="String" resultType="userVo">
+		SELECT LISTAGG(DECODE(us_kind , '01' ,'자바' , '02' , 'C언어' , '03' ,'파이썬',
+		'04' , '자바스크립트' , us_kind ), ',')
+		WITHIN GROUP (ORDER BY us_prof DESC) us_kind , user_id
+		FROM u_skill
+		GROUP BY user_id
+	</select>
+
+	<!-- 경력 조회 쿼리 (년수 출력 쿼리로 변경예정) -->
+	<select id="selectCareerChk" resultType="userVo">
+		SELECT count(*) careers, user_id
+		FROM career
+		GROUP BY user_id
+	</select>
+
+
+</mapper>

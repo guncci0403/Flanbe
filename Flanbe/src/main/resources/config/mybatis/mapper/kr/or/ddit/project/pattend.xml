@@ -14,7 +14,7 @@
 		FROM p_attend p, users u WHERE p.user_id = u.user_id
 		AND p_code = #{p_code} AND p.p_state IN('03','06','08')
 		ORDER BY u.user_id DESC) a
-		WHERE ROWNUM &lt; #{page} * #{pageSize})
+		WHERE ROWNUM &lt;= #{page} * #{pageSize})
 		WHERE rn BETWEEN (#{page}-1)* #{pageSize} + 1 AND #{page} * #{pageSize}
 	</select>
 
@@ -23,8 +23,8 @@
 		<!-- select COUNT(*) FROM p_attend WHERE p_code = #{p_code} -->
 		SELECT COUNT(*) FROM p_attend p, users u
 		WHERE p.user_id = u.user_id
-		AND p.p_state IN('03','06','08')
 		AND p_code = #{p_code}
+		AND p.p_state IN('03','06','08')
 	</select>
 
 	<!-- 지원자 채용 -->

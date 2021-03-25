@@ -42,7 +42,7 @@ $(function(){
 					          });
 				            setTimeout(function() {
 				            	$("#deleteFrm").submit();
-				            	}, 3000);
+				            	}, 2000);
 			          });
 				}else{
 			        swal({

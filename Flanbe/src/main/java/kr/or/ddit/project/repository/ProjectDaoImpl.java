@@ -160,6 +160,10 @@ public class ProjectDaoImpl implements ProjectDao{
     //지원자 조회 
 	@Override
 		public List<UserVo> viewPattendUser(PageVo pageVo) {
+		//수정이가씀 지우세요
+		int page = pageVo.getPage();
+		int PageSize = pageVo.getPageSize(); 
+		
 		return template.selectList("pattend.viewPattendUser", pageVo);
 	}
 	
@@ -241,5 +245,10 @@ public class ProjectDaoImpl implements ProjectDao{
 	@Override
 	public int requestSend(PAttendVo pattend) {
 		return template.update("project.requestSend", pattend);
+	}
+
+	@Override
+	public List<ProjectVo> requestedApply(String user_id) {
+		return template.selectList("project.requestedApply", user_id);
 	}
 }

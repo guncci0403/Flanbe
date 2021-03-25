@@ -131,6 +131,9 @@ public interface UserDao {
 	//보유기술 수정
 	int updateSkill(USkillVo uskillVo);
 	
+	// 대표 포트폴리오만 조회 
+	List<PortfolioVo> selectReprePopol(String user_id);
+	
 	/////////////////// 수연
 	
 	// 포트폴리오 출력(메인, 상세)

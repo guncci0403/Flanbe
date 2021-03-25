@@ -19,7 +19,7 @@
 				</c:when>
 				<c:when test="${S_USER.purpose == 'P' }">
 					<li class="nav-link active"><a class="nav-link" href="${cp }/project/selectLikeList"> 관심 프로젝트 </a></li>
-					<li class="nav-link active"><a class="nav-link" href="#"> 지원 요청 </a></li>
+					<li class="nav-link active"><a class="nav-link" href="${cp }/project/requestedapplylist"> 지원 요청 </a></li>
 					<li class="nav-link active"><a class="nav-link" href="${cp }/project/applyList"> 지원 내역 </a></li>
 					<li class="nav-link active"><a class="nav-link" href="#"> 계약 </a></li>
 				</c:when>

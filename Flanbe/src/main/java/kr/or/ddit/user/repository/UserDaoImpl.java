@@ -219,6 +219,12 @@ public class UserDaoImpl implements UserDao {
 	public int updateSkill(USkillVo uskillVo) {
 		return template.update("profile.updateSkill", uskillVo);
 	}
+	
+	@Override
+	public List<PortfolioVo> selectReprePopol(String user_id) {
+		return template.selectList("profile.selectReprePopol", user_id);
+	}
+
 
 	@Override
 	public List<PortfolioVo> selectPopol(String user_id) {

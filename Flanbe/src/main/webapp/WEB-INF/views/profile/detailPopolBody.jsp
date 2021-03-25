@@ -127,8 +127,8 @@ function popolDelete(){
 						</div>
 						<c:if test="${user.user_id == S_USER.user_id }">
 							<div class="form-group" style="margin-right: 50px; float: right;">
-								<button type="button" class="btn btn-secondary" onclick="popolDelete()">삭제</button>
 								<button type="button" class="btn btn-primary" onclick="location.href='${cp }/user/modifypopolView?po_no=${detailpopol.po_no }'">수정</button>
+								<button type="button" class="btn btn-secondary" onclick="popolDelete()">삭제</button>
 							</div>
 						</c:if>
 					</section>

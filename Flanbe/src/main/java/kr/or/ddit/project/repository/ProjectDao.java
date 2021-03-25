@@ -112,4 +112,7 @@ public interface ProjectDao {
 	
 	// 프로젝트 지원요청 보내기
 	int requestSend(PAttendVo pattend);
+	
+	//지원요청받은 리스트
+	List<ProjectVo> requestedApply(String user_id);
 }

@@ -361,4 +361,12 @@
 		WHEN NOT MATCHED THEN
 		INSERT (P_CODE,USER_ID,P_STATE) VALUES (#{p_code}, #{user_id}, '02')
 	</update>
+	
+	<!-- 지원요청 받은 프로젝트 조회 -->
+	<select id="requestedApply" resultType="projectVo" parameterType="String">
+		SELECT a.p_code, p.*
+		FROM p_attend a, project p
+		WHERE p.p_code = a.p_code AND
+		a.p_state = '02' and a.user_id = #{user_id}
+	</select>
 </mapper>

@@ -231,6 +231,7 @@ public class UserController {
 	      
 	      // 포트폴리오
 	      model.addAttribute("popolVo", userService.selectPopol(user_id));
+	      model.addAttribute("reprePopolVo", userService.selectReprePopol(user_id));
 	      // 보유 기술
 	      model.addAttribute("skillList", userService.selectSkillList(user_id));
 	      // 경력
@@ -811,7 +812,7 @@ public class UserController {
 	      model.addAttribute("user", userService.selectUser(user_id));
 	      logger.debug("user:{}", userService.selectUser(user_id));
 	      model.addAttribute("popolVo", userService.selectPopol(user_id));
-	      
+	      model.addAttribute("reprePopolVo", userService.selectReprePopol(user_id));
 		return "t/profile/mainPopol";
 	}
 	

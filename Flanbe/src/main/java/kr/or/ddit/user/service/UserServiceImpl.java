@@ -214,6 +214,11 @@ public class UserServiceImpl implements UserService {
 	public int updateSkill(USkillVo uskillVo) {
 		return userDao.updateSkill(uskillVo);
 	}
+	
+	@Override
+	public List<PortfolioVo> selectReprePopol(String user_id) {
+		return userDao.selectReprePopol(user_id);
+	}
 
 	@Override
 	public List<PortfolioVo> selectPopol(String user_id) {
@@ -284,5 +289,6 @@ public class UserServiceImpl implements UserService {
 	public List<PortfolioVo> selectFieldFilter(SearchVo searchVo) {
 		return userDao.selectFieldFilter(searchVo);
 	}
+
 
 }

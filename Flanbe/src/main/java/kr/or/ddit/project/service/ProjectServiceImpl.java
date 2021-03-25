@@ -8,6 +8,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import ch.qos.logback.classic.Logger;
 import kr.or.ddit.common.model.PageVo;
 import kr.or.ddit.common.model.SearchVo;
 import kr.or.ddit.project.model.PAttendVo;
@@ -170,7 +171,10 @@ public class ProjectServiceImpl implements ProjectService {
 		   
 		  List<UserVo> careerList = projectDao.selectCareerChk();
 		  List<UserVo> skillList = projectDao.selectUserSkillList();
-		  
+		  System.out.println("userList : " + userList.size());
+			System.out.println("userCnt : " + userCnt);
+			map.put("userCnt", userCnt);
+			map.put("userList", userList);
 		  // 보유 기술 추가하기 
 		  for (int i = 0; i < userList.size(); i++) {
 			  for (int j = 0; j < skillList.size(); j++) {
@@ -192,10 +196,8 @@ public class ProjectServiceImpl implements ProjectService {
 					
 				}
 			}
-		   
-		   map.put("userList", userList);
+		
 		   map.put("pageVo", pageVo);
-		   map.put("userCnt", userCnt);
 		   map.put("p_code", pageVo.getP_code());
 		   map.put("pVo", pVo);
 		   map.put("pagination", (int)Math.ceil( (double)userCnt / pageVo.getPageSize()));
@@ -267,6 +269,11 @@ public class ProjectServiceImpl implements ProjectService {
 	@Override
 	public int requestSend(PAttendVo pattend) {
 		return projectDao.requestSend(pattend);
+	}
+
+	@Override
+	public List<ProjectVo> requestedApply(String user_id) {
+		return projectDao.requestedApply(user_id);
 	}
 	
 }

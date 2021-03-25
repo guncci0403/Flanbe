@@ -39,7 +39,7 @@
 												</a>
 											</li>
 											<li>
-												<a class="dropdown-item" href="#">
+												<a class="dropdown-item" href="${cp }/project/requestedapplylist">
 													<span class="font-weight-bold"> 지원 요청 </span>
 												</a>
 											</li>

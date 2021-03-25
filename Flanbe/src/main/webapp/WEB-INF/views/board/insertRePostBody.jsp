@@ -67,7 +67,16 @@ $(function(){
 			i++;
 		}
 		else {
-			alert("5개까지만 가능합니다.");
+			swal({
+				title: "Info",
+				text: "5개까지만 가능합니다.",
+				type: "info",
+				showCancelButton: false,
+				confirmButtonClass: 'btn-info',
+				confirmButtonText: '확인',	
+				closeOnConfirm: false
+			});
+			
 		}
 	})
 	$(document).on('click', '#adelete',function(){
@@ -75,7 +84,15 @@ $(function(){
 			i--;
 			$(this).parent().remove();
 		} else {
-			alert("최소 1개는 유지");
+			swal({
+				title: "Info",
+				text: "최소 1개는 유지",
+				type: "info",
+				showCancelButton: false,
+				confirmButtonClass: 'btn-info',
+				confirmButtonText: '확인',	
+				closeOnConfirm: false
+			});
 		}
 	})
 	

@@ -74,11 +74,27 @@
 					},
 					success:function(data){
 						$(th).parent().remove();
-						alert("삭제되었습니다.");
+						swal({
+							title: "Success!!",
+							text: "삭제 성공",
+							type: "success",
+							showCancelButton: false,
+							/* cancelButtonClass: 'btn-danger', */
+							confirmButtonClass: 'btn-success',
+							confirmButtonText: '확인'
+						});
 						i--;
 					},
 					error:function(xhr){
-						alert("상태 :" + xhr.status);
+						swal({
+							title: "Error",
+							text: "상태 :" + xhr.status,
+							type: "error",
+							showCancelButton: false,
+							/* cancelButtonClass: 'btn-danger', */
+							confirmButtonClass: 'btn-danger',
+							confirmButtonText: '확인'
+						});
 					}
 				})
 			});
@@ -90,7 +106,15 @@
 					i++;
 				}
 				else {
-					alert("5개까지만 가능합니다.");
+					swal({
+						title: "Info",
+						text: "5개까지만 가능합니다.",
+						type: "info",
+						showCancelButton: false,
+						confirmButtonClass: 'btn-info',
+						confirmButtonText: '확인',	
+						closeOnConfirm: false
+					});
 				}
 			})
 			$(document).on('click', '#bdelete',function(){
@@ -98,7 +122,15 @@
 					i--;
 					$(this).parent().remove();
 				} else {
-					alert("최소 1개는 유지");
+					swal({
+						title: "Info",
+						text: "최소 1개는 유지",
+						type: "info",
+						showCancelButton: false,
+						confirmButtonClass: 'btn-info',
+						confirmButtonText: '확인',	
+						closeOnConfirm: false
+					});
 				}
 			})
 			

@@ -106,34 +106,51 @@ $(function(){
 										    	data-toggle="modal" data-target="#portfolioModal">대표 포트폴리오 수정</button>
 									</c:if>
 								</h6>
-								<div class="p5-description-hasvalue">						
-									<c:forEach items="${popolVo}" var="popolVo" varStatus="status" >
-										<c:if test="${popolVo.po_repre eq 'Y'}">
-											<div class="portfolio-thumbnail"style="margin-top: 0;" >
-												<a href="${cp }/user/detailpopol?po_no=${popolVo.po_no}"> 
-													<img class="portfolio-thumbnail-image" src="${cp }/user/popolimg?po_no=${popolVo.po_no}">
-												</a>
-											
-												<div class="portfolio-thumbnail-caption-top">
-												<span class="badge badge-pill badge-warning p-1 mb-1"><strong>대표작품</strong></span>
-												<br>
-													<a class="popol_title">${popolVo.po_title} </a> 
-													<p class="popol_field_skil">
-														개발&nbsp;|&nbsp;<span class="category-field-splitter"></span>
-														<c:set var="poopl_field" value="${popolVo.po_field}" />
-														<c:forEach items="${poopl_field }" var="poopl_field">
-															<c:if test="${poopl_field eq '01'}"> 웹 </c:if>
-															<c:if test="${poopl_field eq '02'}"> 애플리케이션 </c:if>
-															<c:if test="${poopl_field eq '03'}"> 퍼블리싱 </c:if>
-															<c:if test="${poopl_field eq '04'}"> 게임 </c:if>
-															<c:if test="${poopl_field eq '05'}"> 기타 </c:if>
-														</c:forEach>
+								<c:choose>
+									<c:when test="${reprePopolVo[0] == null}">
+										<br><br><br><br><br>
+										<div class="p5-assign-component" style="display: table; width: 100%; height: 100%; text-align: center; margin: 0 auto;">
+											<div style="display: table-cell; vertical-align: middle;">
+												<div style="font-size: 14px;">
+													<img src="${cp }/images/project_history_no.png" style="vertical-align: middle;">
+													<p class="p5-no-partners-info-text" style="margin-top: 15px; margin-bottom: 0; color: #999 !important; line-height: 1;">
+														<span class="text-center p5-bold" style="font-weight: bold;">'대표 포트폴리오'</span>를 등록해주세요.
 													</p>
 												</div>
 											</div>
-										</c:if>
-									</c:forEach>
-								</div>
+										</div>
+									</c:when>
+									<c:otherwise>
+										<div class="p5-description-hasvalue">						
+											<c:forEach items="${popolVo}" var="popolVo" varStatus="status" >
+												<c:if test="${popolVo.po_repre eq 'Y'}">
+													<div class="portfolio-thumbnail"style="margin-top: 0;" >
+														<a href="${cp }/user/detailpopol?po_no=${popolVo.po_no}"> 
+															<img class="portfolio-thumbnail-image" src="${cp }/user/popolimg?po_no=${popolVo.po_no}">
+														</a>
+													
+														<div class="portfolio-thumbnail-caption-top">
+														<span class="badge badge-pill badge-warning p-1 mb-1"><strong>대표작품</strong></span>
+														<br>
+															<a class="popol_title">${popolVo.po_title} </a> 
+															<p class="popol_field_skil">
+																개발&nbsp;|&nbsp;<span class="category-field-splitter"></span>
+																<c:set var="poopl_field" value="${popolVo.po_field}" />
+																<c:forEach items="${poopl_field }" var="poopl_field">
+																	<c:if test="${poopl_field eq '01'}"> 웹 </c:if>
+																	<c:if test="${poopl_field eq '02'}"> 애플리케이션 </c:if>
+																	<c:if test="${poopl_field eq '03'}"> 퍼블리싱 </c:if>
+																	<c:if test="${poopl_field eq '04'}"> 게임 </c:if>
+																	<c:if test="${poopl_field eq '05'}"> 기타 </c:if>
+																</c:forEach>
+															</p>
+														</div>
+													</div>
+												</c:if>
+											</c:forEach>
+										</div>
+									</c:otherwise>
+								</c:choose>
 							</div>
 						</div>
 					</section>
@@ -147,32 +164,49 @@ $(function(){
 									<button type="button" class="btn btn-outline-info" style="float: right; font-size: revert;"
 										    data-toggle="modal" data-target="#fieldfilterModal">분야 필터</button>
 								</h6>
-								<div class="p5-description-hasvalue" id="popolN">
-									<c:forEach items="${popolVo}" var="popolVo">
-										<c:if test="${popolVo.po_repre eq 'N'}">
-											<div class="portfolio-thumbnail" >
-												<a href="${cp }/user/detailpopol?po_no=${popolVo.po_no}"> 
-												<img class="portfolio-thumbnail-image" src="${cp }/user/popolimg?po_no=${popolVo.po_no}">
-												</a>
-												<div class="portfolio-thumbnail-caption-top">
-													<a class="popol_title">${popolVo.po_title}${status.count }</a>
-													
-													<p class="popol_field_skil">
-														개발&nbsp;|&nbsp;<span class="category-field-splitter"></span>
-													<c:set var="poopl_field" value="${popolVo.po_field}" />
-														<c:forEach items="${poopl_field }" var="poopl_field">
-															<c:if test="${poopl_field eq '01'}"> 웹 </c:if>
-															<c:if test="${poopl_field eq '02'}"> 애플리케이션 </c:if>
-															<c:if test="${poopl_field eq '03'}"> 퍼블리싱 </c:if>
-															<c:if test="${poopl_field eq '04'}"> 게임 </c:if>
-															<c:if test="${poopl_field eq '05'}"> 기타 </c:if>
-														</c:forEach>
-													</p>	
+								<c:choose>
+									<c:when test="${popolVo[0] == null}">
+										<br><br><br><br><br>
+										<div class="p5-assign-component" style="display: table; width: 100%; height: 100%; text-align: center; margin: 0 auto;">
+											<div style="display: table-cell; vertical-align: middle;">
+												<div style="font-size: 14px;">
+													<img src="${cp }/images/project_history_no.png" style="vertical-align: middle;">
+													<p class="p5-no-partners-info-text" style="margin-top: 15px; margin-bottom: 0; color: #999 !important; line-height: 1;">
+														등록된 <span class="text-center p5-bold" style="font-weight: bold;">'포트폴리오'</span>가 없습니다.
+													</p>
 												</div>
 											</div>
-										</c:if>
-									</c:forEach>
-								</div>
+										</div>
+									</c:when>
+									<c:otherwise>
+										<div class="p5-description-hasvalue" id="popolN">
+											<c:forEach items="${popolVo}" var="popolVo">
+												<c:if test="${popolVo.po_repre eq 'N'}">
+													<div class="portfolio-thumbnail" >
+														<a href="${cp }/user/detailpopol?po_no=${popolVo.po_no}"> 
+														<img class="portfolio-thumbnail-image" src="${cp }/user/popolimg?po_no=${popolVo.po_no}">
+														</a>
+														<div class="portfolio-thumbnail-caption-top">
+															<a class="popol_title">${popolVo.po_title}${status.count }</a>
+															
+															<p class="popol_field_skil">
+																개발&nbsp;|&nbsp;<span class="category-field-splitter"></span>
+															<c:set var="poopl_field" value="${popolVo.po_field}" />
+																<c:forEach items="${poopl_field }" var="poopl_field">
+																	<c:if test="${poopl_field eq '01'}"> 웹 </c:if>
+																	<c:if test="${poopl_field eq '02'}"> 애플리케이션 </c:if>
+																	<c:if test="${poopl_field eq '03'}"> 퍼블리싱 </c:if>
+																	<c:if test="${poopl_field eq '04'}"> 게임 </c:if>
+																	<c:if test="${poopl_field eq '05'}"> 기타 </c:if>
+																</c:forEach>
+															</p>	
+														</div>
+													</div>
+												</c:if>
+											</c:forEach>
+										</div>
+									</c:otherwise>
+								</c:choose>
 							</div>
 						</div>
 					</section>
@@ -200,7 +234,7 @@ $(function(){
 				<hr>
 				<c:forEach items="${popolVo}" var="popolVo">
 				<label style="margin-bottom:0; cursor:pointer">
-					<input type="checkbox" class="chk_id" name="po_no"  
+					<input type="checkbox" class="chk_id" id="chk_id" name="po_no"  
 						   value="${popolVo.po_no}" <c:if test="${popolVo.po_repre == 'Y'}">checked</c:if> /> &nbsp;&nbsp;${popolVo.po_title} 
 					</label>
 				<hr>

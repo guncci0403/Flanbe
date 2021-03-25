@@ -45,7 +45,18 @@ $(function(){
 		$("#updateFrm").submit();
 	});
 	$("#godelete").on("click", function(){
-		$("#deleteFrm").submit();
+		swal({
+			title: "Success!!",
+			text: "삭제 성공",
+			type: "success",
+			showCancelButton: false,
+			/* cancelButtonClass: 'btn-danger', */
+			confirmButtonClass: 'btn-success',
+			confirmButtonText: '확인'
+		});
+		setTimeout(function() {
+			$("#deleteFrm").submit();
+        	}, 1000);
 	});
 });
 </script>

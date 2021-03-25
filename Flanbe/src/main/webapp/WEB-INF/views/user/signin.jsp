@@ -45,7 +45,6 @@
 				//////////// 정규식 /////////////
 				var a = false;
 				var b = false;
-				var c = false;
 				var d = false;
 				var e = false;
 				var f = false;
@@ -88,7 +87,15 @@
 							}
 						},
 						error : function(xhr) {
-							alert("상태 : " + xhr.status);
+							swal({
+								title: "Error",
+								text: "상태 :" + xhr.status,
+								type: "error",
+								showCancelButton: false,
+								/* cancelButtonClass: 'btn-danger', */
+								confirmButtonClass: 'btn-danger',
+								confirmButtonText: '확인'
+							});
 						}
 					});
 				})
@@ -108,9 +115,6 @@
 				});
 				
 				// 비밀번호 확인 일치 체크
-				$('#pass1').focus(function(){
-					c = false;
-				});
 				$('#pass1').blur(function(){
 					psvalue1 = $('#pass1').val().trim();
 					if (psvalue1.length < 1) {
@@ -122,7 +126,6 @@
 					} else {
 						$('#pass1').removeClass("form-control is-invalid").addClass("form-control is-valid");
 						$('#psspan1').html("");
-						c = true;
 					}
 				});
 				
@@ -195,8 +198,25 @@
 						});
 						return false;
 					}
+					// 비밀번호
+					var pass = $("#pass").val();
+					// 비밀번호 확인
+					var pass1 = $("#pass1").val();
+					
+					if(pass != pass1) {
+						swal({
+							title: "Error",
+							text: "비밀번호가 일치하지 않습니다.",
+							type: "error",
+							showCancelButton: false,
+							/* cancelButtonClass: 'btn-danger', */
+							confirmButtonClass: 'btn-primary',
+							confirmButtonText: '확인'
+						});
+						return false;
+					}
 					//정규식 통과 체크
-					if(a==false||b==false||c==false||d==false||e==false||f==false) {
+					if(a==false||b==false||d==false||e==false||f==false) {
 						swal({
 							title: "Info",
 							text: "모든 항목을 형식에 맞춰서 입력해주세요",
@@ -208,6 +228,7 @@
 						});
 						return false;
 					}
+					
 					swal({
 						title: "Success!!",
 						text: "가입 성공",
