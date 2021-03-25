@@ -194,18 +194,20 @@ public class UserController {
 	      model.addAttribute("historyMap", h_map);
 	      
 	      
-	      
+	      /** 수정좌 차트 코드 시작*/
 	      // 프로젝트 세부 항목 평가 차트
 	      // 전문성등등 평가 평균 부분 가지고 오기
 	      EvaluationVo evalVo = evaluationService.selectEvaluation(user_id);
 	      if(evalVo != null) {
 	         evalVo.setUser_id(user_id);
+	         logger.debug("4번 확인 2 {}" , evalVo.getPro());
+	         
 	      }
 	      model.addAttribute("evalVo", evalVo);
 	      
 	      //2) 파트너스의 전체 참여 프로젝트에대한 총 평가 평균
 	      double averageEvaluation = Math.round(evaluationDao.averageEvaluation(user_id) * 100) / 100;  
-	      logger.debug("averageEvaluation: {}", averageEvaluation);
+	      logger.debug("기본정보 보여주기 컨트롤러averageEvaluation" + averageEvaluation);
 	      
 	      
 	      //빈별을 찍어야 하는 갯수 
@@ -217,7 +219,7 @@ public class UserController {
 	      }else {
 	         emptyStar = 5 - (int)averageEvaluation;  
 	      }
-	      logger.debug("emptyStar: {}",emptyStar);
+	      logger.debug("기본정보 보여주기 컨트롤러emptyStar" +emptyStar);
 	      
 	      model.addAttribute("averageEvaluation", averageEvaluation);
 	      model.addAttribute("emptyStar", emptyStar); 
@@ -228,10 +230,9 @@ public class UserController {
 	         
 	      System.out.println(ListProjectVo2);
 	      model.addAttribute("projectEvalList", ListProjectVo2);
-	      
+	      /** 수정좌 끝 */
 	      
 	      // 포트폴리오
-	      model.addAttribute("popolVo", userService.selectPopol(user_id));
 	      // 보유 기술
 	      model.addAttribute("skillList", userService.selectSkillList(user_id));
 	      // 경력
@@ -789,7 +790,6 @@ public class UserController {
 		}
 
 	}
-	//////////////////////////////////////////////////////////////////////////////////////////////////
 	
 	/**
 	 * 수연

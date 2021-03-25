@@ -149,7 +149,7 @@ p {
 									</div>
 									<div class="form-control part col-8" style="margin-left: 12%">
 										<br> <span style="border: none; font-size: 14px;"> <c:choose>
-												<c:when test="${popolVo == null}">
+												<c:when test="${user.intro == null}">
 													<div class="p5-assign-component" style="display: table; width: 100%; height: 100%; text-align: center; margin: 0 auto;">
 														<div style="display: table-cell; vertical-align: middle;">
 															<div>
@@ -162,31 +162,8 @@ p {
 													</div>
 												</c:when>
 												<c:otherwise>
-													<c:if test="${popolVo.po_repre eq 'Y'}">
-														<div class="portfolio-thumbnail"style="margin-top: 0;" >
-															<a href="${cp }/user/detailpopol?po_no=${popolVo.po_no}"> 
-																<img class="portfolio-thumbnail-image" src="${cp }/user/popolimg?po_no=${popolVo.po_no}">
-															</a>
-														
-															<div class="portfolio-thumbnail-caption-top">
-															<span class="badge badge-pill badge-warning p-1 mb-1"><strong>대표작품</strong></span>
-															<br>
-																<a class="popol_title">${popolVo.po_title} </a> 
-																<p class="popol_field_skil">
-																	개발&nbsp;|&nbsp;<span class="category-field-splitter"></span>
-																	<c:set var="poopl_field" value="${popolVo.po_field}" />
-																	<c:forEach items="${poopl_field }" var="poopl_field">
-																		<c:if test="${poopl_field eq '01'}"> 웹 </c:if>
-																		<c:if test="${poopl_field eq '02'}"> 애플리케이션 </c:if>
-																		<c:if test="${poopl_field eq '03'}"> 퍼블리싱 </c:if>
-																		<c:if test="${poopl_field eq '04'}"> 게임 </c:if>
-																		<c:if test="${poopl_field eq '05'}"> 기타 </c:if>
-																	</c:forEach>
-																</p>
-															</div>
-														</div>
-													</c:if>	
-												</c:otherwise>
+														포트폴리오
+													</c:otherwise>
 											</c:choose>
 										</span>
 									</div>
