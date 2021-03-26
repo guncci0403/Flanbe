@@ -31,7 +31,11 @@
 /* 	.list-unstyled inbox-nav mb-0 mt-2 notes-menu { */
 /* 		display: inline; */
 /* 	} */
-	
+	html, body {
+			margin: 0;
+			padding: 0;
+			height: 100%;
+		}
 	
     .evalTable {
     
@@ -143,9 +147,17 @@
 		display : inline-block
     }
     .pageNation {
-    	text-align: center 
+    	text-align: center;
+    	padding : 30px;
     }
 
+	.start {
+		padding-top : 100px; 
+	}
+	
+	.totalDiv {
+		display: flex; 
+	}
     
 </style>
 	<!-- start script -->
@@ -235,7 +247,7 @@
 						basicInfoTable(1);
 				},
 				error : function(){
-						alert("ajax 실패")
+						alert("에러 발생")
 				}
 				
 	})
@@ -253,7 +265,7 @@
 				$('.evalContTable').html(data); 
 			},
 			error : function(){
-				alert("ajax 실패")			
+				alert("에러 발생")			
 			}
 		})
 	}
@@ -272,7 +284,7 @@
 				$('#MainBoard').html(data);
 			},
 			error : function(){
-				alert("ajax 실패")
+				alert("에러 발생")
 			}
 		})
 		
@@ -317,7 +329,7 @@
 						$('.hoverUserInfo').hide(); 
 				},
 				error : function(){
-						alert("ajax 실패")
+						alert("에러 발생")
 				}
 			
 			
@@ -360,13 +372,12 @@
 			data : {checkedUser : CheckedUser , graphCheck : graphCheck}  , 
 			traditional : true, 
 			success : function(data) {
-				alert("ajax 성공"); 
 				//기본값은 평균값으로 barChart 그래프가 나오지만 전문성, 만족도 , 의사소통 ,일정준수 , 적극성을 각각 클릭가능 
 				$('.secondFrame').html(data);
 				barChart2();
 			},
 			error : function(){
-				alert("ajax 실패")
+				alert("에러 발생")
 			}
 			
 		})			
@@ -393,12 +404,11 @@
 			cache : false , 
 			data : { user_id : user_id}, 
 			success : function(data) {
-				alert("성공");
 				$('.thirdFrame').html(data);
 				radarScript()
 			},
 			error : function(){
-				alert("ajax 실패")	
+				alert("에러 발생")	
 			}
 		})
 	}
@@ -426,92 +436,9 @@
         <!-- END: Breadcrumbs-->
 
         <!-- START: Card Data-->
-        <div class="row">
-            <div class="col-12 col-lg-3 col-xl-2 mb-4 mt-3 pr-lg-0 flip-menu">
-                <a href="#" class="d-inline-block d-lg-none mt-1 flip-menu-close"><i class="icon-close"></i></a>
-                <div class="card border h-100 mail-menu-section leftBarAll">
-                    <div class="media d-block text-center  p-3">
-                    </div>
-
-					<!-- 왼쪽 메뉴바 -->
-                    <!-- Add Note -->
-                    <div class="modal fade" id="addnote">
-                        <div class="modal-dialog modal-dialog-centered">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title">
-                                        <i class="icon-pencil"></i> New Note
-                                    </h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <i class="icon-close"></i>
-                                    </button>
-                                </div>
-
-                                <form class="add-note-form">
-                                    <div class="modal-body">                                               
-
-                                        <div class="form-group">
-                                            <label for="title" class="col-form-label">Title</label>
-                                            <input type="text" class="form-control" id="title">
-                                        </div>                                                    
-
-                                        <div class="form-group">
-                                            <label for="description" class="col-form-label">Description</label>
-                                            <textarea class="form-control" rows="10" id="description"></textarea>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="chkbox">                                                        
-                                                <input type="checkbox" class="starred" id="starred">
-                                                <span class="checkmark"></span>
-                                                Starred
-                                            </label>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="chkbox">                                                        
-                                                <input type="checkbox" class="important" id="important">
-                                                <span class="checkmark"></span>
-                                                Important
-                                            </label>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="title" class="col-form-label">Label</label>
-                                            <select class="form-control" id="type">
-                                                <option value="business-note">Business</option>
-                                                <option value="private-note">Private</option>
-                                                <option value="social-note">Social</option>
-                                                <option value="personal-note">Personal</option>
-                                                <option value="work-note">Work</option>
-                                            </select>
-                                        </div> 
-
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="submit" class="btn btn-primary add-todo">Add Note</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Edit Note -->
-                    <div class="modal fade" id="editnote">
-                        <div class="modal-dialog modal-dialog-centered">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title">
-                                        <i class="icon-pencil"></i> Edit Note
-                                    </h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <i class="icon-close"></i>
-                                    </button>
-                                </div>
-
-                              
-                            </div>
-                        </div>
-                    </div>
-
-
+        <div class="row totalDiv" >
+            <div class="col-12 col-lg-3 col-xl-2 mb-4 mt-3 pr-lg-0 flip-menu" >
+                <div class="card border h-100 mail-menu-section leftBarAll" >
                     <ul class="list-unstyled inbox-nav mb-0 mt-2 notes-menu">
                         <li class="nav-item" onclick="basicInfo()"><a class="nav-link active"><i class="icon-envelope pr-2"></i> 기본 정보</a></li>
                         <li class="nav-item" onclick="mainProjectBoard( 1 , 'basic')"><a class="nav-link active">
@@ -519,12 +446,12 @@
                         <li class="nav-item" onclick="viewUserList()"><a class="nav-link active"><i class="icon-exclamation pr-2"></i>비교</a></li>                               
                     </ul>
                     <div id="leftSide">
-                    
                    	  <div id="ProjectSearch1" class="card-header py-1 mt-4">                                 
                         <h6 id="projectSearchTitle1" class="mb-0">프로젝트 검색</h6>
                       </div>
-                      <div id="ProjectSearch2" class="card-header py-1 mt-4">                                 
-                        <h6 id="projectSearchTitle2" class="mb-0">파트너스 비교</h6><br>
+                      <div id="ProjectSearch2" class="card-header py-1 mt-4" style="overflow : auto; height : 820px;">                                 
+                        <!-- id="projectSearchTitle2" -->
+                        <h6  class="mb-0">파트너스 비교</h6><br>
                         <h6 id="projectSearchTitle3" class="mb-0"></h6>
                       </div>
                     </div>
@@ -556,7 +483,7 @@
                 </div>
             </div>
             <div class="col-12 col-lg-9 col-xl-10 mb-4 mt-3 pl-lg-0 MainBoardParent" style="height : 1000px;">
-                <div class="card border  h-100 notes-list-section" id="MainBoard" style="overflow : scroll;"> 
+                <div class="card border  h-100 notes-list-section" id="MainBoard" style="overflow : auto;"> 
                    
                 </div>
             </div>

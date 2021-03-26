@@ -34,6 +34,9 @@ public class ProjectVo {
 	
 	private int page;
 	private int pageSize;
+	
+	private String p_state2;
+	private String p_state3;
 
 	public ProjectVo() {}
 	
@@ -41,6 +44,22 @@ public class ProjectVo {
 		this.user_id = user_id;
 		this.page=page;
 		this.pageSize=pageSize;
+	}
+	
+	public ProjectVo(int p_code, String p_state, String p_state2, String p_state3) {
+		this.p_code=p_code;
+		this.p_state=p_state;
+		this.p_state2=p_state2;
+		this.p_state3=p_state3;
+	}
+	
+	public ProjectVo(int page, int pageSize,String user_id, String p_state, String p_state2, String p_state3) {
+		this.page=page;
+		this.pageSize=pageSize;
+		this.p_state=p_state;
+		this.user_id=user_id;
+		this.p_state2=p_state2;
+		this.p_state3=p_state3;
 	}
 	
 	public ProjectVo(int p_code, String p_title, String user_id, String p_state, String p_cont, String p_field,
@@ -162,6 +181,22 @@ public class ProjectVo {
 
 	public void setPageSize(int pageSize) {
 		this.pageSize = pageSize;
+	}
+
+	public String getP_state2() {
+		return p_state2;
+	}
+
+	public void setP_state2(String p_state2) {
+		this.p_state2 = p_state2;
+	}
+
+	public String getP_state3() {
+		return p_state3;
+	}
+
+	public void setP_state3(String p_state3) {
+		this.p_state3 = p_state3;
 	}
 
 	@Override

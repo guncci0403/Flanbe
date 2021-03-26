@@ -119,4 +119,11 @@ public interface ProjectDao {
 	
 	//지원요청받은 리스트
 	List<ProjectVo> requestedApply(String user_id);
+	
+	
+	//계약 목록 조회
+	public List<ProjectVo> contractProjectList(ProjectVo projectVo);
+	int contractProjectCnt(ProjectVo projectVo);
+	
+
 }

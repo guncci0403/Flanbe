@@ -65,7 +65,6 @@ li {
     		  
     		  //중요한 글만 조회하기 
     		  $('.importance').on('click',function(){
-    			  alert('별체크클릭');
     			  //프로젝트 번호가지고 오기 
     			  var p_code = $('#p_code').val();
     			  var page = 1;
@@ -74,7 +73,6 @@ li {
     			  //checkImpor 값이 null(현상태는 중요인데) 일때는 전체로 변경 1(현상태는전체인데)일때는 중요를 검색 
     			  var checkimpor = $(this).data('impor'); 
     			  //중요하면 key 가 1이고 중요하지않으면 null
-    			  alert('p_code : ' + p_code  + 'divList' + divList + 'checkimpor' + checkimpor );
 				  pagination(page , divList , checkimpor )
     			 
     			  })
@@ -84,9 +82,7 @@ li {
 			//글 등록하기 페이지로 이동
 			
 			$('#newNote').on('click' , function(){
-				alert("글 등록하기");
 				var p_code = $('#p_code').val();
-				alert("p_code" + p_code);
 				location.href="${cp}/note/viewInsertNote?p_code=" + p_code;
 			})
 			
@@ -94,11 +90,9 @@ li {
 			//휴지통이모티콘 누르면 삭제됨 . 권한이 다름 (그 글을 쓴사람만 지울 수 있음)
     		$('#ThreeListBox').on('click' , '.deleteTrash' , function(e){
     			e.stopPropagation();
-    			  alert("휴지통 이모티콘 누르면 진짜 오나?")
     			 //노트번호
     			  var n_no =  $(this).data('no');
     			  var p_code = $('#p_code').val();
-    			  alert("n_no" + n_no + "p_code" + p_code ); 
     			 location.href="${cp}/note/deleteReplyTrashCan?n_no=" + n_no + "&p_code=" + p_code
     			  
     		  })
@@ -108,9 +102,7 @@ li {
 			
     		 $('#ThreeListBox').on('click' , '.updatePen' , function(e){
     			 e.stopPropagation();
-    			 alert("연필이모티콘 누르면 오기")
     			 var n_no = $(this).data('no');
-    			 alert("n_no" + n_no)
     			 location.href="${cp}/note/viewUpdate?n_no=" + n_no
     			 
     		 })
@@ -123,7 +115,6 @@ li {
     function oneArticle(value){
 		
 		var n_no = $(value).attr('class');
-		alert("n_no : " + n_no)
 		location.href="${cp}/note/viewOneNote?n_no=" + n_no
 		  }
     
@@ -158,7 +149,6 @@ li {
     			$('#' + checkListTypeNumber ).html(data);
     		},
     		error : function(){
-    			alert("ajax실패")
     		}
     	})
     	
@@ -191,6 +181,7 @@ li {
 				<div class="sub-header mt-3 py-3 align-self-center d-sm-flex w-100 rounded">
 					<div class="w-sm-100 mr-auto">
 						<h4 class="mb-0">[업무노트]</h4>
+						<input type="button" id="" class="btn btn-primary mt-2" value="프로젝트 완료" style="margin : 5px;" />
 					</div>
 				</div>
 				<input type="button" id="newNote" class="btn btn-primary mt-2" value="업무노트 등록" />

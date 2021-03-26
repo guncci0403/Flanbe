@@ -46,8 +46,18 @@
 		 $('#filterSearchBtn').on('click',function(){
 			 cnt = $('input[type="checkbox"][name="value"]:checked').length
 			 if(cnt == 0) {
-				 alert("선택된 값이 없습니다.");
-				 location.href="${cp}/user/partnerList";
+				 swal({
+						title: "Info",
+						text: "선택된 값이 없습니다.",
+						type: "info",
+						showCancelButton: false,
+						confirmButtonClass: 'btn-info',
+						confirmButtonText: '확인',	
+						closeOnConfirm: false
+					});
+				 setTimeout(function() {
+					 location.href="${cp}/user/partnerList";
+		        	}, 1000);
 			 } else {
 				 
 			 	$('#filterSearchfrm').submit();

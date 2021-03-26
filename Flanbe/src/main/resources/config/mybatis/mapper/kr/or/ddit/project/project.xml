@@ -378,4 +378,40 @@
 		WHERE p.p_code = a.p_code AND
 		a.p_state = '02' and a.user_id = #{user_id}
 	</select>
+	
+	<select id="contractProjectList" resultType="projectVo" parameterType="projectVo">
+		SELECT *
+		FROM
+			(SELECT ROWNUM rn, a.*
+			 FROM
+				(SELECT *
+			     FROM project
+		<choose>
+			<when test="p_state2 ==null or p_state3 == null">
+				WHERE p_state = #{p_state} AND user_id = #{user_id}
+			</when>
+			<otherwise>
+				WHERE p_state IN (#{p_state},#{p_state2},#{p_state3}) AND user_id = #{user_id}
+			</otherwise>
+		</choose>
+					ORDER BY p_code DESC) a
+				WHERE ROWNUM &lt;= #{page} * #{pageSize})
+			WHERE rn
+			BETWEEN (#{page}-1) *
+		#{pageSize} + 1 AND #{page} * #{pageSize}
+	</select>
+	
+	<select id="contractProjectCnt" resultType="int" parameterType="projectVo">
+		SELECT count(*) FROM project
+		<choose>
+			<when test="p_state2 ==null or p_state3 == null">
+				 WHERE p_state = #{p_state} and  user_id = #{user_id}
+			</when>
+			<otherwise>
+				WHERE p_state IN (#{p_state},#{p_state2},#{p_state3}) AND user_id = #{user_id}
+			</otherwise>
+		</choose>
+		
+	</select>
+	
 </mapper>

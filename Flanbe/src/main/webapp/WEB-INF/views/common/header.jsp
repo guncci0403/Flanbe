@@ -63,7 +63,7 @@
 										</c:when>
 									</c:choose>
 									<li>
-										<a class="dropdown-item" href="#">
+										<a class="dropdown-item" href="${cp }/contract/contractList?p_state=04&user_id=${S_USER.user_id}">
 											<span class="font-weight-bold"> 계약 </span>
 										</a>
 									</li>

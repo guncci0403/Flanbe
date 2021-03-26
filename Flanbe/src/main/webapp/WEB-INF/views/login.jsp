@@ -53,7 +53,28 @@
 		$(function(){
 			
 			<c:if test="${msg != null }">
-				alert("${msg}");
+				<c:choose>
+					<c:when test="${msg eq '로그아웃되었습니다.' || msg eq '인증 완료되었습니다.' || msg eq '가입 완료! 이메일 인증 후 로그인 가능합니다.'}">
+						swal({
+							title: "Success!!",
+							text: "${msg}",
+							type: "success",
+							showCancelButton: false,
+							confirmButtonClass: 'btn-success',
+							confirmButtonText: '확인'
+						})
+					</c:when>
+					<c:otherwise>
+						swal({
+							title: "Error",
+							text: "${msg}",
+							type: "error",
+							showCancelButton: false,
+							confirmButtonClass: 'btn-primary',
+							confirmButtonText: '확인'
+						});
+					</c:otherwise>
+				</c:choose>
 			</c:if>
 			
 			// userid, rememberme 쿠키를 확인하여 존재할 경우 값 설정, 체크

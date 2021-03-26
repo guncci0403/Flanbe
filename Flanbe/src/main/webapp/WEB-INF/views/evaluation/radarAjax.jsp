@@ -42,8 +42,6 @@
     	var onePub = ${oneHistoryVo.h_pub};
     	var oneGame = ${oneHistoryVo.h_game};
     	var oneEtc = ${oneHistoryVo.h_etc};
-    	alert("oneWeb  : " + oneWeb  + "oneApp : " + oneApp + "onePub : " + onePub + "oneGame : " + oneGame
-    		+ "oneEtc" + oneEtc	)
     	
     	
     	

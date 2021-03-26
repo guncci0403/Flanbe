@@ -2,6 +2,8 @@ package kr.or.ddit.user.model;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 // 회원
 public class UserVo {
 	
@@ -26,14 +28,29 @@ public class UserVo {
 	 * 동기 추가
 	 */
 	private String u_skills;	// 사용자 보유 스킬
+	
 	/**
 	 * 수진 추가 
 	 */
 	private String p_state; // p_attend 의 상태
 	private String careers; //기술
 	private String us_kind; //기술
+	private int s_no ; 
+	private Date mtdt;			// 미팅일자
+	private int p_code;			// 프로젝트 코드
+	private String p_title;		// 프로젝트 명
+	private String p_cont;		// 업무내용
+	private String p_field;		// 개발분야 (웹 : 01, 애플리케이션 : 02, 퍼블리싱 : 03, 게임 : 04, 기타 : 05)
+	private int p_money;		// 예상금액
+	@DateTimeFormat(pattern="yyyy-MM-dd")
+	private Date deadline;		// 모집마감일
 	
 	public UserVo() {}
+	
+	public UserVo(String user_id, int p_code) {
+		this.user_id = user_id;
+		this.p_code = p_code;
+	}
 	
 	public UserVo(String user_id, String user_nm, String group_nm, String pass, String phone, String email,
 			String base_addr, String detail_addr, String zipcode, String purpose, String u_div, Date regdt,
@@ -176,6 +193,70 @@ public class UserVo {
 	}
 	public void setUs_kind(String us_kind) {
 		this.us_kind = us_kind;
+	}
+
+	public int getS_no() {
+		return s_no;
+	}
+
+	public void setS_no(int s_no) {
+		this.s_no = s_no;
+	}
+
+	public Date getMtdt() {
+		return mtdt;
+	}
+
+	public void setMtdt(Date mtdt) {
+		this.mtdt = mtdt;
+	}
+
+	public int getP_code() {
+		return p_code;
+	}
+
+	public void setP_code(int p_code) {
+		this.p_code = p_code;
+	}
+
+	public String getP_title() {
+		return p_title;
+	}
+
+	public void setP_title(String p_title) {
+		this.p_title = p_title;
+	}
+
+	public String getP_cont() {
+		return p_cont;
+	}
+
+	public void setP_cont(String p_cont) {
+		this.p_cont = p_cont;
+	}
+
+	public String getP_field() {
+		return p_field;
+	}
+
+	public void setP_field(String p_field) {
+		this.p_field = p_field;
+	}
+
+	public int getP_money() {
+		return p_money;
+	}
+
+	public void setP_money(int p_money) {
+		this.p_money = p_money;
+	}
+
+	public Date getDeadline() {
+		return deadline;
+	}
+
+	public void setDeadline(Date deadline) {
+		this.deadline = deadline;
 	}
 
 	@Override

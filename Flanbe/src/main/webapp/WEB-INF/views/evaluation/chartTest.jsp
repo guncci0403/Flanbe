@@ -141,7 +141,7 @@
 
         <!-- START: Footer-->
         <footer class="site-footer">
-            2020 © PICK
+            2020 Â© PICK
         </footer>
         <!-- END: Footer-->
 
@@ -222,7 +222,6 @@
 			type : "GET", 
 			cache : false , 
 			success : function(data){
-			alert("??")
 						   if ($('.ct-svg-animation').length > 0)
 		           {
 		
@@ -256,9 +255,9 @@
 		                   }
 		               });
 		           }
-					}, //success 마지막 
+					}, //success ë§ì§ë§ 
 			error : function(){
-				alert("ajax 실패")
+				alert("에러 발생")
 			}
 		})
         	   

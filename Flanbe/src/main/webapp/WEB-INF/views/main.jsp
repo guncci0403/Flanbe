@@ -57,7 +57,7 @@
 												</a></li>
 											</c:when>
 										</c:choose>
-										<li><a class="dropdown-item" href="#"> <span class="font-weight-bold"> 계약 </span>
+										<li><a class="dropdown-item" href="${cp }/contract/contractList?p_state=04&user_id=${S_USER.user_id}"> <span class="font-weight-bold"> 계약 </span>
 										</a></li>
 										<li><a class="dropdown-item" href="${cp }/project/ingProjectList"> <span class="font-weight-bold"> 진행중인 프로젝트 </span>
 										</a></li>

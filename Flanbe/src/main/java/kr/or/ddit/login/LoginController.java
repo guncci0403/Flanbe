@@ -93,7 +93,7 @@ public class LoginController {
 		
 		if(cnt == 1) {
 			mailsender.mailSendWithUserKey(user.getEmail(), user.getUser_id(), request);
-			ra.addFlashAttribute("msg", "회원가입 완료! 이메일 인증 후 로그인 가능합니다.");
+			ra.addFlashAttribute("msg", "가입 완료! 이메일 인증 후 로그인 가능합니다.");
 			return "redirect:/login/view";
 		} else {
 			return "redirect:/login/signin";

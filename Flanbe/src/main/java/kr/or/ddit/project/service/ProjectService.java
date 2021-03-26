@@ -98,4 +98,7 @@ public interface ProjectService {
 	
 	//지원요청받은 리스트
 	List<ProjectVo> requestedApply(String user_id);
+	
+	//계약 목록 조회
+	Map<String, Object> contractProjectList(ProjectVo projectVo);
 }

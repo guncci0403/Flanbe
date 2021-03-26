@@ -156,7 +156,6 @@ body {
 			
 			$('#update').on('click' , function(){
 				var n_no = $('#n_parent').val();
-				alert("글 수정 " + n_no);
 				location.href="${cp}/note/viewUpdate?n_no=" + n_no;
 			})
 			
@@ -168,7 +167,6 @@ body {
 				if(r_parent == 0 ){
 					return false;
 				}
-				//alert("색깔 찾기 잘 되는가?")
 				//현재 댓글 번호 가지고 오기 
 				var r_no = $(this).data('rnumber');
 				
@@ -213,7 +211,6 @@ body {
 					cache : false, 
 					data : form,
 					success : function(data){
-						alert("성공")
 						$('#replyTable').html(data);
 						$('#replyWrite').val("");
 					},
@@ -228,11 +225,9 @@ body {
 			
 			
 		 	$('.ajaxReplyBlock').on('click' , '.ChildReplyViewBtn'  , function(){
-		 		alert("하위 댓글 달아보자");
 		 		
 		 		//현재 부모가 될 현재 댓글의 r_no 
 		 		var r_parentNum = $(this).data('up'); 
-		 		alert("r_parentNum : 부모 r_no " + r_parentNum );
 		 		
 		 		
 		  		var plusTr = "";
@@ -244,19 +239,16 @@ body {
 		 		 plusTr += "<th style='width: 180px;' scope='col'></th>"
 		 		 plusTr += "</tr>"
 		 		
-		 		alert("plusTr 확인" + plusTr);
 		 		$(this).parent().parent().after(plusTr); 
 		 		
 			})
 			
 			//자식 댓글 실제로 등록하기
 			$('.ajaxReplyBlock').on('click' , '.insertReplyReply'  , function(){
-				alert("자식댓글 등록 정말 올까?");
 			
 				//부모 답글의 번호 
 				var r_parent =  $(this).attr('id');
 				var r_cont = $(this).parent().find('.replyReplyCont').val().trim();
-				alert("r_parent : , r_cont : " + r_parent + r_cont); 
 				
 				var form = {
 				//현재 글번호 
@@ -276,11 +268,9 @@ body {
 					cache : false, 
 					data : form,
 					success : function(data){
-						alert("성공")
 						$('#replyTable').html(data);
 					},
 					error : function(){
-						alert("에러발생")
 					}
 				});
 			})
@@ -288,7 +278,6 @@ body {
 			
 			//댓글 삭제
 			$('.ajaxReplyBlock').on('click' ,'.deleteReply', function(){
-				alert("댓글삭제")
 				//현재 자신의 id 에 저장된 값을 r_no 로 가지고 오기(r_no 저장되어 있음)
 				var r_no = $(this).data('delete');
 				//var cont = $(this).parent().parent().find(".deletedCont");
@@ -301,11 +290,10 @@ body {
 							n_no : n_no
 							}, 
 					success : function(data){
-						alert("댓글삭제성공")
 						$('#replyTable').html(data);
 						}, 
 					error : function(){
-						alert("ajax실패")
+						alert("에러발생")
 					}
 					
 				})
@@ -315,11 +303,9 @@ body {
 			
 			//댓글 수정창 열기 버튼
 			$('.ajaxReplyBlock').on('click' , '.updateReplyView'  , function(){
-				alert('댓글수정창 열기버튼')
 				var updateCont = $(this).data('rno')
 				//수정할 댓글 no 
 				var updateReplyNo = $(this).data('rnono');
-				alert('updateCont , updateReplyNo ' + updateCont + " , " +  updateReplyNo );
 				var plusTr = "";
 		 		 plusTr += "<tr style='height: 150px;'><th></th>"
 		 		 plusTr += "<th colspan='4' style='width: 200px; height: 50px;'><span>댓글 수정</span><br><textarea rows='3' cols='130' class='replyReplyCont'>" + updateCont + "</textarea>"
@@ -328,7 +314,6 @@ body {
 		 		 plusTr += "<th style='width: 200px;' scope='col'></th>"
 		 		 plusTr += "<th style='width: 180px;' scope='col'></th>"
 		 		 plusTr += "</tr>"
-		 		alert("plusTr 확인" + plusTr);
 		 		$(this).parent().parent().after(plusTr); 
 			});
 			
@@ -338,11 +323,9 @@ body {
 			
 			
 			$('.ajaxReplyBlock').on('click' ,'.updateReply', function(){
-				alert('댓글수정버튼')
 				var r_no = $(this).attr('id');
 				var n_no = $('#n_no').val();
 				var r_cont = $(this).parent().find('.replyReplyCont').val()
-				alert('r_no : ' + r_no + 'n_no : ' + n_no + 'r_cont' + r_cont);
 				$.ajax({
 					url : "${cp}/note/updateReply", 
 					type : "GET" , 
@@ -352,11 +335,10 @@ body {
 							r_cont : r_cont 
 							}, 
 					success : function(data){
-						alert("댓글수정성공")
 						$('#replyTable').html(data);
 						}, 
 					error : function(){
-						alert("ajax실패")
+						alert("에러발생")
 					}
 				});
 			});

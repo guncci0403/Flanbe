@@ -11,7 +11,14 @@ $(function() {
 		var a_no = $(this).data("a_no");
 		var that = $(this); 
 		filesCnt = filesCnt - 1;
-		alert("삭제");
+		swal({
+			title: "Success!!",
+			text: "삭제 성공",
+			type: "success",
+			showCancelButton: false,
+			confirmButtonClass: 'btn-success',
+			confirmButtonText: '확인'
+		});
 		$.ajax({
 			url : "${cp }/user/filesDelete",
 			type : "post",
@@ -38,7 +45,15 @@ $(function() {
  			$("#fileupload").append(code);
 			fileCnt++;
 		} else {
-			alert("파일첨부는 2개까지만 가능합니다.");
+			swal({
+				title: "Info",
+				text: "파일첨부는 2개까지만 가능합니다.",
+				type: "info",
+				showCancelButton: false,
+				confirmButtonClass: 'btn-info',
+				confirmButtonText: '확인',	
+				closeOnConfirm: false
+			});
 		}
 	}); 
 

@@ -10,7 +10,15 @@ $(function(){
   $('.chk_id').on('click',function() {
 		count = $("#chk_id:checked").length;   	//체크된 값의 길이
 	  if(count > maxCount) {
-		 alert("최대 3개까지만 선택가능합니다!"); 
+		 swal({
+				title: "Info",
+				text: "최대 3개까지만 선택가능합니다!",
+				type: "info",
+				showCancelButton: false,
+				confirmButtonClass: 'btn-info',
+				confirmButtonText: '확인',	
+				closeOnConfirm: false
+			});
 		 $(this).prop('checked', false);
 		 $(":checkbox:not(:checked)").attr("disabled", true); 	// 다른 체크박스들을 disable 처리
 	   } else {

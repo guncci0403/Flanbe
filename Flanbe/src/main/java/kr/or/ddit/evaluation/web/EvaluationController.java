@@ -102,7 +102,7 @@ public class EvaluationController {
 			ListProjectVo2 = evaluationService.selectHighCostProjectEval(pagingMap);
 		}
 		if (ListProjectVo2.size() == 0) {
-			model.addAttribute("EvalNullcheck", "아직 등록된 평가가 존재하지 않습니다.");
+			model.addAttribute("EvalNullcheck", "k");
 		}
 
 		// pagination 구하기

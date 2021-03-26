@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="contract">
+	
+	<insert id="insertContract" parameterType="meetingVo">
+		INSERT INTO meeting (m_no, p_code, ptn_id, mtdt, mtway) VALUES (meeting_seq.NEXTVAL, #{p_code} , #{ptn_id} , #{mtdt} , #{mtway})
+	</insert>
+	
+  		<!-- 미팅 사용자 목록 조회  -->
+	<select id="selectContractUser"  resultType="userVo" parameterType="projectVo">
+	   SELECT k.* , m.mtdt
+        FROM 
+        (SELECT  u.user_id user_id, u.user_nm, p.P_TITLE,  p.p_cont,p.p_money,p.p_field, p.deadline, a.p_code , a.p_state 
+        FROM users u , project p , p_attend a
+        WHERE a.p_code = #{p_code}
+        AND p.p_code = a.p_code 
+        AND u.user_id = a.user_id 
+        AND a.p_state IN(#{p_state},#{p_state2},#{p_state3}) ) k LEFT OUTER JOIN meeting m       ON (K.user_id = m.ptn_id)
+        
+	</select>
+
+  		<!-- 계약된 지원자 보기  -->
+	<select id="selectContractUserState"  resultType="contractVo" parameterType="int">
+			SELECT c.*, u.user_nm 
+			FROM contract c, users u
+			WHERE  c.user_id = u.user_id 
+            AND c.p_code =  #{p_code} 
+			ORDER BY c_dt desc
+	</select>
+	
+	<!--  미팅 완료 (상태 변경)  -->
+	<update id="updateMeetFinish" parameterType="userVo">
+		UPDATE p_attend SET P_STATE = '06'
+        WHERE p_code = #{p_code}  AND user_id = #{user_id}
+	</update>
+	
+	<!--  탈락한 사용자 - 삭제 (상태 변경)   -->
+	<update id="updateUserDelete" parameterType="userVo">
+		UPDATE p_attend SET P_STATE = '07'
+        WHERE p_code = #{p_code}  AND user_id = #{user_id}
+	</update>
+	
+</mapper>

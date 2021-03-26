@@ -6,7 +6,14 @@
 <script>
 $(function(){
 	<c:if test="${msg != null }">
-		alert("${msg}");
+		swal({
+			title: "Success!!",
+			text: "${msg}",
+			type: "success",
+			showCancelButton: false,
+			confirmButtonClass: 'btn-success',
+			confirmButtonText: '확인'
+		})
 	</c:if>	
 })
 </script>

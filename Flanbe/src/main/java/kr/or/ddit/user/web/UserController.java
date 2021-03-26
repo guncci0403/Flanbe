@@ -51,6 +51,7 @@ public class UserController {
 
 	@Resource(name = "userService")
 	private UserService userService;
+	
 	@Resource(name = "messageService")
 	private MessageService messageService;
 	@Resource(name = "projectService")

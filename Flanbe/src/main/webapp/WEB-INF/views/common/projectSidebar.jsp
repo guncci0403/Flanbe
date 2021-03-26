@@ -15,13 +15,13 @@
 				<c:when test="${S_USER.purpose == 'C' }">
 					<li class="nav-link active"><a class="nav-link" href="${cp }/project/beforeProjectList"> 검수 중 </a></li>
 					<li class="nav-link active"><a class="nav-link" href="${cp }/project/selectUserProject?user_id=${S_USER.user_id}"> 지원자 모집 중 </a></li>
-					<li class="nav-link active"><a class="nav-link" href="#"> 계약 </a></li>
+					<li class="nav-link active"><a class="nav-link" href="${cp }/contract/contractList?p_state=04&user_id=${S_USER.user_id}"> 계약 </a></li>
 				</c:when>
 				<c:when test="${S_USER.purpose == 'P' }">
 					<li class="nav-link active"><a class="nav-link" href="${cp }/project/selectLikeList"> 관심 프로젝트 </a></li>
 					<li class="nav-link active"><a class="nav-link" href="${cp }/project/requestedapplylist"> 지원 요청 </a></li>
 					<li class="nav-link active"><a class="nav-link" href="${cp }/project/applyList"> 지원 내역 </a></li>
-					<li class="nav-link active"><a class="nav-link" href="#"> 계약 </a></li>
+					<li class="nav-link active"><a class="nav-link" href="${cp }/contract/contractList?p_state=04&user_id=${S_USER.user_id}"> 계약 </a></li>
 				</c:when>
 			</c:choose>
 			<li class="nav-link active"><a class="nav-link" href="${cp }/project/ingProjectList"> 진행중인 프로젝트 </a></li>

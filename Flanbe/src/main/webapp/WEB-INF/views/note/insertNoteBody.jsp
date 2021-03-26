@@ -44,7 +44,6 @@
 				
 				
 				
-				alert("user_id : " + user_id + " "  + "select : " + " " + select + "status : " + " " + status + "progress : " + " " + progress)				
 				$('#form').submit()
 				
 			})
@@ -93,7 +92,6 @@
 	
 	
 	function insertEtc(value){
-		alert('입력값 확인' + value.val());
 		var writeEtc = value.val();
 		$('#etcReal').val(writeEtc);
 		

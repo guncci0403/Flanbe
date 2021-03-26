@@ -15,11 +15,13 @@ public class ContractVo {
 	private int c_money;		// 계약금액
 	private Date c_dt;			// 계약날짜
 	
+	private String user_nm; 
+	
+	
 	public ContractVo() {}
 	
 	public ContractVo(int p_code, String puser_id, String user_id, String con_cont, String s_no, Date c_sdt, Date c_edt,
 			int c_money, Date c_dt) {
-		super();
 		this.p_code = p_code;
 		this.puser_id = puser_id;
 		this.user_id = user_id;
@@ -84,6 +86,15 @@ public class ContractVo {
 	public void setC_dt(Date c_dt) {
 		this.c_dt = c_dt;
 	}
+	
+	public String getUser_nm() {
+		return user_nm;
+	}
+
+	public void setUser_nm(String user_nm) {
+		this.user_nm = user_nm;
+	}
+
 	@Override
 	public String toString() {
 		return "ContractVo [p_code=" + p_code + ", puser_id=" + puser_id + ", user_id=" + user_id + ", con_cont="

@@ -22,7 +22,6 @@
 					$("#auser").html(html);
 				},
 				error : function(xhr) {
-					alert("상태 : " + xhr.status())
 				}
 				
 			})

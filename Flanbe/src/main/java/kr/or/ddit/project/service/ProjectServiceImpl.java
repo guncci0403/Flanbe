@@ -285,5 +285,18 @@ public class ProjectServiceImpl implements ProjectService {
 	public String sendTitle(int p_code) {
 		return projectDao.sendTitle(p_code);
 	}
+
+	// 계약 목록 조회
+	@Override
+	public Map<String, Object> contractProjectList(ProjectVo projectVo) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		List<ProjectVo> projectList = projectDao.contractProjectList(projectVo);  
+		System.out.println("결과 : " +projectList.size());
+		map.put("projectList", projectList);
+		map.put("pageVo", projectVo);
+		map.put("pagination", (int)Math.ceil( (double) projectDao.contractProjectCnt(projectVo) / projectVo.getPageSize()));
+		return map;
+	}
+
 	
 }

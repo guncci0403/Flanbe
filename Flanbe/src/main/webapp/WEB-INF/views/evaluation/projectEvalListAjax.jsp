@@ -11,7 +11,21 @@
                         
     		<input type="hidden" value="${user_id}" class="user_id">
     		<!-- 리스트이기 때문에 for 문으로 돌려야한다.  -->
-				<h2>${EvalNullcheck}</h2>	
+				<c:if test="${EvalNullcheck != null}">
+				
+					<br>
+						<div class="p5-assign-component start" style="display: table; width: 100%; height: 100%; text-align: center; margin: 0 auto;">
+							<div style="display: table-cell; vertical-align: middle;">
+								<div>
+									<img src="${cp }/images/profile_evaluation.png" style="vertical-align: middle;">
+									<p class="p5-no-partners-info-text" style="margin-top: 15px; margin-bottom: 0; color: #999 !important; line-height: 1;">
+										등록된 <span class="text-center p5-bold" style="font-weight: bold;">'평가'</span>가 없습니다.
+									</p>
+								</div>
+							</div>
+					
+				</div>
+    			</c:if>
     			 <c:forEach items="${projectEvalList}" var="projectEval"> 
 				 	<!-- check 값에 따라 색상이 달라진다.  -->
  					<c:choose> 				
@@ -68,7 +82,7 @@
             
             
             
-
+	<c:if test="${EvalNullcheck eq null}">
 			<!-- 페이징 처리 시작 -->					
 					<ul class="pagination justify-content-center m-0">
 						
@@ -147,5 +161,5 @@
 					</ul>
 									
 			<!-- 페이징 처리 끝 -->						
-	
+	</c:if>
 								

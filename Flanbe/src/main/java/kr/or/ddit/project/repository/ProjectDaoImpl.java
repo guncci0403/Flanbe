@@ -261,4 +261,15 @@ public class ProjectDaoImpl implements ProjectDao{
 	public String sendTitle(int p_code) {
 		return template.selectOne("project.sendTitle", p_code);
 	}
+	
+	@Override
+	public List<ProjectVo> contractProjectList(ProjectVo projectVo) {
+		return template.selectList("project.contractProjectList",projectVo);
+	}
+
+	@Override
+	public int contractProjectCnt(ProjectVo projectVo) {
+		return template.selectOne("project.contractProjectCnt",projectVo);
+	}
+
 }
