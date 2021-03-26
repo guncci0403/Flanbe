@@ -143,7 +143,7 @@ $(function(){
                                       <div class="card-body border brd-gray border-top-0 border-right-0 border-left-0 border-bottom-0">
                                           <div class="d-inline-block mr-12" style="float: right; margin-bottom: 15px;">
                                               <a id="goupdate" class="btn btn-primary py-2 px-2 rounded ml-auto text-white"><span> 수 정 </span></a>
-                                              <a id="godelete" class="btn btn-primary py-2 px-2 rounded ml-auto text-white"><span> 삭 제 </span></a>
+                                              <a id="godelete" class="btn btn-secondary py-2 px-2 rounded ml-auto text-white"><span> 삭 제 </span></a>
                                           </div>
                                       </div>
                                	 	</c:if>
@@ -151,7 +151,7 @@ $(function(){
                                        <div class="card-body border brd-gray border-top-0 border-right-0 border-left-0 border-bottom-0">
                                            <div class="d-inline-block mr-12" style="float: right; margin-bottom: 15px;">
                                                <a id="goupdate" class="btn btn-primary py-2 px-2 rounded ml-auto text-white"><span> 수 정 </span></a>
-                                               <a id="godelete" class="btn btn-primary py-2 px-2 rounded ml-auto text-white"><span> 삭 제 </span></a>
+                                               <a id="godelete" class="btn btn-secondary py-2 px-2 rounded ml-auto text-white"><span> 삭 제 </span></a>
                                            </div>
                                        </div>
                                     </c:if>
