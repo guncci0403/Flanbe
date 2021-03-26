@@ -54,6 +54,10 @@ public interface ProjectService {
 
 	
 	List<PSkillVo> listPskill(int p_code); //관련기술 리스트
+	
+	String sendPhone(String user_id); //문자전송
+	String sendTitle(int p_code); //문자전송 제목
+	
 	/**
 	 * 수진
 	 */

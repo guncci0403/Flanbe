@@ -8,10 +8,12 @@ $(function(){
 	$("#updateIntro").on("click", function(){
 		/* db안에 <br>태그를 줄바꿈기호로 변환해서 출력 */
 		var str = $('#introCont').val();
-		str = str.split('<br/>').join("\r\n");
-		$('#introCont').val(str);
+		if(str!=null){
+			str = str.split('<br/>').join("\r\n");
+			$('#introCont').val(str);
+			$("#intro").val($("#introCont").val());
+		}
 		
-		$("#intro").val($("#introCont").val());
 		$("#updateModal").modal();
 	});
 	
@@ -116,7 +118,7 @@ textarea {
 						<h3 class="p5-profile-head" style="margin-top: 25px; padding-bottom: 20px; height: 52px; font-size: 28px; line-height: 1.3;">
 							'${user.user_id }'의 자기소개
 							<c:if test="${user.user_id == S_USER.user_id }">
-								<a id="updateIntro" class="btn btn-primary pull-right py-2 px-2 rounded ml-auto text-white" style="font-size: 14px; line-height: 1.428;"> <span>업데이트 하기</span>
+								<a id="updateIntro" class="btn btn-success pull-right py-2 px-2 rounded ml-auto text-white" style="font-size: 14px; line-height: 1.428;"> <span>업데이트 하기</span>
 								</a>
 							</c:if>
 						</h3>
@@ -175,7 +177,7 @@ textarea {
 						</div>
 						<div class="modal-footer">
 							<button id="updateModalBtn" type="button" class="btn btn-primary">수정</button>
-							<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
 						</div>
 					</div>
 				</div>

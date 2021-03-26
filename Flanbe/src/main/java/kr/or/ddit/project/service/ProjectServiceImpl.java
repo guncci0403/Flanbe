@@ -275,5 +275,15 @@ public class ProjectServiceImpl implements ProjectService {
 	public List<ProjectVo> requestedApply(String user_id) {
 		return projectDao.requestedApply(user_id);
 	}
+
+	@Override
+	public String sendPhone(String user_id) {
+		return projectDao.sendPhone(user_id);
+	}
+
+	@Override
+	public String sendTitle(int p_code) {
+		return projectDao.sendTitle(p_code);
+	}
 	
 }

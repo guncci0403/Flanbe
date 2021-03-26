@@ -1,11 +1,14 @@
 package kr.or.ddit.project.web;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -26,6 +29,7 @@ import kr.or.ddit.user.model.MessageVo;
 import kr.or.ddit.user.model.UserVo;
 import kr.or.ddit.user.service.MessageService;
 import kr.or.ddit.user.service.UserService;
+import kr.or.ddit.view.Coolsms;
 
 @Controller
 @RequestMapping("project")
@@ -406,7 +410,24 @@ public class ProjectController {
 
 	// 지원자 수락
 	@RequestMapping(path = "projectOk", method = RequestMethod.POST)
-	public String projectOk(Model model, PAttendVo pattendVo, String user_nm, RedirectAttributes ra, HttpSession session, MeetingVo meeting) {
+	public String projectOk(HttpServletRequest request, Model model, PAttendVo pattendVo, String user_nm, RedirectAttributes ra, HttpSession session, MeetingVo meeting) {
+		
+		String api_key = "NCSV6CKUIUNPUQKX";
+	    String api_secret = "LWQOJ358XER2VBMAYJJRD3NJWBJJRUFU";
+//	    Coolsms coolsms = new Coolsms(api_key, api_secret);
+	    
+//		HashMap<String, String> set = new HashMap<String, String>();
+//		
+//		set.put("to", projectService.sendPhone(pattendVo.getUser_id())); // 수신번호
+//        set.put("from", ((UserVo)session.getAttribute("S_USER")).getPhone()); // 발신번호, jsp에서 전송한 발신번호를 받아 map에 저장한다.
+//        set.put("text", projectService.sendTitle(pattendVo.getP_code()) + " 승인되었습니다."); // 문자내용, jsp에서 전송한 문자내용을 받아 map에 저장한다.
+//        set.put("type", "sms"); // 문자 타입
+//        
+//	    System.out.println(set);
+
+//	    JSONObject result = coolsms.send(set); // 보내기&전송결과받기
+		
+		
 		String client = ((UserVo)session.getAttribute("S_USER")).getUser_id();
 		logger.debug(client);
 		int updateCnt = projectService.updateProjectOk(new PAttendVo(pattendVo.getP_code(), pattendVo.getUser_id()));
@@ -421,6 +442,22 @@ public class ProjectController {
 							+ "<a href='http://localhost:80/project/viewProject?p_code=" + pattendVo.getP_code()
 							+ "'>참가하는 프로젝트 보기</a></div>",
 					pattendVo.getUser_id(), client));
+			
+//			if ((boolean)result.get("status") == true) {
+//			      // 메시지 보내기 성공 및 전송결과 출력
+//			      System.out.println("성공");
+//			      System.out.println(result.get("group_id")); // 그룹아이디
+//			      
+//			      System.out.println(result.get("result_code")); // 결과코드
+//			      System.out.println(result.get("result_message")); // 결과 메시지
+//			      System.out.println(result.get("success_count")); // 메시지아이디
+//			      System.out.println(result.get("error_count")); // 여러개 보낼시 오류난 메시지 수
+//			}else {
+//			      // 메시지 보내기 실패
+//			      System.out.println("실패");
+//			      System.out.println(result.get("code")); // REST API 에러코드
+//			      System.out.println(result.get("message")); // 에러메시지
+//			}
 		}
 		return "redirect:/project/viewPattendUser?p_code=" + pattendVo.getP_code();
 	}

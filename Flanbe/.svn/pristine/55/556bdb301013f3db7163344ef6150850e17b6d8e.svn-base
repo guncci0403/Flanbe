@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	
+	<typeAliases>
+		<typeAlias type="kr.or.ddit.user.model.UserVo" alias = "userVo"/>
+		<typeAlias type="kr.or.ddit.board.model.BoardVo" alias = "boardVo"/>
+		<typeAlias type="kr.or.ddit.board.model.PostVo" alias = "postVo"/>
+		<typeAlias type="kr.or.ddit.common.model.PageVo" alias = "pageVo"/>
+		<typeAlias type="kr.or.ddit.common.model.AttachVo" alias = "attachVo"/>
+		<typeAlias type="kr.or.ddit.user.model.MessageVo" alias= "messageVo"/>
+		<typeAlias type="kr.or.ddit.project.model.ProjectVo" alias="projectVo"/>
+		<typeAlias type="kr.or.ddit.project.model.PAttendVo" alias = "pattendVo"/>
+		<typeAlias type="kr.or.ddit.user.model.PortfolioVo" alias= "portfolioVo"/>
+		<typeAlias type="kr.or.ddit.user.model.HistoryVo" alias = "historyVo"/>
+		<typeAlias type="kr.or.ddit.note.model.NoteVo" alias = "noteVo"/>
+		<typeAlias type="kr.or.ddit.note.model.ReplyVo" alias = "replyVo"/>
+		<typeAlias type="kr.or.ddit.common.model.SearchVo" alias = "searchVo"/>
+		<typeAlias type="kr.or.ddit.user.model.CareerVo" alias= "careerVo" />
+		<typeAlias type="kr.or.ddit.user.model.USkillVo" alias= "uskillVo" />
+		<typeAlias type="kr.or.ddit.evaluation.model.EvaluationVo" alias= "evaluationVo" />
+		<typeAlias type="kr.or.ddit.project.model.ProjectVo2" alias="projectVo2"/>
+		<typeAlias type="kr.or.ddit.project.model.PSkillVo" alias="pskillVo"/>
+		<typeAlias type="kr.or.ddit.contract.model.ContractVo" alias="contractVo"/>
+		<typeAlias type="kr.or.ddit.contract.model.MeetingVo" alias="meetingVo"/>
+	</typeAliases>
+  
+  	<mappers>
+  		<mapper resource="config/mybatis/mapper/kr/or/ddit/user/users.xml"/>
+  		<mapper resource="config/mybatis/mapper/kr/or/ddit/board/board.xml"/>
+  		<mapper resource="config/mybatis/mapper/kr/or/ddit/message/message.xml"/>
+  		<mapper resource="config/mybatis/mapper/kr/or/ddit/manage/manage.xml"/>
+  		<mapper resource="config/mybatis/mapper/kr/or/ddit/project/project.xml"/>
+  		<mapper resource="config/mybatis/mapper/kr/or/ddit/profile/profile.xml"/>
+  		<mapper resource="config/mybatis/mapper/kr/or/ddit/note/note.xml"/>
+		<mapper resource="config/mybatis/mapper/kr/or/ddit/project/pattend.xml"/>
+		<mapper resource="config/mybatis/mapper/kr/or/ddit/evaluation/evaluation.xml"/>
+		<mapper resource="config/mybatis/mapper/kr/or/ddit/contract/contract.xml"/>
+  	</mappers>
+</configuration>

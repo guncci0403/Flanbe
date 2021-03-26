@@ -25,7 +25,6 @@
 		<typeAlias type="kr.or.ddit.project.model.PSkillVo" alias="pskillVo"/>
 		<typeAlias type="kr.or.ddit.contract.model.ContractVo" alias="contractVo"/>
 		<typeAlias type="kr.or.ddit.contract.model.MeetingVo" alias="meetingVo"/>
-		
 	</typeAliases>
   
   	<mappers>

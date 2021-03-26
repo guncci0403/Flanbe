@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="eval">
+	
+	<!-- 프로젝트 참가 테이블 가지고 오기 -->
+	<select id="selectProjectAttend" parameterType="String" resultType="pattendVo">
+		select * 
+		from p_attend 
+		where user_id = #{user_id}
+	</select>
+	
+	
+	<!-- 평가 테이블 가지고 오기 -->
+
+	<select id="selectEvaluation" parameterType="String" resultType="evaluationVo">
+        select 
+        		nvl(round(avg(pro) , 1) , 0) pro 
+        		, nvl(round(avg(sat) , 1 ) , 0) sat 
+        		, nvl(round(avg(comm) , 1) , 0) comm 
+        		, nvl(round(avg(ontime) , 1) , 0 ) ontime 
+        		, nvl(round(avg(activity) , 1 ), 0) activity 
+        		, nvl(round(avg(average), 1) , 0 ) average
+        from evaluation 
+        where user_id = #{user_id}
+	</select>
+	
+	
+	<!-- 파트너스들의 참여한 (참여완료해서 프로젝트가 끝난) 프로젝트 갯수 -->
+	<select id="countFinishProject" parameterType="String" resultType="int">
+		select count(*) 
+		from p_attend 
+		where user_id = #{user_id} 
+			AND p_state = '05'
+	</select>
+	
+	<!-- 파트너스들이 참여한 전체 프로젝트에 대한 평가평균구하기 -->
+	<select id="averageEvaluation" parameterType="String" resultType="int">
+		select NVL(round(avg(average)) , 0 ) average
+		from evaluation
+		where user_id = #{user_id}
+	</select>
+	
+	<!--  진행한 프로젝트 분야(프로젝트 수행 이력 테이블 가지고 오기) --> 
+	<select id="selectProjectHistory" parameterType="String" resultType="historyVo">
+		select *
+		from history
+		where user_id = #{user_id}
+	</select>
+	
+	<!-- 기본 :  프로젝트정보와 클라이언트의 평가말 나오는 곳 리스트로 받는다. -->
+	
+	<select id="selectProjectEvaluation" parameterType="hashMap"  resultType="projectVo2">
+        SELECT * 
+        FROM
+        (SELECT ROWNUM rn , a.*
+        FROM
+        (SELECT p.p_code , p.p_title  , p.p_money , p.period , p.user_id , e.e_cont , e.pro , e.sat , e.comm , e.ontime, e.activity , e.average 
+		FROM project p , evaluation e
+		where e.user_id = #{user_id}
+		AND p.p_code = e.p_code
+        AND p.p_state = '09'
+        ORDER by p.p_code) a
+        WHERE ROWNUM &lt;= #{page} * 6 )
+        WHERE rn between (#{page} - 1) * 6 + 1 AND #{page} * 6 
+	</select>
+	
+	
+	<!-- 최신 프로젝트 순 :   -->
+	
+	<select id="selectLatestProjectEval" parameterType="hashMap"  resultType="projectVo2" >
+
+		SELECT * 
+        FROM
+        (SELECT ROWNUM rn , a.*
+        FROM
+        (SELECT p.p_code , p.p_title  , p.p_money , p.period , p.user_id , e.e_cont , e.pro , e.sat , e.comm , e.ontime, e.activity , e.average 
+		FROM project p , evaluation e
+		where e.user_id = #{user_id}
+		AND p.p_code = e.p_code
+        AND p.p_state = '09'
+        ORDER by p.p_edt desc ) a
+        WHERE ROWNUM &lt;= #{page} * 6 )
+        WHERE rn between (#{page} - 1) * 6 + 1 AND #{page} * 6 
+	
+	
+	</select>
+	
+	
+	<!-- 평점 높은순 :   -->
+	 <select id="selectLowScoreProjectEval" parameterType="hashMap"  resultType="projectVo2" >
+	 
+	 SELECT * 
+        FROM
+        (SELECT ROWNUM rn , a.*
+        FROM
+        (SELECT p.p_code , p.p_title  , p.p_money , p.period , p.user_id , e.e_cont , e.pro , e.sat , e.comm , e.ontime, e.activity , e.average 
+		FROM project p , evaluation e
+		where e.user_id = #{user_id}
+		AND p.p_code = e.p_code
+        AND p.p_state = '09'
+        ORDER by e.average desc ) a
+        WHERE ROWNUM &lt;= #{page} * 6 )
+        WHERE rn between (#{page} - 1) * 6 + 1 AND #{page} * 6 
+	 
+	 
+	 </select>
+	<!-- 평점 낮은 순 :   -->
+	 <select id="selectHighScoreProjectEval" parameterType="hashMap"  resultType="projectVo2" >
+	 	SELECT * 
+        FROM
+        (SELECT ROWNUM rn , a.*
+        FROM
+        (SELECT p.p_code , p.p_title  , p.p_money , p.period , p.user_id , e.e_cont , e.pro , e.sat , e.comm , e.ontime, e.activity , e.average 
+		FROM project p , evaluation e
+		where e.user_id = #{user_id}
+		AND p.p_code = e.p_code
+        AND p.p_state = '09'
+        ORDER by e.average ) a
+        WHERE ROWNUM  &lt;= #{page} * 6 )
+        WHERE rn between (#{page} - 1) * 6 + 1 AND #{page} * 6 
+	 
+	 
+	 
+	 </select>
+	<!-- 금액 높은순   :   -->
+	<select id="selectHighCostProjectEval" parameterType="hashMap"  resultType="projectVo2">
+		SELECT * 
+        FROM
+        (SELECT ROWNUM rn , a.*
+        FROM
+        (SELECT p.p_code , p.p_title  , p.p_money , p.period , p.user_id , e.e_cont , e.pro , e.sat , e.comm , e.ontime, e.activity , e.average 
+		FROM project p , evaluation e
+		where e.user_id = #{user_id}
+		AND p.p_code = e.p_code
+        AND p.p_state = '09'
+        ORDER by p.p_money desc ) a
+        WHERE ROWNUM &lt;= #{page} * 6 )
+        WHERE rn between (#{page} - 1) * 6 + 1 AND #{page} * 6 
+        
+	</select>
+	
+	
+	
+	
+	<!-- 등록된 참여 완료한 프로젝트의 숫자 -->
+	<select id="countProjectEvaluation" parameterType="String" resultType="int">
+		SELECT count(*)
+		FROM project p , evaluation e
+		where e.user_id = #{user_id}
+		AND p.p_code = e.p_code
+	
+	</select>
+	
+	<!-- 등록된 포트폴리오 수  -->
+	
+	<select id="selectCountPortfolio" parameterType="String" resultType="int">
+	    select count(*)
+        from portfolio
+        where user_id = #{user_id}
+	</select>
+	
+	
+	
+	<!-- 사람들 뽑기 -> 충분히 고치고 생각하기 ㅣ지금은 기본으로 뽑을것임 -->
+	
+	<select id="viewUserList" resultType="userVo">
+		select *
+		from users
+		where purpose = 'P'
+	</select>
+	
+	
+	
+	
+	<!-- 공통 HEADER 랑 FOOTER 를 빼놓기 -->
+	
+	
+	<!--  pageHeader -->
+	<sql id="pageHeader">
+	select  a.* 
+	from
+	(
+	</sql>
+	
+	
+	
+	<!-- pageFooter -->
+	
+	<sql id="pageFooter">
+	    ) a
+	where rn  BETWEEN #{start} AND #{end}
+	</sql>
+	
+	
+	<!-- 첫번째 그래프 최신 5개의 프로젝트의 평균 , 만족도 , 전문성을 가지고 오기 -->	
+	
+	<select id="selectEvalForPathGraph" parameterType="String" resultType="kr.or.ddit.evaluation.model.EvaluationVo">	
+		<![CDATA[
+		select rownum as rnum,   a.p_code , a.p_title , a.user_id , a.pro , a.sat , a.comm , a.ontime , a.activity , a.average , a.e_cont 
+        from
+				(
+					SELECT  e.p_code , p.p_title , e.user_id , e.pro , e.sat , e.comm , e.ontime , e.activity , e.average , e.e_cont 
+					FROM evaluation e , project p
+					WHERE 1 = 1
+                    AND e.p_code = p.p_code
+					AND e.USER_ID = #{user_id}
+					ORDER BY e.P_CODE
+				)  a
+        where rownum <= 5 
+		]]>				
+			
+	</select>
+	
+	<!-- 보유기술 의 등급 순의 리스트로 한 회원이 가지고 있는 skill  , 앱인지 웹인지 뭔지 ,  경력 년수 에 대한 정보 조회    -->
+	<select id="userInfoForLeftBarHover" parameterType="String" resultType="userVo">
+		
+ 			   select DECODE(a.u_skills , NULL , '입력전' , a.u_skills   ) u_skills
+					, DECODE ( b.careers , '년개월' , '입력전' ,b.careers ) careers  
+					, c.us_kind us_kind	
+                 
+               from 
+                    (SELECT LISTAGG(DECODE(us_kind , '01' ,'자바' , '02' , 'C언어' , '03' , '파이썬' , '04' , '자바스크립트' , us_kind   ) , ',    ')   
+                     WITHIN GROUP (ORDER BY us_prof DESC) as u_skills
+                     FROM u_skill
+                     where user_id = #{user_id}
+                    ) a 
+                   , 
+                   (SELECT  trim(
+                            DECODE( trunc(sum(months_between(c_edt ,c_sdt )) / 12) , 0 , ' ' , TO_CHAR(trunc(sum(months_between(c_edt ,c_sdt )) / 12)) || '년')
+                            ||
+                            DECODE(TRUNC(MOD( sum(months_between(c_edt ,c_sdt )) , 12)) , 0 , ' ' , TRUNC(MOD(sum(months_between(c_edt ,c_sdt )) , 12))  || '개월' )
+                            ) as careers
+                    from career
+                    where user_id = #{user_id} 
+                    ) b
+                   ,  
+                   (SELECT LISTAGG( subject || '개' , ' ,') 
+                   within group (order by subject ) as us_kind
+                    FROM
+                       ( select DECODE(subjects , 'H_WEB' , '웹' , 'H_APP' , '앱' , 'H_PUB' , '퍼블리싱' , 'H_GAME' , '게임' , 'H_ETC' , '기타') || ':' ||  score as subject, user_id
+                         from history 
+                         unpivot 
+                         ( 
+                         SCORE
+                         for 
+                         SUBJECTS IN(H_WEB , H_APP , H_PUB , H_GAME , H_ETC) 
+                         )
+                         where user_id = #{user_id}
+                         )  
+                  
+                   ) c 
+       
+       
+	</select>
+
+	
+	<!--  세번째 그래프를 위한 전체 평균 구하기  -->
+	<select id="allAverageEval" resultType="kr.or.ddit.evaluation.model.EvaluationVo">
+		select	ROUND(AVG(pro) , 1 ) pro 
+				, ROUND(AVG(sat) , 1 ) sat 
+				, ROUND(AVG(comm) , 1 ) comm   
+				, ROUND(AVG(ontime) , 1 ) ontime  
+				, ROUND(AVG(activity) , 1 ) activity 
+    	from evaluation
+	</select>
+	
+	<!-- 전체 기간의 평가 평균, 평가 내용을 구해온다.(mainInfo 페이지에 그래프랑 테이블에 들어갈 것이다. => 페이징 처리 할 예정이다) -->
+	
+	<select id="allTermEvaluation" parameterType="hashmap" resultType="kr.or.ddit.evaluation.model.EvaluationVo">
+		<include refid="pageHeader"></include>
+		
+		select Rownum as rn ,e.p_code ,  p.p_title, e.user_id , pro , sat , comm , ontime , activity , average , e.e_cont
+		from evaluation e, project p
+		where e.user_id = #{user_id}
+		AND p.p_code = e.p_code 
+		order by p_code
+		
+		<include refid="pageFooter"></include>
+	</select>
+	
+	<select id="allTermEvaluationCnt" parameterType="String" resultType="int">
+		select count(*)
+		from evaluation e, project p
+		where e.user_id = #{user_id}
+		AND p.p_code = e.p_code 
+	</select>
+
+
+	<!--  메인 페이지를 위한 모든 사람들의 평균을 구해서 순위를 구할 그래프 -->
+	<select id="allAverageForMainInfoGraph" parameterType="String" resultType="kr.or.ddit.evaluation.model.EvaluationVo">
+		select round( avg(average) , 1 ) average , user_id
+		from evaluation
+		where user_id != #{user_id}
+		group by user_id
+	</select>
+	
+	<!-- 건영 --><!-- 건영 --><!-- 건영 --><!-- 건영 --><!-- 건영 --><!-- 건영 --><!-- 건영 --><!-- 건영 -->
+	<!-- !!건영!! 최신 프로젝트 순 :   -->
+	<select id="selectLatestProjectEval2" parameterType="String" resultType="projectVo2">
+        SELECT p.p_code , p.p_title  , p.p_money , p.period , p.user_id , e.e_cont , e.pro , e.sat , e.comm , e.ontime, e.activity , e.average 
+		FROM project p , evaluation e
+		WHERE e.user_id = #{user_id}
+		AND p.p_code = e.p_code
+        AND p.p_state = '09'
+        ORDER by p.p_edt desc
+	</select>
+	<!-- 건영 --><!-- 건영 --><!-- 건영 --><!-- 건영 --><!-- 건영 --><!-- 건영 --><!-- 건영 --><!-- 건영 -->
+	
+</mapper>

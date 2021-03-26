@@ -244,7 +244,7 @@ $(function(){
 								경력
 							</c:if>
 							<c:if test="${user.user_id == S_USER.user_id }">
-								<a id="insertCareer" class="btn btn-primary pull-right py-2 px-2 rounded ml-auto text-white" style="font-size: 14px; line-height: 1.428;"> <i class="fa fa-plus"></i> <span>추가하기</span>
+								<a id="insertCareer" class="btn btn-success pull-right py-2 px-2 rounded ml-auto text-white" style="font-size: 14px; line-height: 1.428;"> <i class="fa fa-plus"></i> <span>추가하기</span>
 								</a>
 							</c:if>
 						</h3>
@@ -285,7 +285,7 @@ $(function(){
 															<span class="form-control col-2" style="border: none; text-align: center; padding-top: 8px; color: #999999; font-size: 16px;">근무기간</span> <input readonly="readonly" type="text" class="form-control col-8" style="margin-left: 10px; border: none; text-align: left; font-size: 16px;" value="${career.c_sdt } ~ ${career.c_edt }">
 														</div>
 														<div class="form-row col-12" style="border-bottom: 1px solid lightgray;">
-															<span class="form-control col-2" style="border: none; text-align: center; padding-top: 8px; color: #999999; font-size: 16px;">설명</span> <input readonly="readonly" type="text" class="form-control col-8" style="margin-left: 10px; border: none; text-align: left; font-size: 16px;" value="${career.c_cont }">
+															<span class="form-control col-2" style="border: none; text-align: center; padding-top: 8px; color: #999999; font-size: 16px;">설명</span> <input readonly="readonly" type="text" class="form-control col-9" style="margin-left: 10px; border: none; text-align: left; font-size: 16px;" value="${career.c_cont }">
 														</div>
 													</div>
 													<div>
@@ -293,7 +293,7 @@ $(function(){
 															<button data-c_no="${career.c_no }" data-c_nm="${career.c_nm }" data-c_dept="${career.c_dept }" data-c_position="${career.c_position }" data-c_sdt="${career.c_sdt }" data-c_edt="${career.c_edt }" data-c_cont="${career.c_cont }" class="btn btn-outline-primary cupdate">
 																<i class="fa fa-edit"></i>
 															</button>
-															<button data-c_no="${career.c_no }" class="btn btn-outline-primary cdelete" style="margin-left: 2px;">
+															<button data-c_no="${career.c_no }" class="btn btn-outline-secondary cdelete" style="margin-left: 2px;">
 																<i class="fa fa-trash"></i>
 															</button>
 														</c:if>
@@ -323,8 +323,8 @@ $(function(){
 								<input type="text" class="form-control" id="c_nm" name="c_nm" placeholder="회사명"> <input type="text" class="form-control" id="c_dept" name="c_dept" placeholder="근무부서"> <input type="text" class="form-control" id="c_position" name="c_position" placeholder="직위"> <input type="date" class="form-control" id="c_sdt" name="c_sdt" placeholder="근무시작일"> <input type="date" class="form-control" id="c_edt" name="c_edt" placeholder="근무종료일"> <input type="text" class="form-control" id="c_cont" name="c_cont" placeholder="설명"> <input type="hidden" class="form-control" id="user_id" name="user_id" value="${user.user_id }">
 							</div>
 							<div class="modal-footer">
-								<button id="insertModalBtn" type="button" class="btn btn-primary">추가</button>
-								<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+								<button id="insertModalBtn" type="button" class="btn btn-success">추가</button>
+								<button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
 							</div>
 						</div>
 					</div>
@@ -344,7 +344,7 @@ $(function(){
 							</div>
 							<div class="modal-footer">
 								<button id="updateModalBtn" type="button" class="btn btn-primary">수정</button>
-								<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+								<button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
 							</div>
 						</div>
 					</div>

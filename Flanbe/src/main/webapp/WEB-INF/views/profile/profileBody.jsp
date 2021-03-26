@@ -19,37 +19,36 @@
 	height: auto;
 }
 
-.type10 {
-	width: 100%;
-	border-collapse: collapse;
-	text-align: left;
-	line-height: 1.5;
-	border-top: 1px solid #ccc;
-	border-bottom: 1px solid #ccc;
-	margin: 20px 10px;
+.table {
+   width: 100%;
+   border-collapse: collapse;
+   text-align: left;
+   line-height: 1.5;
+   border: 1px solid #ccc;
+   margin: 20px 10px;
 }
 
-.type10 thead th {
-	width: 60%;
-	padding: 10px;
-	font-weight: bold;
-	vertical-align: top;
-	color: #fff;
-	background: #1e3d73;
-	margin: 20px 10px;
+.table thead th {
+   width: 60%;
+   padding: 10px;
+   font-weight: bold;
+   border-bottom: 2px solid #ccc;
+   vertical-align: top;
+   margin: 20px 10px;
 }
 
-.type10 tbody th {
-	padding: 10px;
-	border-bottom: 1px solid #ccc;
-	background: #D7DFED;
+.table tbody th {
+   padding: 10px;
+   line-height: 3;
+   border-bottom: 2px solid #ccc;
+   border-bottom: 1px solid #ccc;
 }
 
-.type10 td {
-	padding: 10px;
-	line-height: 3;
-	vertical-align: top;
-	border-bottom: 1px solid #ccc;
+.table td {
+   padding: 10px;
+   line-height: 3;
+   vertical-align: top;
+   border-bottom: 1px solid #ccc;
 }
 
 #borderdiv {
@@ -252,7 +251,7 @@
 													</div>
 												</c:when>
 												<c:otherwise>
-													<table class="type10">
+													<table class="table table-striped">
 														<thead>
 															<tr>
 																<th scope="cols">종류</th>
@@ -332,7 +331,7 @@
 																		<span class="form-control col-2" style="border: none; text-align: center; padding-top: 8px; color: #999999; font-size: 16px;">근무기간</span> <input readonly="readonly" type="text" class="form-control col-8" style="margin-left: 10px; border: none; text-align: left; font-size: 16px;" value="${career.c_sdt } ~ ${career.c_edt }">
 																	</div>
 																	<div class="form-row col-12" style="border-bottom: 1px solid lightgray;">
-																		<span class="form-control col-2" style="border: none; text-align: center; padding-top: 8px; color: #999999; font-size: 16px;">설명</span> <input readonly="readonly" type="text" class="form-control col-8" style="margin-left: 10px; border: none; text-align: left; font-size: 16px;" value="${career.c_cont }">
+																		<span class="form-control col-2" style="border: none; text-align: center; padding-top: 8px; color: #999999; font-size: 16px;">설명</span> <input readonly="readonly" type="text" class="form-control col-9" style="margin-left: 10px; border: none; text-align: left; font-size: 16px;" value="${career.c_cont }">
 																	</div>
 																</div>
 															</div>
@@ -650,7 +649,7 @@
 													</c:otherwise>
 											</c:choose>
 									<div class="form-control part col-11">
-										<a class="pull-right" href="" style="border: none; text-align: center; padding-top: 8px; color: #2099bb; font-size: 16px;">평가 더 보기 <i class="fas fa-chevron-right"></i></a>
+										<a class="pull-right" href="${cp }/evaluation/viewmain?user_id=${user.user_id}" style="border: none; text-align: center; padding-top: 8px; color: #2099bb; font-size: 16px;">평가 더 보기 <i class="fas fa-chevron-right"></i></a>
 									</div>
 								</div>
 								<br>

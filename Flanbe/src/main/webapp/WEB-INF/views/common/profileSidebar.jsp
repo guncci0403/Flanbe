@@ -120,13 +120,13 @@
 		<c:when test="${user.user_id == S_USER.user_id }">
 			<c:if test="${user.purpose == 'P' }">
 				<div class="site-width">
-					<ul class="list-unstyled inbox-nav  mb-0 mt-2 notes-menu" id="myTab1" role="tablist">
+					<ul class="list-unstyled inbox-nav  mb-0 mt-2 notes-menu" id="myTab1" role="tablist" style="display: block;">
 						<li class="nav-link active"><a class="nav-link" href="${cp }/user/profile"> 전체보기 </a></li>
 						<li class="nav-link active"><a class="nav-link" href="${cp }/user/intro"> 자기소개 </a></li>
 						<li class="nav-link active"><a class="nav-link" href="${cp }/user/mainpopol"> 포트폴리오 </a></li>
 						<li class="nav-link active"><a class="nav-link" href="${cp }/user/skill"> 보유 기술 </a></li>
 						<li class="nav-link active"><a class="nav-link" href="${cp }/user/career"> 경력 </a></li>
-						<li class="nav-link active"><a class="nav-link" href="#"> 클라이언트 평가 </a></li>
+						<li class="nav-link active"><a class="nav-link" href="${cp }/evaluation/viewmain"> 클라이언트 평가 </a></li>
 						<li class="nav-link active"><a class="nav-link" href="${cp }/user/joinProject"> 프랜비에서 진행한 프로젝트 </a></li>
 						<li class="nav-link active"><a class="nav-link" href="${cp }/user/updateInfo"> 개인정보 수정 </a></li>
 						<li class="nav-link active"><a class="nav-link" href="${cp }/user/pass"> 비밀번호 변경 </a></li>
@@ -154,7 +154,7 @@
 					<li class="nav-link active"><a class="nav-link" href="${cp }/user/mainpopol?user_id=${user.user_id}"> 포트폴리오 </a></li>
 					<li class="nav-link active"><a class="nav-link" href="${cp }/user/skill?user_id=${user.user_id}"> 보유 기술 </a></li>
 					<li class="nav-link active"><a class="nav-link" href="${cp }/user/career?user_id=${user.user_id}"> 경력 </a></li>
-					<li class="nav-link active"><a class="nav-link" href="#"> 클라이언트 평가 </a></li>
+					<li class="nav-link active"><a class="nav-link" href="${cp }/evaluation/viewmain?user_id=${user.user_id}"> 클라이언트 평가 </a></li>
 					<li class="nav-link active"><a class="nav-link" href="${cp }/user/joinProject?user_id=${user.user_id}"> 프랜비에서 진행한 프로젝트 </a></li>
 				</ul>
 			</div>

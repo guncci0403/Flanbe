@@ -59,6 +59,10 @@ public interface ProjectDao {
 	List<ProjectVo> beforeProject(String user_id); //검수중 프로젝트 리스트
 	
 	List<PSkillVo> listPskill(int p_code); //관련기술 리스트
+	
+	String sendPhone(String user_id); //문자전송
+	String sendTitle(int p_code); //문자전송 제목
+	
 	/**
 	 * 수진 
 	 */

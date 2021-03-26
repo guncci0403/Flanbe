@@ -362,6 +362,15 @@
 		INSERT (P_CODE,USER_ID,P_STATE) VALUES (#{p_code}, #{user_id}, '02')
 	</update>
 	
+	<select id="sendPhone" resultType="String" parameterType="String">
+		SELECT phone FROM users WHERE user_id = #{user_id}
+	</select>
+	
+	<!--(지원자 승인)문자 전송시 프로젝트 제목을 알려주기위해 -->
+	<select id="sendTitle" resultType="String" parameterType="int">
+		SELECT p_title FROM project WHERE p_code = #{p_code}
+	</select>
+	
 	<!-- 지원요청 받은 프로젝트 조회 -->
 	<select id="requestedApply" resultType="projectVo" parameterType="String">
 		SELECT a.p_code, p.*

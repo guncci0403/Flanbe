@@ -140,33 +140,31 @@ $(function(){
    float: right !important;
 }
 
-.type10 {
+.table {
    width: 100%;
    border-collapse: collapse;
    text-align: left;
    line-height: 1.5;
-   border-top: 1px solid #ccc;
-   border-bottom: 1px solid #ccc;
+   border: 1px solid #ccc;
    margin: 20px 10px;
 }
 
-.type10 thead th {
+.table thead th {
    width: 60%;
    padding: 10px;
    font-weight: bold;
-   vertical-align: top;
-   color: #fff;
-   background: #1e3d73;
+   border-bottom: 2px solid #ccc;
+   vertical-align: top;		
    margin: 20px 10px;
 }
 
-.type10 tbody th {
+.table tbody th {
    padding: 10px;
+   line-height: 3;
    border-bottom: 1px solid #ccc;
-   background: #D7DFED;
 }
 
-.type10 td {
+.table td {
    padding: 10px;
    line-height: 3;
    vertical-align: top;
@@ -198,6 +196,7 @@ $(function(){
                         <div class="form-row col-9" style="margin-left: 12%;">
                            <c:choose>
                               <c:when test="${skillList[0] == null}">
+                              	<c:if test="${user.user_id != S_USER.user_id }">
                                  <div class="p5-assign-component" style="display: table; width: 100%; height: 100%; text-align: center; margin: 0 auto;">
                                     <div style="display: table-cell; vertical-align: middle;">
                                        <div>
@@ -208,15 +207,16 @@ $(function(){
                                        </div>
                                     </div>
                                  </div>
+                                </c:if> 
                                  <c:if test="${user.user_id == S_USER.user_id }">
                                     <div class="col-12">
 										<span style="border: none; text-align: right; color: #999999; font-size: 12px; float: right; padding-right: 5px;">(3년 미만 : 초급,  3년 이상 : 중급,  5년 이상: 고급,  10년 이상: 특급)</span>
 									</div>
-                                 	<table class="type10" style="margin-top: 5px;">
+                                 	<table class="table table-striped" style="margin-top: 5px;">
                                        <thead>
                                           <tr>
-                                             <th scope="cols">종류</th>
-                                             <th scope="cols">숙련도</th>
+                                             <th>종류</th>
+                                             <th>숙련도</th>
                                           </tr>
                                        </thead>
                                        <tbody>
@@ -234,7 +234,7 @@ $(function(){
                                                    <option value="03">고급</option>
                                                    <option value="04">특급</option>
                                              </select>
-                                                <button class="btn btn-outline-primary pull-right sinsert" style="margin-left: 2px;">
+                                                <button class="btn btn-outline-success pull-right sinsert" style="margin-left: 2px;">
                                                    <i class="fas fa-plus"></i>
                                                 </button></td>
                                           </tr>
@@ -246,7 +246,7 @@ $(function(){
 								<div class="col-12">
 									<span style="border: none; text-align: right; color: #999999; font-size: 12px; float: right; padding-right: 5px;">(3년 미만 : 초급,  3년 이상 : 중급,  5년 이상: 고급,  10년 이상: 특급)</span>
 								</div>
-                                 <table class="type10" style="margin-top: 5px;">
+                                 <table class="table table-striped" style="margin-top: 5px;">
                                     <thead>
                                        <tr>
                                           <th scope="cols">종류</th>
@@ -271,7 +271,7 @@ $(function(){
                                                       <c:when test="${skill.us_prof == '04' }">특급</c:when>
                                                    </c:choose>
                                              </span> <c:if test="${user.user_id == S_USER.user_id }">
-                                                   <button data-us_no="${skill.us_no }" class="btn btn-outline-primary pull-right sdelete" style="margin-left: 2px;">
+                                                   <button data-us_no="${skill.us_no }" class="btn btn-outline-secondary pull-right sdelete" style="margin-left: 2px;">
                                                       <i class="fa fa-trash"></i>
                                                    </button>
                                                 </c:if></td>
@@ -298,7 +298,7 @@ $(function(){
                                                    <option value="03">고급</option>
                                                    <option value="04">특급</option>
                                              </select>
-                                                <button class="btn btn-outline-primary pull-right sinsert" style="margin-left: 2px;">
+                                                <button class="btn btn-outline-success pull-right sinsert" style="margin-left: 2px;">
                                                    <i class="fas fa-plus"></i>
                                                 </button></td>
                                           </tr>

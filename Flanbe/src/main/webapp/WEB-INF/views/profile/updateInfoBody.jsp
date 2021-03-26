@@ -174,7 +174,7 @@ function phonecheck() {
 
 .input-file-button {
 	padding: 6px 25px;
-	background-color: #1e3d73;
+	background-color: #17a2b8;
 	border-radius: 4px;
 	color: white;
 	cursor: pointer;
@@ -211,7 +211,7 @@ function phonecheck() {
 								<div class="form-group">
 									<label>프로필 사진</label> <br>
 									<div class="form-row">
-										&nbsp;<input type="text" class="form-control col-5" name="photoroute" id="fileName" readonly="readonly" value="${user.photoroute }"> <input type="button" id="imgDelete" class="btn btn-primary" value="X" style="margin-left: 7px;"><br>
+										&nbsp;<input type="text" class="form-control col-5" name="photoroute" id="fileName" readonly="readonly" value="${user.photoroute }"> <input type="button" id="imgDelete" class="btn btn-secondary" value="X" style="margin-left: 7px;"><br>
 									</div>
 									<%-- <input type="file" class="btn btn-outline-secondary" id="photoroute" name="p_route" value="${user.photoroute }" accept="image/*"> --%>
 									<label class="input-file-button" for="photoroute" style="margin-top: 10px;"><i class="fa fa-plus"></i>&nbsp;이미지 등록</label> <input type="file" id="photoroute" name="p_route" accept="image/*" style="display: none" onchange="javascript: document.getElementById('fileName').value = this.value.replace(/c:\\fakepath\\/i,'')" /> <span>이미지 파일(.jpg, .jpeg, .png, .gif등)만 업로드 할 수 있습니다.</span>
@@ -245,7 +245,7 @@ function phonecheck() {
 										<label for="inputCity"><span style="color: red; font-weight: bold;">*</span> 기본주소</label> <input type="text" class="form-control" id="base_addr" name="base_addr" value="${user.base_addr }">
 									</div>
 									<div class="form-group col-md-6">
-										<button type="button" id="addrBtn" class="btn btn-primary" style="margin-top: 25px;">주소검색</button>
+										<button type="button" id="addrBtn" class="btn btn-info" style="margin-top: 25px;">주소검색</button>
 									</div>
 								</div>
 								<div class="form-row">
@@ -260,7 +260,7 @@ function phonecheck() {
 						</section>
 						<div class="form-group">
 							<a id="updateinfo" class="btn btn-primary pull-right py-2 px-2 rounded ml-auto text-white" style="font-size: 14px; line-height: 1.428; margin-right: 30px;"> <span>수정 완료</span>
-							</a> <a href="${cp }/user/profile" class="btn btn-primary pull-right py-2 px-2 rounded ml-auto text-white" style="font-size: 14px; line-height: 1.428; margin-right: 10px;"> <span>취소</span>
+							</a> <a href="${cp }/user/profile" class="btn btn-secondary pull-right py-2 px-2 rounded ml-auto text-white" style="font-size: 14px; line-height: 1.428; margin-right: 10px;"> <span>취소</span>
 							</a> <br>
 							<br>
 						</div>

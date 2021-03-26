@@ -19,7 +19,7 @@
 	<div class="col-12">
 		<span style="border: none; text-align: right; color: #999999; font-size: 12px; float: right; padding-right: 5px;">(3년 미만 : 초급,  3년 이상 : 중급,  5년 이상: 고급,  10년 이상: 특급)</span>
 	</div>
-    <table class="type10" style="margin-top: 5px;">
+    <table class="table table-striped" style="margin-top: 5px;">
 		<thead>
 			<tr>
 				<th scope="cols">종류</th>
@@ -44,7 +44,7 @@
 								<c:when test="${skill.us_prof == '04' }">특급</c:when>
 							</c:choose>
 					</span>
-						<button data-us_no="${skill.us_no }" class="btn btn-outline-primary pull-right sdelete" style="margin-left: 2px;">
+						<button data-us_no="${skill.us_no }" class="btn btn-outline-secondary pull-right sdelete" style="margin-left: 2px;">
 							<i class="fa fa-trash"></i>
 						</button></td>
 				</tr>
@@ -70,7 +70,7 @@
 							<option value="03">고급</option>
 							<option value="04">특급</option>
 					</select>
-						<button class="btn btn-outline-primary pull-right sinsert" style="margin-left: 2px;">
+						<button class="btn btn-outline-success pull-right sinsert" style="margin-left: 2px;">
 							<i class="fas fa-plus"></i>
 						</button></td>
 				</tr>

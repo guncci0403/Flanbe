@@ -6,6 +6,8 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import org.mybatis.spring.SqlSessionTemplate;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import kr.or.ddit.evaluation.model.EvaluationVo;
@@ -16,6 +18,8 @@ import kr.or.ddit.user.model.UserVo;
 
 @Repository("evaluationdaoimpl")
 public class EvaluationDaoImpl implements EvaluationDao {
+	
+	private static final Logger logger = LoggerFactory.getLogger(EvaluationDaoImpl.class);
 	
 	@Resource(name = "sqlSessionTemplate")
 	SqlSessionTemplate sqlSessionTemplate;
@@ -108,11 +112,54 @@ public class EvaluationDaoImpl implements EvaluationDao {
 		return sqlSessionTemplate.selectList("eval.viewUserList");
 	}
 
+	/*
+	 * @Override public Map<String, List<EvaluationVo>>
+	 * selectEvalForPathGraph(String User_id) { // TODO Auto-generated method stub
+	 * 
+	 * return sqlSessionTemplate.selectList("eval.viewUserList"); }
+	 */
+
+	@Override
+	public List<EvaluationVo> selectEvalForPathGraph(String User_id) {
+		// TODO Auto-generated method stub
+		
+		return sqlSessionTemplate.selectList("eval.selectEvalForPathGraph", User_id);
+	}
+
+	@Override
+	public UserVo userInfoForLeftBarHover(String user_id) {
+		// TODO Auto-generated method stub
+		return sqlSessionTemplate.selectOne("eval.userInfoForLeftBarHover", user_id);
+	}
+
+	@Override
+	public EvaluationVo allAverageEval() {
+		// TODO Auto-generated method stub
+		return sqlSessionTemplate.selectOne("eval.allAverageEval");
+	}
+
+	@Override
+	public List<EvaluationVo> allTermEvaluation(Map map) {
+		// TODO Auto-generated method stub
+		return sqlSessionTemplate.selectList("eval.allTermEvaluation", map);
+	}
+
+	@Override
+	public int allTermEvaluationCnt(String user_id) {
+		// TODO Auto-generated method stub
+		return sqlSessionTemplate.selectOne("eval.allTermEvaluationCnt" , user_id);
+	}
+	
+	
+	@Override
+	public List<EvaluationVo> allAverageForMainInfoGraph(String user_id) {
+		// TODO Auto-generated method stub
+		return sqlSessionTemplate.selectList("eval.allAverageForMainInfoGraph" , user_id);
+	}
 	@Override
 	public List<ProjectVo2> selectLatestProjectEval2(String user_id) {
 		return sqlSessionTemplate.selectList("eval.selectLatestProjectEval2", user_id);
 	}
-
 
 	
 	
