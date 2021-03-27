@@ -123,7 +123,12 @@ $(function(){
                                     <div class="card-body border brd-gray border-top-0 border-right-0 border-left-0">
                                         <h3 class="mb-0"><a class="f-weight-500 text-primary">${selectPost.p_title }</a></h3>
                                         <div class="clearfix" style="margin-top: 4px;">
-                                           	<span>작성자 : ${selectPost.user_id }</span>
+                                           	<c:if test="${selectPost.user_id == '1'}">
+	                                           	<span>작성자 : 관리자</span>
+                                           	</c:if>
+                                           	<c:if test="${selectPost.user_id != '1'}">
+	                                           	<span>작성자 : ${selectPost.user_id }</span>
+                                           	</c:if>
                                            	<span>&nbsp;&nbsp;&nbsp;&nbsp;작성 일자 : <fmt:formatDate value="${selectPost.p_regdt }" pattern="yyyy.MM.dd"/></span>
                                             <span>&nbsp;&nbsp;&nbsp;&nbsp;조회수 : ${selectPost.p_view }</span>
                                         </div>

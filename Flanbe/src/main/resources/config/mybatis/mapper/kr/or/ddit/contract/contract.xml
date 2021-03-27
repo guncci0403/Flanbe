@@ -43,4 +43,31 @@
         WHERE p_code = #{p_code}  AND user_id = #{user_id}
 	</update>
 	
+	<!-- 캘린더 파트너스 리스트 -->
+	<select id="calendarListP" resultType="meetingVo" parameterType="String">
+		SELECT m.m_no, m.p_code, m.PTN_ID, p.user_id, m.mtdt, m.mtway, p.p_title
+		FROM project p, meeting m
+        WHERE p.p_code = m.p_code AND ptn_id = #{ptn_id}
+	</select>
+	
+	<!-- 캘린더 클라이언트 리스트 -->	
+	<select id="calendarListC" resultType="meetingVo" parameterType="String">
+		SELECT m.m_no, m.p_code, m.PTN_ID, p.user_id, m.mtdt, m.mtway, p.p_title
+		FROM project p, meeting m
+        WHERE p.p_code = m.p_code AND user_id = #{user_id}
+	</select>
+	
+	<select id="meetingview" resultType="meetingVo" parameterType="int">
+		SELECT p.p_title, p.user_id ctn_id, m.m_no, m.mtdt, m.mtway
+		FROM meeting m, project p
+		WHERE p.p_code = m.p_code AND m_no = #{m_no}
+	</select>
+	
+	<update id="calendarupdate" parameterType="meetingVo">
+		UPDATE meeting 
+		SET mtdt = #{mtdt},
+	    	mtway = #{mtway}
+       	WHERE m_no = #{m_no}
+	</update>
+	
 </mapper>

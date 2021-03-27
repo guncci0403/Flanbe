@@ -69,4 +69,24 @@ public class ContractServiceImpl implements ContractService {
 	public int updateUserDelete(UserVo userVo) {
 		return contractDao.updateUserDelete(userVo);
 	}
+	// 달력리스트 클라이언트
+	@Override
+	public List<MeetingVo> calendarListC(String user_id) {
+		return contractDao.calendarListC(user_id);
+	}
+	// 달력 리스트 파트너스
+	@Override
+	public List<MeetingVo> calendarListP(String ptn_id) {
+		return contractDao.calendarListP(ptn_id);
+	}
+	
+	@Override
+	public int calendarupdate(MeetingVo calendar) {
+		return contractDao.calendarupdate(calendar);
+	}
+
+	@Override
+	public MeetingVo meetingview(int m_no) {
+		return contractDao.meetingview(m_no);
+	}
 }

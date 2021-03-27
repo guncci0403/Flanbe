@@ -99,7 +99,7 @@
 				<div class="navbar-right ml-auto h-100">
 					<ul class="ml-auto p-0 m-0 list-unstyled d-flex top-icon h-100">
 						<li class="dropdown align-self-center">
-							<a href="#" class="nav-link" data-toggle="dropdown" aria-expanded="false"><i class="far  h5 mr-2 fa-handshake"></i>
+							<a href="#" class="nav-link" data-toggle="dropdown" aria-expanded="false" style="padding-top: 24%;"><i class="far  h5 mr-2 fa-handshake"></i>
 							</a>
 							<ul class="dropdown-menu dropdown-menu-right border  py-0">
 								<c:forEach items="${pList }" var="p">
@@ -146,7 +146,7 @@
 						<li class="dropdown user-profile align-self-center d-inline-block">
 							<a href="#" class="nav-link py-0" data-toggle="dropdown" aria-expanded="false">
 								<div class="media">
-									<img src="${cp }/dist/images/author.jpg" alt="" class="d-flex img-fluid rounded-circle" width="29">
+									<img src="${cp }/user/profileImg?user_id=${S_USER.user_id}" alt="" class="d-flex img-fluid rounded-circle" width="37">
 								</div>
                             </a>
 

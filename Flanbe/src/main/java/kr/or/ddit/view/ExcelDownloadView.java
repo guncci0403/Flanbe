@@ -1,5 +1,6 @@
 package kr.or.ddit.view;
 
+import java.net.URLEncoder;
 import java.util.List;
 import java.util.Map;
 
@@ -22,13 +23,14 @@ public class ExcelDownloadView extends AbstractView{
 			HttpServletResponse response) throws Exception {
 		
 		response.setContentType("application/vnd.ms-excel; charset=utf-8");
-		response.setHeader("Content-Disposition", "attachement; filename=users.xlsx");
+		String fileName = URLEncoder.encode("참여자.xlsx", "UTF-8");
+		response.setHeader("Content-Disposition", "attachement; filename="+fileName);
 		
 		List<String> header = (List<String>) model.get("header");
 		List<UserVo> data = (List<UserVo>)model.get("data");
 		
 		XSSFWorkbook book = new XSSFWorkbook();
-		Sheet sheet = book.createSheet("users");
+		Sheet sheet = book.createSheet("사용자들");
 		
 		int rownum = 0;
 		int colnum = 0;

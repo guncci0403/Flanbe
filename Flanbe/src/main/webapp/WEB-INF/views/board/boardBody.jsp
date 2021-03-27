@@ -154,7 +154,14 @@ $(function(){
                                               <p class="text-muted mb-0 font-weight-bold todo-date">
                                                  <fmt:formatDate value="${post.p_regdt }" pattern="yyyy-MM-dd"/>
                                               </p>
-                                              <p class="small-content text-muted mb-0">작성자 : ${post.user_id }&nbsp;&nbsp;&nbsp;&nbsp; 조회 수 : ${post.p_view }</p>
+                                              <p class="small-content text-muted mb-0">
+                                              	<c:if test="${post.user_id == '1'}">
+	                                           		작성자 : 관리자
+	                                           	</c:if>
+	                                           	<c:if test="${post.user_id != '1'}">
+		                                           	작성자 : ${post.user_id }
+	                                           	</c:if>
+                                             &nbsp;&nbsp;&nbsp;&nbsp; 조회 수 : ${post.p_view }</p>
                                           </div>
                                       </li>
                                    </c:forEach>

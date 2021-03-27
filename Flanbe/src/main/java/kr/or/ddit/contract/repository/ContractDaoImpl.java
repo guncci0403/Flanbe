@@ -46,6 +46,24 @@ public class ContractDaoImpl implements ContractDao {
 	public int updateUserDelete(UserVo userVo) {
 		return template.update("contract.updateUserDelete",userVo);
 	}
+	// 달력리스트 클라이언트
+	@Override
+	public List<MeetingVo> calendarListC(String user_id) {
+		return template.selectList("contract.calendarListC", user_id);
+	}
+	// 달력리스트 파트너스
+	@Override
+	public List<MeetingVo> calendarListP(String ptn_id) {
+		return template.selectList("contract.calendarListP", ptn_id);
+	}
 	
-	
+	@Override
+	public int calendarupdate(MeetingVo calendar) {
+		return template.update("contract.calendarupdate", calendar);
+	}
+
+	@Override
+	public MeetingVo meetingview(int m_no) {
+		return template.selectOne("contract.meetingview", m_no);
+	}
 }
