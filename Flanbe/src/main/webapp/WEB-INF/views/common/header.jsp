@@ -93,7 +93,24 @@
 						<a class="nav-link p-3" href="${cp }/user/partnerList"> <i class="icon-people"></i> 파트너스 찾기 </a>
 					</li>
 					<li class="nav-item dropdown">
-						<a class="nav-link p-3" href="${cp }/board/view"> <i class="icon-book-open"></i> 프랜비 소식 </a>
+						<a class="nav-link p-3" href="#" data-toggle="dropdown"> <i class="icon-book-open"></i> 프랜비 소식 </a>
+						<ul class="dropdown-menu">
+							<li>
+								<a class="dropdown-item" href="${cp }/board/view?b_no=1">
+									<span class="font-weight-bold"> 공지사항 </span>
+								</a>
+							</li>
+							<li>
+								<a class="dropdown-item" href="${cp }/board/view?b_no=2">
+									<span class="font-weight-bold"> 자주묻는질문 </span>
+								</a>
+							</li>
+							<li>
+								<a class="dropdown-item" href="${cp }/board/view?b_no=3">
+									<span class="font-weight-bold"> 건의사항 </span>
+								</a>
+							</li>
+						</ul>
 					</li>
 				</ul>
 				<div class="navbar-right ml-auto h-100">
