@@ -11,12 +11,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import kr.or.ddit.note.model.NoteVo;
 import kr.or.ddit.note.model.ReplyVo;
 import kr.or.ddit.project.model.PAttendVo;
 import kr.or.ddit.user.model.UserVo;
 
+
+@Transactional
 @Repository("NoteDaoImpl")
 public class NoteDaoImpl implements NoteDao {
 	
@@ -126,6 +129,12 @@ public class NoteDaoImpl implements NoteDao {
 	@Override
 	public int inviteUser(PAttendVo pattend) {
 		return sqlSessionTemplate.update("note.inviteUser", pattend);
+	}
+
+	@Override
+	public String checkFinishProjectBtnAble(int p_code) {
+		// TODO Auto-generated method stub
+		return sqlSessionTemplate.selectOne("note.checkFinishProjectBtnAble", p_code);
 	}
 	
 }

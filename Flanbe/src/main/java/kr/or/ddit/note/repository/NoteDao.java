@@ -65,4 +65,7 @@ public interface NoteDao {
 	// 사용자 초대
 	int inviteUser(PAttendVo pattend);
 	
+	//프로젝트 종료 버튼이 보이는지 권한 체크위해 검사 
+	String checkFinishProjectBtnAble(int p_code);
+	
 }

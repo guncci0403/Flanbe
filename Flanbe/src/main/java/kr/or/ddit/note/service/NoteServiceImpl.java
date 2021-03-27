@@ -110,4 +110,10 @@ public class NoteServiceImpl implements NoteService {
 		return noteDao.inviteUser(pattend);
 	}
 
+	@Override
+	public String checkFinishProjectBtnAble(int p_code) {
+		// TODO Auto-generated method stub
+		return noteDao.checkFinishProjectBtnAble(p_code);
+	}
+
 }

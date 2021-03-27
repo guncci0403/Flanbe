@@ -109,9 +109,8 @@
 				</div>
 			</div>
 		</div>
-		<br>
 
-		<div class="col-12">
+		<div class="col-12 mt-4">
 			<div class="card">
 				<div class="card-header d-flex justify-content-between align-items-center">
 					<button type="button" id="inviteUserBtn" class="btn float-right btn-primary" data-toggle="modal">사용자 초대</button>

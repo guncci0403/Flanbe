@@ -180,16 +180,21 @@
     </delete>
     
     <select id="userList" parameterType="int" resultType="userVo">
-    	SELECT * 
-		FROM users
-		WHERE user_id in 
-		(SELECT user_id 
-		FROM p_attend 
-		WHERE p_code = #{value} AND p_state = '04'
-		union 
-		SELECT user_id
-		FROM project
-		WHERE p_code = #{value})
+        select a.user_id , a.user_nm , a.email , a.phone , a.purpose , a.p_state 
+        from
+        (SELECT u.user_id  , u.user_nm , u.email, u.phone , u.purpose purpose, p.p_state , p.p_code p_code 
+		FROM users u left outer join p_attend p
+        on (u.user_id = p.user_id)
+        WHERE u.user_id in 
+						(SELECT user_id 
+						FROM p_attend 
+						WHERE p_code = #{value} AND p_state IN ('04' , '05' , '10')
+						union 
+						SELECT user_id
+						FROM project
+						WHERE p_code = #{value}) 
+        ) a           
+        WHERE a.p_code = #{value} OR a.purpose = 'C'     
     </select>
     
     <select id="notattenduserList" parameterType="int" resultType="String">
@@ -212,4 +217,11 @@
 		INSERT (P_CODE,USER_ID,P_STATE) VALUES (#{p_code}, #{user_id}, '04')
     </update>
     
+    <!-- 프로젝트 종료 버튼이 보이는지 권한 체크위해 검사 -->
+    
+    <select id="checkFinishProjectBtnAble" parameterType="int" resultType="String">
+        select user_id
+        from project 
+        where p_code = #{p_code}
+    </select>
 </mapper>

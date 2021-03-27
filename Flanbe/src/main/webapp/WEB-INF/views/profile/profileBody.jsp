@@ -20,12 +20,12 @@
 }
 
 .table {
-   width: 100%;
+   width: 90%;
    border-collapse: collapse;
    text-align: left;
    line-height: 1.5;
    border: 1px solid #ccc;
-   margin: 20px 10px;
+   margin: 10px 10px 10px 30px;
 }
 
 .table thead th {
@@ -299,7 +299,7 @@
 											<span style="border: none; text-align: center; padding-top: 8px; color: #999999; font-size: 16px;">경력</span>
 										</c:if>
 									</div>
-									<div class="form-control part col-8" style="margin-left: 12%">
+									<div class="form-control part col-8" style="margin-left: 11%">
 										<br> <span style="border: none; font-size: 14px;"> <c:choose>
 												<c:when test="${careerList[0] == null}">
 													<div class="p5-assign-component" style="display: table; width: 100%; height: 100%; text-align: center; margin: 0 auto;">
@@ -331,11 +331,12 @@
 																		<span class="form-control col-2" style="border: none; text-align: center; padding-top: 8px; color: #999999; font-size: 16px;">근무기간</span> <input readonly="readonly" type="text" class="form-control col-8" style="margin-left: 10px; border: none; text-align: left; font-size: 16px;" value="${career.c_sdt } ~ ${career.c_edt }">
 																	</div>
 																	<div class="form-row col-12" style="border-bottom: 1px solid lightgray;">
-																		<span class="form-control col-2" style="border: none; text-align: center; padding-top: 8px; color: #999999; font-size: 16px;">설명</span> <input readonly="readonly" type="text" class="form-control col-9" style="margin-left: 10px; border: none; text-align: left; font-size: 16px;" value="${career.c_cont }">
+																		<span class="form-control col-2" style="border: none; text-align: center; padding-top: 8px; color: #999999; font-size: 16px;">설명</span>
+																		<span class="form-control col-9" style="margin-left: 10px; border: none; text-align: left; font-size: 16px; display: table;">${career.c_cont }</span>
 																	</div>
 																</div>
 															</div>
-															<br> <br>
+															<br>
 														</div>
 													</c:forEach>
 												</c:otherwise>

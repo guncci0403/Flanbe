@@ -63,12 +63,19 @@ public class NoteController {
 	    }
 		String starCheck = "f";
 
+		String checkPartOrClient = ((UserVo) session.getAttribute("S_USER")).getUser_id();
+		String clientId = noteService.checkFinishProjectBtnAble(p_code);
+		if(clientId.equals(checkPartOrClient)) {
+			model.addAttribute("ableFinishProjectBtn", "true");
+		}
+		
 		// beforeList의페이지가 몇번인지..
 		model.addAttribute("p_code", p_code);
 
 		// 중요한애를 조회하는지 아닌지
 		model.addAttribute("key", key);
 		model.addAttribute("starCheck", starCheck);
+		
 		
 		return "t/note/workNote";
 
@@ -442,9 +449,19 @@ public class NoteController {
 	    	model.addAttribute("pList", projectService.ingProjectListP(((UserVo) session.getAttribute("S_USER")).getUser_id()));
 	    }
 		
+		List<UserVo> userList = noteService.userList(p_code);
+		//진행하는 클라이언트 아이디
+		String client_id = null; 
+		for(UserVo userVo : userList) {
+			if(userVo.getPurpose().contains("C")) {
+				client_id = userVo.getUser_id(); 	
+			}
+		}
+		
 		logger.debug("여기 왔지");
 		model.addAttribute("p_code", p_code);
-		model.addAttribute("userList", noteService.userList(p_code));
+		model.addAttribute("userList", userList);
+		model.addAttribute("client_id", client_id);
 		
 		return "t/note/userList";
 	}
