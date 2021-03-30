@@ -9,6 +9,19 @@
 /*     	width : 300px; */
 /*     	height : 300px; */
 /*     } */
+.form-row{
+	margin-left: %;
+}
+.lab{
+	line-height: 2.3;
+}
+small{
+	line-height: 2.8;
+	color: grey;
+}
+select {
+	width: 130px;
+}
 </style>
 
 <script type="text/javascript">
@@ -145,23 +158,27 @@
 
 
 					</ul>
-
-					<input type="button" disabled onclick="yellostar()" id="yelloStar" value="⭐"> <input type="button" onclick="blackStar()" id="blackStar" value="★">
+					<div class="form-row">
+						<label class="form-control col-1 lab" style="border: none"><i class="icon-star icons"></i>중요</label>
+						<button disabled onclick="yellostar()" id="yelloStar" style="margin: 5px 1px 10px 0px; border: none;"><i class='fas fa-star' style="color: gold;"></i></button>
+						<button onclick="blackStar()" id="blackStar" style="margin: 5px 0px 10px 1px; border: none;"><i class='far fa-star'></i></button>
+					</div>
 					<form id="form" action="${cp}/note/insertNote" method="POST">
-						<input type="text" disabled="disabled" value="${p_code}">
 
-						<h2>코드들확인</h2>
+						<input type="hidden" disabled="disabled" value="${p_code}">
+
+						<!-- <h2>코드들확인</h2> -->
 						<!-- 프로젝트 코드 -->
-						<input type="text" name="p_code" id="p_code" value="${p_code}">
+						<input type="hidden" name="p_code" id="p_code" value="${p_code}">
 						<!-- 중요표시 -->
-						<input type="text" name="starCheck" id="starCheck" value="black">
+						<input type="hidden" name="starCheck" id="starCheck" value="black">
 						<!-- 그룹번호(최상위코드) 자식글 작성 일때만 나옴 -->
 						<c:if test="${n_gno != null }">
-							<input type="text" name="n_gno" value="${n_gno}">
+							<input type="hidden" name="n_gno" value="${n_gno}">
 						</c:if>
 						<!-- 상위번호 자식글 작성일때만 나옴  -->
 						<c:if test="${n_parent != null}">
-							<input type="text" name="n_parent" value="${n_parent}">
+							<input type="hidden" name="n_parent" value="${n_parent}">
 						</c:if>
 
 
@@ -169,32 +186,33 @@
 							<div class="tab-pane fade active show" id="id1">
 								<div class="form">
 									<div></div>
-									<span id="starText"></span> <small class="form-text"> : 중요도를 체크해주세요</small> <br>
-
-									<div class="form-group">
-										<label class=""><i class="icon-people icons"></i>담당자</label> <input disabled type="text" value="${user_id}"> <input type="hidden" value="${user_id}" id="user_id" name="user_id"> <small class="form-text"></small>
+									<!-- <span id="starText"></span> <small class="form-text"> : 중요도를 체크해주세요</small> <br> -->
+									<div class="form-row">
+										<label class="form-control col-1 lab" style="border: none"><i class="icon-people icons"></i>담당자</label> <input class="form-control col-3" style="border: none" disabled type="text" value="${user_id}"> <input type="hidden" value="${user_id}" id="user_id" name="user_id"> <small class="form-text"></small>
 									</div>
 
-									<div class="form-group">
-										<label class=""><i class="icon-tag icons"></i>업무분류</label> <select id="select" name="category" onchange="selectDivisionEtc(this.value)">
-											<option selected="selected" value="structure">structure</option>
-											<option value="interface">interface</option>
-											<option value="safety">safety</option>
-											<option value="test">test</option>
-											<!-- etc 를 누르면 밑에 있는 name="etc" 인 input 태그가 나옴  등록이 여기서됨 -->
-											<option value="etc">etc</option>
-										</select> <br> <input type="text" style="display: none" value="" name="etc" id="etcSelect" placeholder="업무분류를 입력해 주세요"> <input type="hidden" value="" name="etc2"> <small class="form-text"> &nbsp;&nbsp;&nbsp; : 원하는 업무를 선택하세요 직접 입력도 가능합니다.</small>
+									<div class="form-row">
+										<label class="form-control col-1 lab" style="border: none"><i class="icon-tag icons"></i>업무분류</label>
+											<select id="select" name="category" onchange="selectDivisionEtc(this.value)" style="margin-bottom: 10px;">
+												<option selected="selected" value="structure">structure</option>
+												<option value="interface">interface</option>
+												<option value="safety">safety</option>
+												<option value="test">test</option>
+												<!-- etc 를 누르면 밑에 있는 name="etc" 인 input 태그가 나옴  등록이 여기서됨 -->
+												<option value="etc">etc</option>
+											</select> 
+										<br> <input type="text" style="display: none; margin-left: 1%; margin-bottom: 10px;" value="" name="etc" id="etcSelect" placeholder="업무분류를 입력해 주세요"> <input type="hidden" value="" name="etc2"> <small class="form-text"> &nbsp;&nbsp;&nbsp; : 원하는 업무를 선택하세요 직접 입력도 가능합니다.</small>
 									</div>
-									<div class="form-group">
-										<label class=" "><i class="icon-chart icons"></i>상태</label> <select id="status" name="n_state">
+									<div class="form-row">
+										<label class="form-control col-1 lab" style="border: none"><i class="icon-chart icons"></i>상태</label> <select id="status" name="n_state"  style="margin-bottom: 10px;">
 											<option value="01">진행전</option>
 											<option value="02">진행중</option>
 											<option value="03">진행완료</option>
 										</select> <small class="form-text"> &nbsp;&nbsp;&nbsp; : 업무를 진행전/진행중/진행완료로 구분해 주세요</small>
 									</div>
 
-									<div class="form-group">
-										<label class=""><i class="icon-chart icons"></i>진행률</label> <select id="progress" name="progress">
+									<div class="form-row">
+										<label class="form-control col-1 lab" style="border: none"><i class="icon-chart icons"></i>진행률</label> <select id="progress" name="progress" style="margin-bottom: 10px;">
 											<option value="10">10%</option>
 											<option value="20">20%</option>
 											<option value="30">30%</option>
@@ -209,17 +227,17 @@
 									</div>
 
 									<c:if test="${ parentTitle != null }">
-										<div class="form-group">
-											<label class=""><i class="icon-people icons"></i>상위업무</label> <label>${parentTitle}</label> <small class="form-text"></small>
+										<div class="form-row">
+											<label class="form-control col-1 lab" style="border: none"><i class="icon-people icons"></i>상위업무</label> <label>${parentTitle}</label> <small class="form-text"></small>
 										</div>
 									</c:if>
 
 
-									<div class="form-group">
-										<label class=" "><i class="icon-calendar icons"></i>시작일자</label> <input type="Date" name="n_sdt"> <small class="form-text"></small>
+									<div class="form-row">
+										<label class="form-control col-1 lab" style="border: none"><i class="icon-calendar icons"></i>시작일자</label> <input type="Date" name="n_sdt"  style="margin-bottom: 10px;"> <small class="form-text"> &nbsp;&nbsp;&nbsp; : 시작일자와 입력해 주세요</small>
 									</div>
-									<div class="form-group">
-										<label class=" "><i class="icon-calendar icons"></i>마감일자</label> <input type="Date" name="n_edt"> <small class="form-text"> &nbsp;&nbsp;&nbsp; : 시작일자와 마감일자를 입력해 주세요</small>
+									<div class="form-row">
+										<label class="form-control col-1 lab" style="border: none"><i class="icon-calendar icons"></i>마감일자</label> <input type="Date" name="n_edt"  style="margin-bottom: 10px;"> <small class="form-text"> &nbsp;&nbsp;&nbsp; : 마감일자를 입력해 주세요</small>
 									</div>
 									<br>
 									<div class="form-group">

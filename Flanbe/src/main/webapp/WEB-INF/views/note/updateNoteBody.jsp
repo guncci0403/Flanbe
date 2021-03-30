@@ -160,19 +160,19 @@
 
 					<input type="button" disabled onclick="yellostar()" id="yelloStar" value="⭐"> <input type="button" onclick="blackStar()" id="blackStar" value="★">
 					<form id="form" action="${cp}/note/updateNote" method="POST">
-						<input type="text" disabled="disabled" value="${noteVo.p_code}">
+						<input type="hidden" disabled="disabled" value="${noteVo.p_code}">
 
-						<h2>코드들확인</h2>
+						<!-- <h2>코드들확인</h2> -->
 						<!-- 프로젝트 코드 -->
-						<input type="text" name="p_code" id="p_code" value="${noteVo.p_code}">
+						<input type="hidden" name="p_code" id="p_code" value="${noteVo.p_code}">
 						<!-- 프로젝트 코드 -->
-						<input type="text" name="n_no" id="n_no" value="${noteVo.n_no}">
+						<input type="hidden" name="n_no" id="n_no" value="${noteVo.n_no}">
 						<!-- 중요표시 -->
-						<input type="text" name="n_import" id="starCheck" value="${noteVo.n_import}">
+						<input type="hidden" name="n_import" id="starCheck" value="${noteVo.n_import}">
 						<!-- 그룹번호(최상위코드) 자식글 작성 일때만 나옴 -->
-						<input type="text" name="n_gno" value="${noteVo.n_gno}">
+						<input type="hidden" name="n_gno" value="${noteVo.n_gno}">
 						<!-- 상위번호 자식글 작성일때만 나옴  -->
-						<input type="text" name="n_parent" value="${noteVo.n_parent}">
+						<input type="hidden" name="n_parent" value="${noteVo.n_parent}">
 
 
 
@@ -180,8 +180,8 @@
 							<div class="tab-pane fade active show" id="id1">
 								<div class="form">
 									<div></div>
-									<span id="starText"></span> <small class="form-text"> : 중요도를 체크해주세요</small> <br>
-
+									<!-- <span id="starText"></span> <small class="form-text"> : 중요도를 체크해주세요</small> <br> -->
+									<br>
 									<div class="form-group">
 										<label class=""><i class="icon-people icons"></i>담당자 : </label> <label>${noteVo.user_id}</label> <small class="form-text"></small>
 									</div>
