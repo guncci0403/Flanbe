@@ -31,7 +31,7 @@
 .table thead th {
    width: 60%;
    padding: 10px;
-   font-weight: bold;
+   font-weight: 500;
    border-bottom: 2px solid #ccc;
    vertical-align: top;
    margin: 20px 10px;
@@ -65,6 +65,9 @@
 	white-space: normal; line-height: 1.2;  text-align: left; word-wrap: break-word;
 	display: -webkit-box; -webkit-line-clamp: 5; -webkit-box-orient: vertical;
 }
+.etitle:hover{
+	text-decoration: underline;
+}
 </style>
 <main>
 	<div class="content">
@@ -73,16 +76,16 @@
 			<div class="col-11 mt-4">
 				<div class="card border  h-mail-list-section">
 					<form>
-						<section>
-							<h3 class="p5-profile-head" style="margin-top: 25px; padding-bottom: 20px; height: 52px; font-size: 28px; line-height: 1.3;">${user.user_id }</h3>
+						<section class="p5-profile-head">
+							<h3 style="margin-top:25px; height:40px; font-size:28px; line-height:1.3;">${user.user_id }</h3>
+							<i class="far fa-keyboard"></i> <span>개발자</span> | <span>파트너스</span> | <i class="fa fa-user"></i> <span>${user.group_nm }</span>
 						</section>
 						<section class="p5-partition">
 							<div class="p5-2spanInfo" style="height: auto; margin-bottom: 10px !important;">
-								<span>파트너스</span> | <span>${user.group_nm }</span> <br> <br>
 								<c:if test="${averageEvaluation != 0}">
-									<div class="form-row col-12" style="border-bottom: 2px dashed lightgray; min-height: 265px;">
+									<div class="form-row col-12" style="border-bottom: 2px dashed lightgray; text-align: center;">
 										<div class="form-control part col-3" style="border-right: 2px dashed lightgray;">
-											<span style="border: none; text-align: center; padding-top: 8px; color: #999999; font-size: 16px;">평균 평점</span> <br>
+											<span style="font-size:16px; font-weight:400;">평균 평점</span> <br>
 											<br><br><br><br><br>
                                             <div style="text-align: center; width: 90%">
                                                 <h2>
@@ -93,19 +96,19 @@
 				                                    <c:forEach begin="0" end="${emptyStar - 1}"><i class="far fa-star" style="color: #ffc107;"></i></c:forEach>
 				          					 	  </c:if>
                                                 </h2>
-                                                <h4 style="border: none; text-align: center; padding-top: 8px; color: #999999; font-size: 13px;">
-	                                                평균 평점 : <span style="font-size: 15px; font-weight: bold;">${evalVo.average}</span>
-	                                                <br>진행한 프로젝트 : <span style="font-size: 15px; font-weight: bold;">${cntJoinProj }</span> 개
+                                                <h4 style="border: none; text-align: center; padding-top: 8px; color: #333; font-size: 13px;">
+	                                                평균 평점 : <span style="font-size: 15px; font-weight: 500;">${evalVo.average}</span>
+	                                                <br>진행한 프로젝트 : <span style="font-size: 15px; font-weight: 500;">${cntJoinProj }</span> 개
 	                                            </h4>
                                             </div>
 										</div>
 										<div class="form-control part col-5" style="border-right: 2px dashed lightgray;">
-											<span style="border: none; text-align: center; padding-top: 8px; color: #999999; font-size: 16px;">세부 항목 평가</span> <br>
+											<span style="font-size:16px; font-weight:400;">세부 항목 평가</span> <br>
 											<br>
 											<canvas id="myChart" height="240" style="width: 92%; margin-left:4%;"></canvas>
 										</div>
 										<div class="form-control part col-4">
-											<span style="border: none; text-align: center; padding-top: 8px; color: #999999; font-size: 16px;">진행한 프로젝트 분야</span> <br>
+											<span style="font-size:16px; font-weight:400;">진행한 프로젝트 분야</span> <br>
 											<canvas id="chartjs-other-doughnut"></canvas>
 										</div>
 									</div>
@@ -113,7 +116,7 @@
 								<br>
 								<div class="form-group col-12" style="border-bottom: 2px dashed lightgray;">
 									<div class="form-control part col-4" style="margin-left: 2%">
-										<span style="border: none; text-align: center; padding-top: 8px; color: #999999; font-size: 16px;">자기 소개</span>
+										<span style="font-size:16px; font-weight:400;">자기 소개</span>
 									</div>
 									<div class="form-control part col-8" style="margin-left: 12%">
 										<br> <span style="border: none; font-size: 14px;"> <c:choose>
@@ -123,7 +126,7 @@
 															<div>
 																&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="${cp }/images/profile_introduction.png" style="vertical-align: middle;">
 																<p class="p5-no-partners-info-text" style="margin-top: 15px; margin-bottom: 0; color: #999 !important; line-height: 1;">
-																	등록된 <span class="text-center p5-bold" style="font-weight: bold;">'자기 소개'</span>가 없습니다.
+																	등록된 <span class="text-center p5-bold" style="font-weight: 500;">'자기 소개'</span>가 없습니다.
 																</p>
 															</div>
 														</div>
@@ -138,7 +141,7 @@
 										</span>
 									</div>
 									<div class="form-control part col-11">
-										<a class="pull-right" href="${cp }/user/intro?user_id=${user.user_id}" style="border: none; text-align: center; padding-top: 8px; color: #2099bb; font-size: 16px;">자기소개 더 보기 <i class="fas fa-chevron-right"></i></a>
+										<a class="pull-right" href="${cp }/user/intro?user_id=${user.user_id}" style="color:#2099bb; font-size:14px; margin-right:-100px;">자기소개 더 보기 <i class="fas fa-chevron-right"></i></a>
 									</div>
 									<br> <br>
 								</div>
@@ -146,7 +149,7 @@
 									<c:when test="${popolVo[0] == null}">
 										<div class="form-group col-12" style="border-bottom: 2px dashed lightgray;">
 											<div class="form-control part col-4" style="margin-left: 2%">
-												<span style="border: none; text-align: center; padding-top: 8px; color: #999999; font-size: 16px;">포트폴리오</span>
+												<span style="font-size:16px; font-weight:400;">포트폴리오</span>
 											</div>
 											<div class="form-control part col-8" style="margin-left: 12%">
 												<br>
@@ -155,14 +158,14 @@
 														<div style="font-size: 14px;">
 															<img src="${cp }/images/project_history_no.png" style="vertical-align: middle;">
 															<p class="p5-no-partners-info-text" style="margin-top: 15px; margin-bottom: 0; color: #999 !important; line-height: 1;">
-																등록된 <span class="text-center p5-bold" style="font-weight: bold;">'포트폴리오'</span>가 없습니다.
+																등록된 <span class="text-center p5-bold" style="font-weight: 500;">'포트폴리오'</span>가 없습니다.
 															</p>
 														</div>
 													</div>
 												</div>
 											</div>
 											<div class="form-control part col-11">
-												<a class="pull-right" href="${cp }/user/mainpopol?user_id=${user.user_id}" style="border: none; text-align: center; padding-top: 8px; color: #2099bb; font-size: 16px;">포트폴리오 더 보기 <i class="fas fa-chevron-right"></i></a>
+												<a class="pull-right" href="${cp }/user/mainpopol?user_id=${user.user_id}" style="color:#2099bb; font-size:14px; margin-right:-100px;">포트폴리오 더 보기 <i class="fas fa-chevron-right"></i></a>
 											</div>
 											<br> <br>
 										</div>
@@ -170,7 +173,7 @@
 									<c:when test="${reprePopolVo[0] == null}">
 										<div class="form-group col-12" style="border-bottom: 2px dashed lightgray;">
 											<div class="form-control part col-4" style="margin-left: 2%">
-												<span style="border: none; text-align: center; padding-top: 8px; color: #999999; font-size: 16px;">포트폴리오</span>
+												<span style="font-size:16px; font-weight:400;">포트폴리오</span>
 											</div>
 											<div class="form-control part col-8" style="margin-left: 12%">
 												<br>
@@ -179,14 +182,14 @@
 														<div style="font-size: 14px;">
 															<img src="${cp }/images/project_history_no.png" style="vertical-align: middle;">
 															<p class="p5-no-partners-info-text" style="margin-top: 15px; margin-bottom: 0; color: #999 !important; line-height: 1;">
-																<span class="text-center p5-bold" style="font-weight: bold;">'대표 포트폴리오'</span>를 등록해 주세요.
+																<span class="text-center p5-bold" style="font-weight: 500;">'대표 포트폴리오'</span>를 등록해 주세요.
 															</p>
 														</div>
 													</div>
 												</div>
 											</div>
 											<div class="form-control part col-11">
-												<a class="pull-right" href="${cp }/user/mainpopol?user_id=${user.user_id}" style="border: none; text-align: center; padding-top: 8px; color: #2099bb; font-size: 16px;">포트폴리오 더 보기 <i class="fas fa-chevron-right"></i></a>
+												<a class="pull-right" href="${cp }/user/mainpopol?user_id=${user.user_id}" style="color:#2099bb; font-size:14px; margin-right:-100px;">포트폴리오 더 보기 <i class="fas fa-chevron-right"></i></a>
 											</div>
 											<br> <br>
 										</div>
@@ -194,7 +197,7 @@
 									<c:otherwise>
 										<div class="form-group col-12" style="border-bottom: 2px dashed lightgray;">
 											<div class="form-control part col-4" style="margin-left: 2%">
-												<span style="border: none; text-align: center; padding-top: 8px; color: #999999; font-size: 16px;">포트폴리오</span>
+												<span style="font-size:16px; font-weight:400;">포트폴리오</span>
 											</div>
 											<div class="form-control part col-8" style="margin-left: 12%; height: 350px;">
 												<br>
@@ -226,7 +229,7 @@
 												</div>
 											</div>
 											<div class="form-control part col-11">
-												<a class="pull-right" href="${cp }/user/mainpopol?user_id=${user.user_id}" style="border: none; text-align: center; padding-top: 8px; color: #2099bb; font-size: 16px;">포트폴리오 더 보기 <i class="fas fa-chevron-right"></i></a>
+												<a class="pull-right" href="${cp }/user/mainpopol?user_id=${user.user_id}" style="color:#2099bb; font-size:14px; margin-right:-100px;">포트폴리오 더 보기 <i class="fas fa-chevron-right"></i></a>
 											</div>
 											<br> <br>
 										</div>
@@ -234,7 +237,7 @@
 								</c:choose>
 								<div class="form-group col-12" style="border-bottom: 2px dashed lightgray;">
 									<div class="form-control part col-4" style="margin-left: 2%">
-										<span style="border: none; text-align: center; padding-top: 8px; color: #999999; font-size: 16px;">보유 기술</span>
+										<span style="font-size:16px; font-weight:400;">보유 기술</span>
 									</div>
 									<div class="form-control part col-8" style="margin-left: 12%">
 										<br> <span style="border: none; font-size: 14px;"> <c:choose>
@@ -244,7 +247,7 @@
 															<div>
 																<img src="${cp }/images/profile_certify.png" style="vertical-align: middle;">
 																<p class="p5-no-partners-info-text" style="margin-top: 15px; margin-bottom: 0; color: #999 !important; line-height: 1;">
-																	등록된 <span class="text-center p5-bold" style="font-weight: bold;">'보유 기술'</span>이 없습니다.
+																	등록된 <span class="text-center p5-bold" style="font-weight: 500;">'보유 기술'</span>이 없습니다.
 																</p>
 															</div>
 														</div>
@@ -286,17 +289,17 @@
 										</span>
 									</div>
 									<div class="form-control part col-11">
-										<a class="pull-right" href="${cp }/user/skill?user_id=${user.user_id}" style="border: none; text-align: center; padding-top: 8px; color: #2099bb; font-size: 16px;">보유기술 더 보기 <i class="fas fa-chevron-right"></i></a>
+										<a class="pull-right" href="${cp }/user/skill?user_id=${user.user_id}" style="color:#2099bb; font-size:14px; margin-right:-100px;">보유기술 더 보기 <i class="fas fa-chevron-right"></i></a>
 									</div>
 									<br> <br>
 								</div>
 								<div class="form-group col-12" style="border-bottom: 2px dashed lightgray;">
 									<div class="form-control part col-4" style="margin-left: 2%">
 										<c:if test="${careerDate != null}">
-											<span style="border: none; text-align: center; padding-top: 8px; color: #999999; font-size: 16px;">경력(${careerDate })</span>
+											<span style="font-size:16px; font-weight:400;">경력(${careerDate })</span>
 										</c:if>
 										<c:if test="${careerDate == null}">
-											<span style="border: none; text-align: center; padding-top: 8px; color: #999999; font-size: 16px;">경력</span>
+											<span style="font-size:16px; font-weight:400;">경력</span>
 										</c:if>
 									</div>
 									<div class="form-control part col-8" style="margin-left: 11%">
@@ -307,7 +310,7 @@
 															<div>
 																<img src="${cp }/images/profile_employ.png" style="vertical-align: middle;">
 																<p class="p5-no-partners-info-text" style="margin-top: 15px; margin-bottom: 0; color: #999 !important; line-height: 1;">
-																	등록된 <span class="text-center p5-bold" style="font-weight: bold;">'경력'</span>이 없습니다.
+																	등록된 <span class="text-center p5-bold" style="font-weight: 500;">'경력'</span>이 없습니다.
 																</p>
 															</div>
 														</div>
@@ -319,19 +322,19 @@
 															<div class="form-row col-10" id="borderdiv">
 																<div class="form-group col-11">
 																	<div class="form-row col-12" style="border-bottom: 1px solid lightgray;">
-																		<span class="form-control col-2" style="border: none; text-align: center; padding-top: 8px; color: #999999; font-size: 16px;">회사명</span> <input readonly="readonly" type="text" class="form-control col-8" style="margin-left: 10px; border: none; text-align: left; font-size: 16px;" value="${career.c_nm }">
+																		<span class="form-control col-2" style="border: none; text-align: center; padding-top: 8px; color: #333; font-size: 16px;">회사명</span> <input readonly="readonly" type="text" class="form-control col-8" style="margin-left: 10px; border: none; text-align: left; font-size: 16px;" value="${career.c_nm }">
 																	</div>
 																	<div class="form-row col-12" style="border-bottom: 1px solid lightgray;">
-																		<span class="form-control col-2" style="border: none; text-align: center; padding-top: 8px; color: #999999; font-size: 16px;">근무부서</span> <input readonly="readonly" type="text" class="form-control col-8" style="margin-left: 10px; border: none; text-align: left; font-size: 16px;" value="${career.c_dept }">
+																		<span class="form-control col-2" style="border: none; text-align: center; padding-top: 8px; color: #333; font-size: 16px;">근무부서</span> <input readonly="readonly" type="text" class="form-control col-8" style="margin-left: 10px; border: none; text-align: left; font-size: 16px;" value="${career.c_dept }">
 																	</div>
 																	<div class="form-row col-12" style="border-bottom: 1px solid lightgray;">
-																		<span class="form-control col-2" style="border: none; text-align: center; padding-top: 8px; color: #999999; font-size: 16px;">직위</span> <input readonly="readonly" type="text" class="form-control col-8" style="margin-left: 10px; border: none; text-align: left; font-size: 16px;" value="${career.c_position }">
+																		<span class="form-control col-2" style="border: none; text-align: center; padding-top: 8px; color: #333; font-size: 16px;">직위</span> <input readonly="readonly" type="text" class="form-control col-8" style="margin-left: 10px; border: none; text-align: left; font-size: 16px;" value="${career.c_position }">
 																	</div>
 																	<div class="form-row col-12" style="border-bottom: 1px solid lightgray;">
-																		<span class="form-control col-2" style="border: none; text-align: center; padding-top: 8px; color: #999999; font-size: 16px;">근무기간</span> <input readonly="readonly" type="text" class="form-control col-8" style="margin-left: 10px; border: none; text-align: left; font-size: 16px;" value="${career.c_sdt } ~ ${career.c_edt }">
+																		<span class="form-control col-2" style="border: none; text-align: center; padding-top: 8px; color: #333; font-size: 16px;">근무기간</span> <input readonly="readonly" type="text" class="form-control col-8" style="margin-left: 10px; border: none; text-align: left; font-size: 16px;" value="${career.c_sdt } ~ ${career.c_edt }">
 																	</div>
 																	<div class="form-row col-12" style="border-bottom: 1px solid lightgray;">
-																		<span class="form-control col-2" style="border: none; text-align: center; padding-top: 8px; color: #999999; font-size: 16px;">설명</span>
+																		<span class="form-control col-2" style="border: none; text-align: center; padding-top: 8px; color: #333; font-size: 16px;">설명</span>
 																		<span class="form-control col-9" style="margin-left: 10px; border: none; text-align: left; font-size: 16px; display: table;">${career.c_cont }</span>
 																	</div>
 																</div>
@@ -344,13 +347,13 @@
 										</span>
 									</div>
 									<div class="form-control part col-11">
-										<a class="pull-right" href="${cp }/user/career?user_id=${user.user_id}" style="border: none; text-align: center; padding-top: 8px; color: #2099bb; font-size: 16px;">경력 더 보기 <i class="fas fa-chevron-right"></i></a>
+										<a class="pull-right" href="${cp }/user/career?user_id=${user.user_id}" style="color:#2099bb; font-size:14px; margin-right:-100px;">경력 더 보기 <i class="fas fa-chevron-right"></i></a>
 									</div>
 									<br> <br>
 								</div>
 								<div class="form-group col-12">
 									<div class="form-control part col-4" style="margin-left: 2%">
-										<span style="border: none; text-align: center; padding-top: 8px; color: #999999; font-size: 16px;">평가</span>
+										<span style="font-size:16px; font-weight:400;">평가</span>
 									</div>
 										<c:choose>
 												<c:when test="${projectEvalList[0] == null}">
@@ -361,7 +364,7 @@
 																	<div>
 																		<img src="${cp }/images/profile_evaluation.png" style="vertical-align: middle;">
 																		<p class="p5-no-partners-info-text" style="margin-top: 15px; margin-bottom: 0; color: #999 !important; line-height: 1;">
-																			등록된 <span class="text-center p5-bold" style="font-weight: bold;">'평가'</span>가 없습니다.
+																			등록된 <span class="text-center p5-bold" style="font-weight: 500;">'평가'</span>가 없습니다.
 																		</p>
 																	</div>
 																</div>
@@ -376,16 +379,16 @@
 				                                    		<div class="form-row col-5" style="border: 1px solid darkgray; padding: 10px 5px 10px 5px; margin-left: 3%">
 																<div class="form-group col-12">
 																	<div class="form-row col-12">
-																		<a class="col-12" href="${cp }/project/viewProject?p_code=${projectEval.p_code}" ><span class="form-control col-10" style="border: none; text-align: left; padding-top: 4px; color: #2099bb; font-size: 18px; font-weight: bold;">${projectEval.p_title }</span></a>
+																		<a class="col-12" href="${cp }/project/viewProject?p_code=${projectEval.p_code}" ><span class="form-control col-10 etitle" style="border: none; text-align: left; padding-top: 4px; color: #2099bb; font-size: 18px; font-weight: 500;">${projectEval.p_title }</span></a>
 																	</div>
 																	<div class="form-row" style="border-bottom: 1px solid lightgray; border-top: 1px solid lightgray;">
-																		<span class="form-control col-3" style="border: none; text-align: center; padding-top: 8px; color: #999999; background-color: #f7f7f7; font-size: 12px;">계약금액</span> 
+																		<span class="form-control col-3" style="border: none; text-align: center; padding-top: 8px; color: #333; background-color: #f7f7f7; font-size: 12px;">계약금액</span> 
 																		<input readonly="readonly" type="text" class="form-control col-3" style="border: none; text-align: left; font-size: 16px;" value="<fmt:formatNumber value="${projectEval.p_money}" /> 원"> 
-																		<span class="form-control col-3" style="border: none; text-align: center; padding-top: 8px; color: #999999; background-color: #f7f7f7; font-size: 12px;">프로젝트기간</span> 
+																		<span class="form-control col-3" style="border: none; text-align: center; padding-top: 8px; color: #333; background-color: #f7f7f7; font-size: 12px;">프로젝트기간</span> 
 																		<input readonly="readonly" type="text" class="form-control col-3" id="sumMoney" style="border: none; text-align: left; font-size: 16px;" value="${projectEval.period } 일">
 																	</div>
 																	<div class="form-row col-13">
-																		<span class="form-control col-5" style="border: none; text-align: left; padding-top: 8px; color: #999999; font-size: 14px;"><i class="fas fa-star" style="color: #ffc107;"></i> 평균평점 &nbsp;&nbsp;&nbsp;&nbsp;<span style="font-weight: bold; color:black;">${projectEval.average}.0 점</span></span>
+																		<span class="form-control col-5" style="border: none; text-align: left; padding-top: 8px; color: #333; font-size: 14px;"><i class="fas fa-star" style="color: #ffc107;"></i> 평균평점 &nbsp;&nbsp;&nbsp;&nbsp;<span style="font-weight: 500; color:black;">${projectEval.average}.0 점</span></span>
 																		<ul class="rating-box" style="width: 100%; background-color: #f7f7f7; list-style: none; margin-bottom: 5px; padding: 10px 15px 5px 5px;">
 																		<li class="details row"><span class="col-2 title">전문성</span>  
 																			<div class="row col-4">     
@@ -631,13 +634,13 @@
 																	</div>
 																	<div class="form-row col-13">
 																		<c:if test="${projectEval.e_cont != null}">
-																			<span class="form-control col-11" style="border: none; text-align: left; padding-top: 8px; color: #999999; font-size: 14px;">클라이언트의 평가</span>
+																			<span class="form-control col-11" style="border: none; text-align: left; padding-top: 8px; color: #333; font-size: 14px;">클라이언트의 평가</span>
 																			<br>
-																			<input readonly="readonly" type="text" class="form-control col-2" style="margin-left: 10px; border: none; text-align: center; font-size: 14px; font-weight: bold;" value="${projectEval.user_id}">
+																			<input readonly="readonly" type="text" class="form-control col-2" style="margin-left: 10px; border: none; text-align: center; font-size: 14px; font-weight: 500;" value="${projectEval.user_id}">
 																			<input readonly="readonly" type="text" class="form-control col-9" style="margin-left: 10px; border: none; text-align: left; font-size: 14px;" value="${projectEval.e_cont}">
 																		</c:if>
 																		<c:if test="${projectEval.e_cont == null}">
-																			<span class="form-control col-11" style="border: none; text-align: left; padding-top: 8px; color: #999999; font-size: 14px;">클라이언트의 평가</span>
+																			<span class="form-control col-11" style="border: none; text-align: left; padding-top: 8px; color: #333; font-size: 14px;">클라이언트의 평가</span>
 																			<br>
 																			<input readonly="readonly" type="text" class="form-control col-9" style="margin-left: 10px; border: none; text-align: left; font-size: 14px;" value="등록된 평가가 없습니다.">
 																		</c:if>
@@ -650,7 +653,7 @@
 													</c:otherwise>
 											</c:choose>
 									<div class="form-control part col-11">
-										<a class="pull-right" href="${cp }/evaluation/viewmain?user_id=${user.user_id}" style="border: none; text-align: center; padding-top: 8px; color: #2099bb; font-size: 16px;">평가 더 보기 <i class="fas fa-chevron-right"></i></a>
+										<a class="pull-right" href="${cp }/evaluation/viewmain?user_id=${user.user_id}" style="color:#2099bb; font-size:14px; margin-right:-100px;">평가 더 보기 <i class="fas fa-chevron-right"></i></a>
 									</div>
 								</div>
 								<br>
