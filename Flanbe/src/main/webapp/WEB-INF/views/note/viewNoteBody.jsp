@@ -450,8 +450,8 @@ body {
 									</div>
 
 									<c:if test="${parentTitle != null }">
-										<div class="form-group">
-											<label class="labelCont form-control col-2" id="upperWork"><i class="icon-action-redo"></i>상위업무 </label> <label class="lab form-control col-2"> : ${parentTitle}</label>
+										<div class="form-row">
+											<label class="labelCont form-control col-1" id="upperWork"><i class="icon-action-redo"></i>상위업무 </label> <label class="lab form-control col-2" id="upperWork">${parentTitle}</label>
 										</div>
 									</c:if>
 
