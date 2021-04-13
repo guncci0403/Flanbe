@@ -133,15 +133,15 @@ public class EvaluationServiceImpl implements EvaluationService {
 	}
 
 	@Override
-	public List<UserVo> userInfoForLeftBarHover(List<UserVo> userList) {
+	public List<UserVo> userInfoForLeftBarHover() {
+		
+		List<UserVo> userList = dao.viewUserList();
 		List<UserVo> UserVoList = new ArrayList<UserVo>();
 		for (int i = 0; i < userList.size(); i++) {
 			String user_id = userList.get(i).getUser_id();
 			UserVo userVo = dao.userInfoForLeftBarHover(user_id);
 			userVo.setUser_id(user_id);
 			if (userVo != null) {
-				String userid = userVo.getUser_id();
-				String k = userVo.getCareers();
 				UserVoList.add(userVo);
 			}
 		}

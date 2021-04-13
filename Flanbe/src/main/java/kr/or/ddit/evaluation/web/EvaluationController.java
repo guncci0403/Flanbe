@@ -241,15 +241,10 @@ public class EvaluationController {
 	// 회원 목록 가지고 오기
 	@RequestMapping(path = "viewUserList")
 	public String viewUserList(Model model) {
-		// userList 를 뽑기.... 생각 많이 해봐야 한다.
-		List<UserVo> userList = evaluationService.viewUserList();
-
 		// hober 를 위한 정보도 가지고 와야한다.
-
-		List<UserVo> userVoList = evaluationService.userInfoForLeftBarHover(userList);
+		List<UserVo> userVoList = evaluationService.userInfoForLeftBarHover();
 		model.addAttribute("userList", userVoList);
 		// model.addAttribute("userList", userList);
-		model.addAttribute("kk", "왜 안와?");
 		return "jsonView";
 	}
 

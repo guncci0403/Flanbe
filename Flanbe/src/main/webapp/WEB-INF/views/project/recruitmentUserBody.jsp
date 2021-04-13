@@ -57,6 +57,25 @@ $(function (){
 			});
 			return false;
 		}
+		 var mettingArr = $('#mettingDate').val().split('-');
+		 var todayArr = getToday().split('-');
+		
+		 var todayCompare = new Date(todayArr[0], parseInt(todayArr[1])-1, todayArr[2]);
+         var mettingCompare = new Date(mettingArr[0], parseInt(mettingArr[1])-1, mettingArr[2]);
+         
+         if(todayCompare.getTime() > mettingCompare.getTime()) {
+             swal({
+             	title: "Info",
+             	text: "미팅일자는 현재 날짜 부터 설정 가능합니다.",
+             	type: "info",
+             	showCancelButton: false,
+             	confirmButtonClass: 'btn-info',
+             	confirmButtonText: '확인',	
+             	closeOnConfirm: false
+             });
+             return false;
+         }
+         
 		$("#mWay").val($("#mettingWay").val());
 		$("#mDate").val($("#mettingDate").val());
 		$('#meetingModal').modal('hide');
@@ -64,6 +83,17 @@ $(function (){
 		$('#recruitFrm').attr("action", "${cp}/project/projectOk");
 		$('#recruitFrm').submit();
 	})
+	
+    function getToday(){
+        
+        var date = new Date();
+        var year = date.getFullYear();
+        var month = ("0" + (1 + date.getMonth())).slice(-2);
+        var day = ("0" + date.getDate()).slice(-2);
+
+        return year + "-" + month + "-" + day;
+   }
+	
 })
 
 </script>

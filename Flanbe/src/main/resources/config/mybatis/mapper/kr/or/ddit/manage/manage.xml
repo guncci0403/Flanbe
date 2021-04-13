@@ -35,4 +35,12 @@
 		    AND c.s_no = '02'
 		ORDER BY c.c_dt
 	</select>
+	
+	<update id="updateProjectState" parameterType="int">
+		UPDATE project SET p_state = '06' WHERE p_code= #{value}
+	</update>
+	
+	<update id="updatePattendState" parameterType="contractVo">
+		UPDATE p_attend SET p_state = '04' WHERE p_code = #{p_code} AND user_id = #{puser_id}
+	</update>
 </mapper>

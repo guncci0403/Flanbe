@@ -216,13 +216,13 @@
 	
 	<!-- 보유기술 의 등급 순의 리스트로 한 회원이 가지고 있는 skill  , 앱인지 웹인지 뭔지 ,  경력 년수 에 대한 정보 조회    -->
 	<select id="userInfoForLeftBarHover" parameterType="String" resultType="userVo">
-		
+	
  			   select DECODE(a.u_skills , NULL , '입력전' , a.u_skills   ) u_skills
-					, DECODE ( b.careers , '년개월' , '입력전' ,b.careers ) careers  
+					, DECODE ( b.careers , '년개월' , '입력전' , b.careers ) careers  
 					, c.us_kind us_kind	
                  
                from 
-                    (SELECT LISTAGG(DECODE(us_kind , '01' ,'자바' , '02' , 'C언어' , '03' , '파이썬' , '04' , '자바스크립트' , us_kind   ) , ',    ')   
+                    (SELECT LISTAGG(DECODE(us_kind , '01' ,'자바' , '02' , 'C언어' , '03' , '파이썬' , '04' , '자바스크립트' , us_kind  ) , ',    ')   
                      WITHIN GROUP (ORDER BY us_prof DESC) as u_skills
                      FROM u_skill
                      where user_id = #{user_id}
@@ -252,7 +252,6 @@
                          )  
                   
                    ) c 
-       
        
 	</select>
 

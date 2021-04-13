@@ -105,8 +105,8 @@ public class NoteServiceImpl implements NoteService {
 	}
 
 	@Override
-	public List<String> notattenduserList(int p_code) {
-		return noteDao.notattenduserList(p_code);
+	public List<UserVo> notattenduserList(UserVo userVo) {
+		return noteDao.notattenduserList(userVo);
 	}
 
 	@Override
@@ -116,8 +116,17 @@ public class NoteServiceImpl implements NoteService {
 
 	@Override
 	public String checkFinishProjectBtnAble(int p_code) {
-		// TODO Auto-generated method stub
 		return noteDao.checkFinishProjectBtnAble(p_code);
+	}
+	
+	@Override
+	public List<NoteVo> calendarListN(int p_code) {
+		return noteDao.calendarListN(p_code);
+	}
+
+	@Override
+	public List<NoteVo> calendarUser(NoteVo noteVo) {
+		return noteDao.calendarUser(noteVo);
 	}
 
 }

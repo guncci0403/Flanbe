@@ -58,19 +58,20 @@ li {
 <script src="http://d3js.org/d3.v3.js"></script>
 <script>
    		$(document).ready(function(){
-   			
+   			//전체 글을 감싸는 div 를 가지고 와서 위치를 알아낸다.   			
    			//3가지 리스트를 호출하기
    			pagination(1 , '01' , null)
    			pagination(1 , '02' , null)
    			pagination(1 , '03' , null)
    			
+   			var offset = $('#ThreeListBox').offset();
+   			$('html , body').animate({scrollTop : offset.top} , 2000)   		  
    			
     		d3.selectAll(".evalbar")
     		  .datum(function(){ return this.dataset; })
     		  .style("width" , "12px")
     		  .transition().duration(3000)
     		  .style("width" , d => d.val);
-    		  
     		  //중요한 글만 조회하기 
     		  $('.importance').on('click',function(){
     			  //프로젝트 번호가지고 오기 
@@ -137,8 +138,7 @@ li {
     		checkListTypeNumber = "workNoteSecond";
     	}else {
     		checkListTypeNumber = "workNoteThird";
-    	}
-    	
+    	}   	
     	//데이터 만들어주기 : page 값 : p_code 값 : key 값 : (중요한것만 보여줄지 아닐지) , checkListType(01이면 진행전리스트 02이면 진행중 리스트 03이면 진행후 리스트)
     	var form = {
     			page : 	pageNumber , 
@@ -146,7 +146,6 @@ li {
     			p_code : $('#p_code').val() , 
     			key  : key
     	}
-    	
     	$.ajax({
     		url : "${cp}/note/ListPaging" , 
     		type : "POST" ,
@@ -162,40 +161,29 @@ li {
     	
     	
     }
-    
+
      function finishProject(p_code){
-			if(confirm("정말 프로젝트를 최종 완료 하시겠습니까?") == true){
-	    		location.href="${cp}/project/projectFinishButton?p_code=" + p_code;	
-	    	}else {//취소
-	    		swal({
-	    			title: "Error",
-	    			text: "실패",
-	    			type: "error",
-	    			showCancelButton: false,
-	    			/* cancelButtonClass: 'btn-danger', */
-	    			confirmButtonClass: 'btn-danger',
-	    			confirmButtonText: '확인'
-	    		});
-	    		return false;
-	    	} 
+		        swal({
+		    		title: "Warning!",
+		          	text: "정말 프로젝트를 최종 완료 하시겠습니까?",
+			        type: "warning",
+			        showCancelButton: true,
+			        confirmButtonClass: 'btn-danger',
+			        confirmButtonText: '확인',
+			        cancelButtonText: "취소",
+		            closeOnConfirm: false,
+		            //closeOnCancel: false
+		          },
+		          function(){
+		            	location.href="${cp}/project/projectFinishButton?p_code=" + p_code;	
+		          });
+
 		}
-     
-     
-		
-      
+
 		
 </script>
 
-<div class="sidebar">
-   <div class="site-width">
-	   <ul class="list-unstyled inbox-nav  mb-0 mt-2 notes-menu" id="myTab1" role="tablist">
-	         <li class="nav-link active"><a class="nav-link" href="${cp }/note/viewMain?p_code=${p_code}"> 업무노트 </a></li>
-	         <li class="nav-link active"><a class="nav-link" href="#"> 캘린더 </a></li>
-	         <li class="nav-link active"><a class="nav-link" href="#"> 메신저 </a></li>
-	         <li class="nav-link active"><a class="nav-link" href="${cp }/note/userList?p_code=${p_code}"> 참여자 정보 </a></li>
-	   </ul>
-   </div>
-</div>
+<%@ include file="/WEB-INF/views/common/noteSidebar.jsp" %>
 
 <input type="hidden" value="${p_code}" id="p_code" name="p_code">
 <input type="hidden" value="${key}" id="keyCheck">
@@ -322,17 +310,17 @@ li {
 					<div class="col-12 col-md-6 col-lg mt-3 task-list-item">
 						<!-- 중요글만볼지 전체글도 볼지 -->
 						<!-- 전체를 조회data-impor 값이 없어서 key 는 null -->
-						<input type="button" class="btn btn-primary mt-2 importance" data-order="01" value=" ★ 전체" />
+						<input type="button" class="btn btn-primary mt-2 mr-1 importance" data-order="01" value=" ★ 전체" />
 						<!-- 중요를 조회 data-impor 값은 key 값으로 key 값이 1 로들어감-->
-						<input type="button" class="btn btn-primary mt-2 importance" data-order="01" data-impor="1" value=" ⭐ 중요" />
+						<input type="button" class="btn btn-primary mt-2 mr-1 importance" data-order="01" data-impor="1" value=" ⭐ 중요" />
 					</div>
 					<div class="col-12 col-md-6 col-lg mt-3 task-list-item">
 						<!-- 중요글만볼지 전체글도 볼지 -->
-						<input type="button" class="btn btn-primary mt-2 importance" data-order="02" value=" ★ 전체" /> <input type="button" class="btn btn-primary mt-2 importance" data-order="02" data-impor="1" value=" ⭐ 중요" />
+						<input type="button" class="btn btn-primary mt-2 mr-1 importance" data-order="02" value=" ★ 전체" /> <input type="button" class="btn btn-primary mt-2 mr-1 importance" data-order="02" data-impor="1" value=" ⭐ 중요" />
 					</div>
 					<div class="col-12 col-md-6 col-lg mt-3 task-list-item">
 						<!-- 중요글만볼지 전체글도 볼지 -->
-						<input type="button" class="btn btn-primary mt-2 importance" data-order="03" value=" ★ 전체" /> <input type="button" class="btn btn-primary mt-2 importance" data-order="03" data-impor="1" value=" ⭐ 중요" />
+						<input type="button" class="btn btn-primary mt-2 mr-1 importance" data-order="03" value=" ★ 전체" /> <input type="button" class="btn btn-primary mt-2 mr-1 importance" data-order="03" data-impor="1" value=" ⭐ 중요" />
 					</div>
 				</div>
 

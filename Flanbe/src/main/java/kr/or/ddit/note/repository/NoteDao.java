@@ -60,12 +60,18 @@ public interface NoteDao {
 	List<UserVo> userList(int p_code);
 	
 	// 참여중이 아닌 사용자 조회
-	List<String> notattenduserList(int p_code);
+	List<UserVo> notattenduserList(UserVo userVo);
 	
 	// 사용자 초대
 	int inviteUser(PAttendVo pattend);
 	
 	//프로젝트 종료 버튼이 보이는지 권한 체크위해 검사 
 	String checkFinishProjectBtnAble(int p_code);
+	
+	//협업툴 달력 리스트
+	List<NoteVo> calendarListN(int p_code);
+	
+	//협업툴 달력 내것만 보는 리스트
+	List<NoteVo> calendarUser(NoteVo noteVo);
 	
 }

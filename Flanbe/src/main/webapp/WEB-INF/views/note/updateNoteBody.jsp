@@ -85,6 +85,15 @@ select {
 			$('#starCheck').val('01')
 		}
 		
+		
+		function ProjectProgressOption(val){
+			if(val == '01')
+			$('#progress').val('0').prop("selected" , true); 
+			else if(val == '03')
+			$('#progress').val('100').prop("selected" , true); 	
+		}
+		
+		
 </script>
 
 
@@ -110,30 +119,16 @@ select {
 	}
 		</script>
 
-<div class="sidebar">
-   <div class="site-width">
-	   <ul class="list-unstyled inbox-nav  mb-0 mt-2 notes-menu" id="myTab1" role="tablist">
-	         <li class="nav-link active"><a class="nav-link" href="${cp }/note/viewMain?p_code=${noteVo.p_code}"> 업무노트 </a></li>
-	         <li class="nav-link active"><a class="nav-link" href="#"> 캘린더 </a></li>
-	         <li class="nav-link active"><a class="nav-link" href="#"> 메신저 </a></li>
-	         <li class="nav-link active"><a class="nav-link" href="${cp }/note/userList?p_code=${noteVo.p_code}"> 참여자 정보 </a></li>
-	   </ul>
-   </div>
-</div>
+<%@ include file="/WEB-INF/views/common/noteSidebar.jsp" %>
 <main>
 	<div class="container-fluid site-width">
 		<div class="row ">
 			<div class="col-12  align-self-center">
 				<div class="sub-header mt-3 py-3 align-self-center d-sm-flex w-100 rounded">
 					<div class="w-sm-100 mr-auto">
-						<h4 class="mb-0">업무노트 작성</h4>
+						<h4 class="mb-0">업무노트 수정</h4>
 					</div>
 
-					<ol class="breadcrumb bg-transparent align-self-center m-0 p-0">
-						<li class="breadcrumb-item">Home</li>
-						<li class="breadcrumb-item">Form</li>
-						<li class="breadcrumb-item active"><a href="#">Wizard</a></li>
-					</ol>
 				</div>
 			</div>
 		</div>
@@ -167,7 +162,7 @@ select {
 						<!-- <h2>코드들확인</h2> -->
 						<!-- 프로젝트 코드 -->
 						<input type="hidden" name="p_code" id="p_code" value="${noteVo.p_code}">
-						<!-- 프로젝트 코드 -->
+						<!-- 노트번호 코드 -->
 						<input type="hidden" name="n_no" id="n_no" value="${noteVo.n_no}">
 						<!-- 중요표시 -->
 						<input type="hidden" name="n_import" id="starCheck" value="${noteVo.n_import}">
@@ -199,7 +194,7 @@ select {
 										</select> <br> <input type="text" style="display: none; margin-left: 1%; margin-bottom: 10px;" value="${noteVo.category}" name="etc" id="etcSelect" placeholder="업무분류를 입력해 주세요"> <small class="form-text"> &nbsp;&nbsp;&nbsp; : 원하는 업무를 선택하세요 직접 입력도 가능합니다.</small>
 									</div>
 									<div class="form-row">
-										<label class="form-control col-1 lab" style="border: none"><i class="icon-chart icons"></i>상태</label> <select id="status" name="n_state" style="margin-bottom: 10px;">
+										<label class="form-control col-1 lab" style="border: none"><i class="icon-chart icons"></i>상태</label> <select id="status" onchange="ProjectProgressOption(this.value)" name="n_state" style="margin-bottom: 10px;">
 											<option value="01" <c:if test="${noteVo.n_state == '01'}">selected</c:if>>진행전</option>
 											<option value="02" <c:if test="${noteVo.n_state == '02'}">selected</c:if>>진행중</option>
 											<option value="03" <c:if test="${noteVo.n_state == '03'}">selected</c:if>>진행완료</option>
@@ -209,6 +204,7 @@ select {
 									<div class="form-row">
 										<label class="form-control col-1 lab" style="border: none"><i class="icon-chart icons"></i>진행률</label> <select id="progress" name="progress" style="margin-bottom: 10px;">
 											<c:if test="${noteVo.progress == 01}">selected</c:if>
+											<option value="0" <c:if test="${noteVo.progress == 0}">selected</c:if>>0%</option>
 											<option value="10" <c:if test="${noteVo.progress == 10}">selected</c:if>>10%</option>
 											<option value="20" <c:if test="${noteVo.progress == 20}">selected</c:if>>20%</option>
 											<option value="30" <c:if test="${noteVo.progress == 30}">selected</c:if>>30%</option>

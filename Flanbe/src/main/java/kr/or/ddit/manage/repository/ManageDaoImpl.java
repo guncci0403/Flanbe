@@ -41,5 +41,15 @@ public class ManageDaoImpl implements ManageDao {
 	public List<ContractVo> requestContractList() {
 		return template.selectList("manage.requestContractList");
 	}
+
+	@Override
+	public int updateProjectState(int p_code) {
+		return template.update("manage.updateProjectState", p_code);
+	}
+
+	@Override
+	public int updatePattendState(ContractVo contract) {
+		return template.update("manage.updatePattendState", contract);
+	}
 	
 }

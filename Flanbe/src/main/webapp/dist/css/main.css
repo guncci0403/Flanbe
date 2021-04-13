@@ -660,7 +660,7 @@ File: Main Style
 /* Common Css */
 body {
     font-family: "Noto Sans KR", sans-serif;
-    font-size: 12px;
+    font-size: 13px;
     background: var(--bodybackground);
     color: var(--bodycolor);
     font-weight: 400;
@@ -709,6 +709,10 @@ a {
 a:hover {
     text-decoration: none;
     color: #4c75f2;
+}
+a.nav-link.p-3:hover {
+    color: #4c75f2;
+    font-size: 15px;
 }
 
 .theme-background {
@@ -1738,140 +1742,6 @@ footer.site-footer {
     color: #fff;
 }
 
-/* Template Settings */
-@-moz-keyframes spin {
-    from {
-        -moz-transform: rotate(0deg);
-    }
-
-    to {
-        -moz-transform: rotate(360deg);
-    }
-}
-
-@-webkit-keyframes spin {
-    from {
-        -webkit-transform: rotate(0deg);
-    }
-
-    to {
-        -webkit-transform: rotate(360deg);
-    }
-}
-
-@keyframes spin {
-    from {
-        transform: rotate(0deg);
-    }
-
-    to {
-        transform: rotate(360deg);
-    }
-}
-
-#settings .gradient-img {
-    display: none;
-}
-
-#settings .gradient-img .gradient-img-block {
-    width: 100px;
-    height: 90px;
-    overflow: hidden;
-    cursor: pointer;
-}
-
-#settings .gradient-img .gradient-img-block.active {
-    border: 1px solid #fff;
-}
-
-#settings.active .setting {
-    right: 300px;
-}
-
-#settings.active .sidbarchat {
-    margin-right: 0px;
-    border-left: 1px solid var(--bordercolor);
-}
-
-#settings .setting {
-    background: var(--primarycolor);
-    width: 35px;
-    height: 35px;
-    position: fixed;
-    top: 45%;
-    right: 0px;
-    transition: all 0.3s;
-    z-index: 999;
-    color: #fff;
-    line-height: 35px;
-    text-align: center;
-    font-size: 25px;
-    -webkit-border-top-left-radius: 50px !important;
-    -webkit-border-bottom-left-radius: 50px !important;
-    -moz-border-radius-topleft: 50px !important;
-    -moz-border-radius-bottomleft: 50px !important;
-    border-top-left-radius: 50px !important;
-    border-bottom-left-radius: 50px !important;
-}
-
-#settings .setting h5 {
-    -webkit-animation: spin 4s linear infinite;
-    -moz-animation: spin 4s linear infinite;
-    animation: spin 4s linear infinite;
-}
-
-#settings .setting h5 i {
-    line-height: 35px;
-}
-
-#settings .sidbarchat {
-    width: 300px;
-    position: fixed;
-    height: 100vh;
-    top: 0px;
-    right: 0px;
-    background: var(--mainbackground);
-    z-index: 10000;
-    margin-right: -300px;
-    transition: all 0.3s;
-    box-shadow: 0px 0px 38px 0px rgba(0, 0, 0, 0.11);
-    overflow-y: scroll;
-}
-
-#settings .color-box {
-    width: 40px;
-    height: 40px;
-    border-radius: 40px;
-}
-
-#settings .color-box.color1 {
-    background: #003366;
-}
-
-#settings .color-box.color2 {
-    background: #0bb2d4;
-}
-
-#settings .color-box.color3 {
-    background: #17b3a3;
-}
-
-#settings .color-box.color4 {
-    background: #eb6709;
-}
-
-#settings .color-box.color5 {
-    background: #76c335;
-}
-
-#settings .color-box.color6 {
-    background: #3e8ef7;
-}
-
-#settings input.color, #settings input.sidebarcolor {
-    width: 40px;
-    height: 40px;
-}
 
 /* Dropdown Menu */
 .dropdown-menu {
@@ -2620,8 +2490,8 @@ footer.site-footer {
 .form-control, .form-control:focus, .form-control:disabled, .form-control[readonly] {
     background: transparent;
     border-color: var(--bordercolor);
-    font-size: 12px;
-    height:36px;  /** 수연 추가 */
+    font-size: 14px;
+    height:40px;  /** 수연 추가 */
     
 }
 
@@ -5224,7 +5094,7 @@ path.domain {
 }
 
 .invoices .invoice {
-    padding: 10px 15px;
+    padding: 1px 14px 10px;
     display: inline-flex;
     width: 100%;
     font-size: 15px;
@@ -5257,7 +5127,7 @@ path.domain {
 
 .invoices .invoice .invoice-content .invoice-info {
     width: 20%;
-    cursor: pointer;
+    cursor: default !important;
 }
 
 @media (max-width: 767px) {
@@ -6109,7 +5979,7 @@ input#fileName{
 /*header 적용_수연*/
 @media (min-width: 1200px){
 .navbar-expand-xl .navbar-collapse {
-	font-size: 1.2em;
+	font-size: 1.1em;
     font-weight: 400;
 }}
 .font-weight-bold{
@@ -6123,4 +5993,13 @@ b, strong {
 }
 .form-control{
 	font-weight: 350;
+}
+/*4.01 적용*/
+p.p5-no-partners-info-text{
+	margin-top: 13px;
+    margin-bottom: 0;
+    color: #999;
+}
+.invoice-info{
+	cursor: default !important;
 }

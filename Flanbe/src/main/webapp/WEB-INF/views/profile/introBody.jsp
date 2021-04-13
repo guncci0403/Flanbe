@@ -135,7 +135,7 @@ textarea {
 												<div style="display: table-cell; vertical-align: middle;">
 													<div>
 														&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="${cp }/images/profile_introduction.png" style="vertical-align: middle;">
-														<p class="p5-no-partners-info-text" style="margin-top: 15px; margin-bottom: 0; color: #999 !important; line-height: 1;">
+														<p class="p5-no-partners-info-text">
 															등록된 <span class="text-center p5-bold" style="font-weight: 500;">'자기 소개'</span>가 없습니다.
 														</p>
 													</div>

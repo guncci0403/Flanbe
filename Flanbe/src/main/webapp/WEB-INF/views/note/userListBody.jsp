@@ -55,17 +55,19 @@
 		$('#inviteUserBtn').on('click', function() {
 			//$("#buser").remove();
 			var p_code = ${p_code};
+			var group_nm = $('#gnm').val();
 			$.ajax({
 				url : "${cp}/note/inviteUser",
 				data : {
-					"p_code" : p_code
+					"p_code" : p_code,
+					"group_nm" : group_nm
 				},
 				type : 'get',
 				success : function(data){
 					var html = "";
 					$.each(data.userList, function(i, user){
-						html += "<div><input type='checkbox' id='check"+i+"' value='"+user+"'>";
-						html += "	<label for='check"+i+"'> "+user+"</label><br></div>";
+						html += "<div><input type='checkbox' id='check"+i+"' value='"+user.user_id+"'>";
+						html += "	<label for='check"+i+"'> "+user.user_nm +"</label><br></div>";
 					});
 					$("#auser").html(html);
 				},
@@ -225,17 +227,8 @@
 	<input type="hidden" id="users" name="userid" value="">
 </form>
 
-
-<div class="sidebar">
-	<div class="site-width">
-		<ul class="list-unstyled inbox-nav  mb-0 mt-2 notes-menu" id="myTab1" role="tablist">
-			<li class="nav-link active"><a class="nav-link" href="${cp }/note/viewMain?p_code=${p_code}"> 업무노트 </a></li>
-			<li class="nav-link active"><a class="nav-link" href="#"> 캘린더 </a></li>
-			<li class="nav-link active"><a class="nav-link" href="#"> 메신저 </a></li>
-			<li class="nav-link active"><a class="nav-link" href="${cp }/note/userList?p_code=${p_code}"> 참여자 정보 </a></li>
-		</ul>
-	</div>
-</div>
+<input type="hidden" id="gnm" value="${S_USER.group_nm }">
+<%@ include file="/WEB-INF/views/common/noteSidebar.jsp" %>
 
 <main>
 	<div class="container-fluid site-width">

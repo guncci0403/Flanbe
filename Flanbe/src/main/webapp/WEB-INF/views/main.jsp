@@ -192,7 +192,6 @@
 							<!-- Image -->
 
 							<img alt="Image placeholder" src="${cp }/img/svg/illustrations/illustration-3.svg" class="img-fluid mw-md-120">
-							</figure>
 						</div>
 						<div class="col-12 col-md-7 col-lg-6 order-md-1 pr-md-5">
 							<!-- Heading -->

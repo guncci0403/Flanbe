@@ -139,6 +139,7 @@
     
     .leftBarUserList {
     	margin-right: 35px;
+    	cursor : pointer;
   
     }
     .pageButton {
@@ -158,6 +159,7 @@
 	.totalDiv {
 		display: flex; 
 	}
+
     
 </style>
 	<!-- start script -->
@@ -170,6 +172,7 @@
 	
 	
 	$(document).ready(function(){
+	
 	
 		
 		
@@ -220,7 +223,7 @@
 		})
 		
 		
-		$('#projectSearchTitle3').on('mouseover' , '.leftBarUserList' , function(){
+		$('#projectSearchTitle3').on('click' , '.leftBarUserList' , function(){
 			$(this).addClass("changelistColor");
 			$(this).next().show();
 		}) 
@@ -330,25 +333,25 @@
 				type : "POST", 
 				cache : false, 
 				success : function(data){
-						  cont = "<ul>																													"; 
+                    	  cont = " <h6  class='mb-0'>파트너스 비교</h6>  <input type='button' class='btn btn-primary searchGraph' id=1 style='float : right' value='조회' ><br><br>    ";
+						  cont += "<ul>																													                          "; 
                     for(i = 0 ; i < data.userList.length ; i++){
                     	if(data.userList[i].user_id != '${user_id}'){
-                    	  cont += "<li class='leftBarUserList'>                                                  										"; 
-                    	  cont += "<h6>																													";        
-                    	  cont += "&nbsp; <input type='checkbox' value='" + data.userList[i].user_id + "' class='chk' name='selectedUser'>                           										";
-                    	  cont +=  data.userList[i].user_id  			                                 												 ;
-                    	  cont += "</h6>																												"; 
-                          cont += "</li>                                                                       										";      
-                    	  cont += "<div class='hoverUserInfo' >";
-                    	  cont += "<h6><span class='badge outline-badge-success'> 아이디  </span>  :&nbsp;&nbsp;" + data.userList[i].user_id + " </h6>" ; 
-                    	  cont += "<h6><span class='badge outline-badge-success'>  보유기술  </span>  :&nbsp;&nbsp;" + data.userList[i].u_skills + "</h6>" ; 
-                    	  cont += "<h6><span class='badge outline-badge-success'> 경력  </span>  :&nbsp;&nbsp;" + data.userList[i].careers + "</h6>" ; 
-                    	  cont += "<h6><span class='badge outline-badge-success'> 전문분야  </span><br> " + data.userList[i].us_kind + "</h6>" ; 
-                    	  cont += "</div>";
+                    	  cont += "<li class='leftBarUserList'>                                                  										                          "; 
+                    	  cont += "<h6>																													                          ";        
+                    	  cont += "&nbsp; <input type='checkbox' value='" + data.userList[i].user_id + "' class='chk' name='selectedUser'>                           			  ";
+                    	  cont +=  data.userList[i].user_id  			                                 												                           ;
+                    	  cont += "</h6>																												                          "; 
+                          cont += "</li>                                                                       																	  ";      
+                    	  cont += "<div class='hoverUserInfo' >                                                     															  ";
+                    	  cont += "<h6><span class='badge outline-badge-success'> 아이디  </span>  :&nbsp;&nbsp;" + data.userList[i].user_id + " </h6>"                              ; 
+                    	  cont += "<h6><span class='badge outline-badge-success'>  보유기술  </span>  :&nbsp;&nbsp;" + data.userList[i].u_skills + "</h6>"                            ; 
+                    	  cont += "<h6><span class='badge outline-badge-success'> 경력  </span>  :&nbsp;&nbsp;" + data.userList[i].careers + "</h6>"                                 ; 
+                    	  cont += "<h6><span class='badge outline-badge-success'> 전문분야  </span><br> " + data.userList[i].us_kind + "</h6>"                                        ; 
+                    	  cont += "</div>																																		  ";
                     	}
                     }
-                    	  cont += "<input type='button' class='btn btn-primary searchGraph' id=1 style='float : right' value='조회' >                                   	";
-                    	  cont += "</ul><br><br>                                                                         										";	
+                    	  cont += "</ul><br><br>                                                                         										                  ";	
 						$('#projectSearchTitle3').html(cont);
 						$('.hoverUserInfo').hide(); 
 				},
@@ -481,11 +484,11 @@
                 <div class="sub-header mt-3 py-3 align-self-center d-sm-flex w-100 rounded">
                     <div class="w-sm-100 mr-auto"><h4 class="mb-0">${user_id}님의 파트너스 평가 페이지</h4></div>
 
-                    <ol class="breadcrumb bg-transparent align-self-center m-0 p-0">
-                        <li class="breadcrumb-item">Home</li>
-                        <li class="breadcrumb-item">App</li>
-                        <li class="breadcrumb-item active"><a href="#">Notes</a></li>
-                    </ol>
+<!--                     <ol class="breadcrumb bg-transparent align-self-center m-0 p-0"> -->
+<!--                         <li class="breadcrumb-item">Home</li> -->
+<!--                         <li class="breadcrumb-item">App</li> -->
+<!--                         <li class="breadcrumb-item active"><a href="#">Notes</a></li> -->
+<!--                     </ol> -->
                 </div>
             </div>
         </div>
@@ -507,8 +510,9 @@
                       </div>
                       <div id="ProjectSearch2" class="card-header py-1 mt-4" style="overflow : auto; height : 820px;">                                 
                         <!-- id="projectSearchTitle2" -->
-                        <h6  class="mb-0">파트너스 비교</h6><br>
-                        <h6 id="projectSearchTitle3" class="mb-0"></h6>
+                       <!--  <h6  class="mb-0">파트너스 비교</h6><br> -->
+                        <h6 id="projectSearchTitle3" class="mb-0">
+                        </h6>
                       </div>
                     </div>
                     

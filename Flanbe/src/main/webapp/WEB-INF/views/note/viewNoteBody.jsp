@@ -239,23 +239,20 @@ body {
 				
 			})
 			
-			//자식 댓글창 열기
-			
-			
+			//자식 댓글창 입력 열기
 		 	$('.ajaxReplyBlock').on('click' , '.ChildReplyViewBtn'  , function(){
 		 		
-		 		//현재 부모가 될 현재 댓글의 r_no 
+		 		//현재댓글을 클릭하면 그 댓글은 부모댓글이 되고 그 하위 댓글을 작성하는 것이다. r_parentNum 은 현재 댓글의 댓글번호이고 이것을 지금 입력할 자식댓글행의 부모댓글번호컬럼에 insert 해준다.
 		 		var r_parentNum = $(this).data('up'); 
-		 		
-		 		
 		  		var plusTr = "";
-		 		 plusTr += "<tr style='height: 150px;'><th></th>"
-		 		 plusTr += "<th colspan='4' style='width: 200px; height: 50px;'><span>답글 입력</span><br><textarea rows='3' cols='130' class='replyReplyCont'></textarea>"
-		 		 plusTr += "<input type='button' class='btn float-right btn-primary insertReplyReply' " + "id='" + r_parentNum + "'"
-		 		 plusTr += "value='답글등록'></th>"
-		 		 plusTr += "<th style='width: 200px;' scope='col'></th>"
-		 		 plusTr += "<th style='width: 180px;' scope='col'></th>"
-		 		 plusTr += "</tr>"
+			 		plusTr += "<tr style='height: 150px;'>"
+			 		plusTr += 	"<th></th>"
+			 		plusTr += 	"<th colspan='4' style='width: 200px; height: 50px;'><span>답글 입력</span><br><textarea rows='3' cols='130' class='replyReplyCont'></textarea>"
+			 		plusTr += 		"<input type='button' class='btn float-right btn-primary insertReplyReply' " + "id='" + r_parentNum + "'" + "value='답글등록'>"
+			 		plusTr += 	"</th>"
+			 		plusTr += 	"<th style='width: 200px;' scope='col'></th>"
+			 		plusTr += 	"<th style='width: 180px;' scope='col'></th>"
+			 		plusTr += "</tr>"
 		 		
 		 		$(this).parent().parent().after(plusTr); 
 		 		
@@ -334,11 +331,11 @@ body {
 				var updateReplyNo = $(this).data('rnono');
 				var plusTr = "";
 		 		 plusTr += "<tr style='height: 150px;'><th></th>"
-		 		 plusTr += "<th colspan='4' style='width: 200px; height: 50px;'><span>댓글 수정</span><br><textarea rows='3' cols='130' class='replyReplyCont'>" + updateCont + "</textarea>"
-		 		 plusTr += "<input type='button' class='btn float-right btn-primary updateReply' " + "id='" + updateReplyNo  + "'"
-		 		 plusTr += "value='수정'></th>"
-		 		 plusTr += "<th style='width: 200px;' scope='col'></th>"
-		 		 plusTr += "<th style='width: 180px;' scope='col'></th>"
+		 		 plusTr +=     "<th colspan='4' style='width: 200px; height: 50px;'><span>댓글 수정</span><br><textarea rows='3' cols='130' class='replyReplyCont'>" + updateCont + "</textarea>"
+		 		 plusTr += 	       "<input type='button' class='btn float-right btn-primary updateReply' " + "id='" + updateReplyNo  + "'" + "value='수정'>"
+		 		plusTr  +=     "</th>"
+		 		 plusTr += 	   "<th style='width: 200px;' scope='col'></th>"
+		 		 plusTr += 	   "<th style='width: 180px;' scope='col'></th>"
 		 		 plusTr += "</tr>"
 		 		$(this).parent().parent().after(plusTr); 
 			});
@@ -393,16 +390,7 @@ body {
 </form>
 
 
-<div class="sidebar">
-   <div class="site-width">
-	   <ul class="list-unstyled inbox-nav  mb-0 mt-2 notes-menu" id="myTab1" role="tablist">
-	         <li class="nav-link active"><a class="nav-link" href="${cp }/note/viewMain?p_code=${noteVo.p_code}"> 업무노트 </a></li>
-	         <li class="nav-link active"><a class="nav-link" href="#"> 캘린더 </a></li>
-	         <li class="nav-link active"><a class="nav-link" href="#"> 메신저 </a></li>
-	         <li class="nav-link active"><a class="nav-link" href="${cp }/note/userList?p_code=${noteVo.p_code}"> 참여자 정보 </a></li>
-	   </ul>
-   </div>
-</div>
+<%@ include file="/WEB-INF/views/common/noteSidebar.jsp" %>
 
 <!-- START: Main Content-->
 <main>

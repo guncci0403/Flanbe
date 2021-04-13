@@ -45,7 +45,8 @@ public class SignController {
 //		logger.debug("fileName 파일 이름 확인 : {} " , file.getOriginalFilename());
 		logger.debug("realFileName 파일 확인 : {} " , realFileName); 
 		try {
-			file.transferTo(new File("d:\\signupload\\" + realFileName));
+//			file.transferTo(new File("d:\\signupload\\" + realFileName));
+			file.transferTo(new File("C:\\LastProject\\signupload\\" + realFileName));
 		} catch (IllegalStateException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -54,7 +55,7 @@ public class SignController {
 			e.printStackTrace();
 		}
 		//이건 경로 (파일이 저장된 경로와 이름)
-		String pathName = "d:\\signupload\\" + realFileName;
+		String pathName = "C:\\LastProject\\signupload\\" + realFileName;
 		//경로 + 저장파일이름 ,id 를 db에 저장해줌. 
 		
 		contractService.registSign(new UserVo(user_id, pathName));

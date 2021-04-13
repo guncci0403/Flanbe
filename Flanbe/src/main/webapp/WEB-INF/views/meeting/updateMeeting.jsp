@@ -20,6 +20,8 @@
 <script src="${cp }/dist/vendors/moment/moment.js"></script>
 <script src="${cp }/dist/vendors/bootstrap/js/bootstrap.bundle.min.js"></script>    
 <script src="${cp }/dist/vendors/slimscroll/jquery.slimscroll.min.js"></script>
+<script src="${cp }/dist/vendors/sweetalert/sweetalert.min.js"></script>
+<link rel="stylesheet" href="${cp }/dist/vendors/sweetalert/sweetalert.css">
 
         <link rel="stylesheet" href="${cp }/dist/vendors/fullcalendar/core/main.min.css"> 
         <link rel="stylesheet" href='${cp }/dist/vendors/fullcalendar/daygrid/main.css'/>
@@ -30,6 +32,18 @@
 <title>Insert title here</title>
 <script>
 	$(function() {
+	<c:if test="${msg != null }">
+		swal({
+			title: "Info",
+			text: "${msg}",
+			type: "info",
+			showCancelButton: false,
+			confirmButtonClass: 'btn-info',
+			confirmButtonText: '확인',	
+			closeOnConfirm: false
+		});
+	</c:if>
+		
 		<c:if test="${view.mtway == '01'}">
 		$('#mtway').val('${view.mtway}').prop("selected", true);
 		</c:if>
@@ -41,6 +55,7 @@
 		</c:if>
 		
 		 $("#chkmtbtn").click(function(){
+			 
         var todayArr = getToday().split('-');
         var mtdtArr = $('#mtdt').val().split('-');
         
@@ -48,7 +63,17 @@
         var mtdtCompare = new Date(mtdtArr[0], parseInt(mtdtArr[1])-1, mtdtArr[2]);
         
         if(todayCompare.getTime() > mtdtCompare.getTime()) {
-            alert("미팅날짜는 현재 날짜부터 설정 가능합니다.");
+        	/* alert(${msg});
+        	alert("${msg}"); */
+        	swal({
+            	title: "Info",
+            	text: "미팅날짜는 현재 날짜부터 설정 가능합니다.",
+            	type: "info",
+            	showCancelButton: false,
+            	confirmButtonClass: 'btn-info',
+            	confirmButtonText: '확인',	
+            	closeOnConfirm: false
+            });
             return false;
         }
         
@@ -63,7 +88,7 @@
             success:function(data){
             	
             	window.open("about:blank", "_self").close();
-            	opener.location.href = "${cp}/meeting/calendar";
+            	opener.location.href = "${cp}/contract/calendar";
 
             }
         }); 

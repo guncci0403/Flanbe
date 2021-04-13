@@ -34,10 +34,10 @@ $(function(){
 					<div class="w-sm-100 mr-auto">
 						<c:choose>
 							<c:when test="${type == 's' }">
-								<h4 class="mb-0">(파트너스)진행 중인 계약</h4>
+								<h4 class="mb-0">진행 중인 계약</h4>
 							</c:when>
 							<c:otherwise>
-								<h4 class="mb-0">(파트너스)완료된 계약</h4>
+								<h4 class="mb-0">완료된 계약</h4>
 							</c:otherwise>
 						</c:choose>
 					</div>

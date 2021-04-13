@@ -125,7 +125,7 @@
 														<div style="display: table-cell; vertical-align: middle;">
 															<div>
 																&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="${cp }/images/profile_introduction.png" style="vertical-align: middle;">
-																<p class="p5-no-partners-info-text" style="margin-top: 15px; margin-bottom: 0; color: #999 !important; line-height: 1;">
+																<p class="p5-no-partners-info-text">
 																	등록된 <span class="text-center p5-bold" style="font-weight: 500;">'자기 소개'</span>가 없습니다.
 																</p>
 															</div>
@@ -157,7 +157,7 @@
 													<div style="display: table-cell; vertical-align: middle;">
 														<div style="font-size: 14px;">
 															<img src="${cp }/images/project_history_no.png" style="vertical-align: middle;">
-															<p class="p5-no-partners-info-text" style="margin-top: 15px; margin-bottom: 0; color: #999 !important; line-height: 1;">
+															<p class="p5-no-partners-info-text">
 																등록된 <span class="text-center p5-bold" style="font-weight: 500;">'포트폴리오'</span>가 없습니다.
 															</p>
 														</div>
@@ -181,7 +181,7 @@
 													<div style="display: table-cell; vertical-align: middle;">
 														<div style="font-size: 14px;">
 															<img src="${cp }/images/project_history_no.png" style="vertical-align: middle;">
-															<p class="p5-no-partners-info-text" style="margin-top: 15px; margin-bottom: 0; color: #999 !important; line-height: 1;">
+															<p class="p5-no-partners-info-text">
 																<span class="text-center p5-bold" style="font-weight: 500;">'대표 포트폴리오'</span>를 등록해 주세요.
 															</p>
 														</div>
@@ -246,7 +246,7 @@
 														<div style="display: table-cell; vertical-align: middle;">
 															<div>
 																<img src="${cp }/images/profile_certify.png" style="vertical-align: middle;">
-																<p class="p5-no-partners-info-text" style="margin-top: 15px; margin-bottom: 0; color: #999 !important; line-height: 1;">
+																<p class="p5-no-partners-info-text">
 																	등록된 <span class="text-center p5-bold" style="font-weight: 500;">'보유 기술'</span>이 없습니다.
 																</p>
 															</div>
@@ -309,7 +309,7 @@
 														<div style="display: table-cell; vertical-align: middle;">
 															<div>
 																<img src="${cp }/images/profile_employ.png" style="vertical-align: middle;">
-																<p class="p5-no-partners-info-text" style="margin-top: 15px; margin-bottom: 0; color: #999 !important; line-height: 1;">
+																<p class="p5-no-partners-info-text">
 																	등록된 <span class="text-center p5-bold" style="font-weight: 500;">'경력'</span>이 없습니다.
 																</p>
 															</div>
@@ -363,7 +363,7 @@
 																<div style="display: table-cell; vertical-align: middle;">
 																	<div>
 																		<img src="${cp }/images/profile_evaluation.png" style="vertical-align: middle;">
-																		<p class="p5-no-partners-info-text" style="margin-top: 15px; margin-bottom: 0; color: #999 !important; line-height: 1;">
+																		<p class="p5-no-partners-info-text">
 																			등록된 <span class="text-center p5-bold" style="font-weight: 500;">'평가'</span>가 없습니다.
 																		</p>
 																	</div>

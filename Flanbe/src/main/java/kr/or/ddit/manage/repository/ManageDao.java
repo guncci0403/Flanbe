@@ -22,4 +22,10 @@ public interface ManageDao {
 	
 	// 승인 요청 받은 계약리스트
 	List<ContractVo> requestContractList();
+	
+	// 계약 완료 후 프로젝트 상태 변경
+	int updateProjectState(int p_code);
+	
+	// 계약 완료 후 파트너스 상태 변경
+	int updatePattendState(ContractVo contract);
 }

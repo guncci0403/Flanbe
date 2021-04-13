@@ -71,7 +71,6 @@ public class NoteController {
 		String clientId = noteService.checkFinishProjectBtnAble(p_code);
 		//프로젝트 상태가 완성일때는 버튼을 없애야함. 
 		 String pstate = projectService.viewProject(p_code).getP_state();
-		 logger.debug("???????shit{}" , pstate);
 		 if(clientId.equals(checkPartOrClient) && !projectService.viewProject(p_code).getP_state().equals("09")) {
 			model.addAttribute("ableFinishProjectBtn", "true");
 		}
@@ -132,21 +131,21 @@ public class NoteController {
 		// checkListType 01이면 진행전 리스트 02이면 진행중 리스트 03이면 진행후 리스트
 		noteVo.setN_state(checkListType);
 		noteVo.setP_code(p_code);
-
 		// 공통 적용 model
 		// beforeList의페이지가 몇번인지..
 		model.addAttribute("p_code", p_code);
 		// 현재 페이지
-
 		// 중요한애를 조회하는지 아닌지
 		model.addAttribute("key", key);
 		// starcheck 가 f이면 전체조회 t이면 중요한것만 조회
 		model.addAttribute("starCheck", starCheck);
-
 		if (checkListType.equals("01")) { // 진행전 리스트
+			//리스트의 갯수
 			beforeListCnt = noteService.countList(noteVo);
+			//가져올 노트 리스트 전체 
 			beforeListNote = noteService.selectNoteListBefore(map);
-			beforePagination = (int) Math.ceil(beforeListCnt / (double) 5);
+			//페이징처리시 페이지의 갯수
+			beforePagination = (int) Math.ceil(beforeListCnt / (double) 3);
 			model.addAttribute("page1", page);
 			model.addAttribute("beforeListCnt", beforeListCnt);
 			model.addAttribute("beforePagination", beforePagination);
@@ -156,7 +155,7 @@ public class NoteController {
 		} else if (checkListType.equals("02")) { // 진행중 리스트
 			ingListCnt = noteService.countList(noteVo);
 			ingListNote = noteService.selectNoteListIng(map);
-			ingPagination = (int) Math.ceil(ingListCnt / (double) 5);
+			ingPagination = (int) Math.ceil(ingListCnt / (double) 3);
 			model.addAttribute("page2", page);
 			model.addAttribute("ingListCnt", ingListCnt);
 			model.addAttribute("ingPagination", ingPagination);
@@ -165,7 +164,7 @@ public class NoteController {
 		} else { // 진행완료 리스트
 			finishListCnt = noteService.countList(noteVo);
 			finishListNote = noteService.selectNoteListFinish(map);
-			finishPagination = (int) Math.ceil(finishListCnt / (double) 5);
+			finishPagination = (int) Math.ceil(finishListCnt / (double) 3);
 			model.addAttribute("page3", page);
 			model.addAttribute("finishListCnt", finishListCnt);
 			model.addAttribute("finishPagination", finishPagination);
@@ -304,7 +303,7 @@ public class NoteController {
 		model.addAttribute("replyVoList", noteService.selectReply(n_no));
 
 		// 댓글 리스트 불러올때 타입 변환해줘야함.!
-
+		model.addAttribute("p_code", noteVo.getP_code());
 		// 글 한개 조회 note
 		model.addAttribute("noteVo", noteVo);
 		// 상위글 제목
@@ -329,10 +328,10 @@ public class NoteController {
 				&& !noteVo.getCategory().equals("safety") && !noteVo.getCategory().equals("test")) {
 			model.addAttribute("etcCheck", "etcCheck");
 		}
-
+		
 		// 저장된 date 타입을 살펴보자
+		
 		model.addAttribute("noteVo", noteService.selectNote(n_no));
-
 		return "t/note/updateNote";
 
 	}
@@ -494,10 +493,10 @@ public class NoteController {
 	}
 	
 	@RequestMapping(path="inviteUser", method = RequestMethod.GET)
-	public String inviteUser(int p_code, Model model) {
+	public String inviteUser(UserVo userVo ,Model model) {
 		
-		logger.debug("p_code : {} ", p_code);
-		model.addAttribute("userList", noteService.notattenduserList(p_code));
+		logger.debug("userVo지롱 : {} ", userVo);
+		model.addAttribute("userList", noteService.notattenduserList(userVo));
 		
 		return "jsonView";
 	}
@@ -517,5 +516,51 @@ public class NoteController {
 		}
 		
 		return "redirect:/note/userList?p_code="+p_code;
+	}
+	
+	
+	//협업툴 달력 모두보기 리스트
+	@RequestMapping("noteCalendar")
+	public String calendar(Model model, NoteVo noteVo, int p_code) {
+		model.addAttribute("calendarlist", noteService.calendarListN(noteVo.getP_code()));
+//		logger.debug("noteVovovo:{}", noteVo);
+		List<UserVo> userList = noteService.userList(p_code);
+		//진행하는 클라이언트 아이디
+		String client_id = null; 
+		for(UserVo userVo : userList) {
+			if(userVo.getPurpose().contains("C")) {
+				client_id = userVo.getUser_id(); 	
+			}
+		}
+		
+		model.addAttribute("p_code", p_code);
+		model.addAttribute("userList", userList);
+		model.addAttribute("client_id", client_id);
+		
+//		logger.debug("p_code:{}", p_code);
+		
+		return"t/note/noteCalendar";
+	}
+	
+	//협업툴 달력 한명만 보기
+	@RequestMapping("noteuserCalendar")
+	public String noteuserCalendar(Model model, NoteVo noteVo, String user_id, int p_code) {
+		
+		model.addAttribute("caluserlist", noteService.calendarUser(noteVo));
+//		logger.debug(" note user Calendar userid:{}", noteVo);
+		List<UserVo> userList = noteService.userList(p_code);
+//		진행하는 클라이언트 아이디
+		String client_id = null; 
+		for(UserVo userVo : userList) {
+			if(userVo.getPurpose().contains("C")) {
+				client_id = userVo.getUser_id(); 	
+			}
+		}
+		
+		model.addAttribute("p_code", p_code);
+		model.addAttribute("userList", userList);
+		model.addAttribute("client_id", client_id);
+		
+		return "t/note/noteUserCalendar";
 	}
 }

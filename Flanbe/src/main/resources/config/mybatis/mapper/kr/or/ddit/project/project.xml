@@ -132,25 +132,32 @@
 		WHERE p_state IN ( '06' , '07')
 		AND user_id = #{user_id}
 	</select>
-	
-<!--    	진행중인 프로젝트 리스트 클라이언트 -->
-<!--    	<select id="ingProjectListC2" resultType="projectVo" parameterType="String"> -->
-<!-- 	   	SELECT * -->
-<!-- 		FROM project -->
-<!-- 		WHERE p_state IN ( '06' , '07' ) -->
-<!-- 		AND user_id = #{user_id} -->
-<!-- 	</select> -->
-	
-	
-	   	<!-- 진행중인 프로젝트 리스트 파트너스 -->
+	<!-- 진행중인 프로젝트 리스트 파트너스 -->
    	<select id="ingProjectListP" resultType="projectVo" parameterType="String">
 		SELECT p.*
 		FROM project p, p_attend a
 		WHERE p.p_code = a.p_code AND
 		a.user_id = #{user_id} AND 
-		a.p_state = '04'
+		a.p_state IN ('04', '10')
 	</select>
 	
+	<select id="ingProjectList" resultType="projectVo" parameterType="map">
+		  <if test="purpose == 'C'">
+		  	SELECT *
+			FROM project
+			WHERE p_state IN ( '06' , '07')
+		  </if>
+		  <if test="purpose == 'P'">
+		  	SELECT p.*
+			FROM project p, p_attend a
+			WHERE p.p_code = a.p_code 
+			  AND a.p_state IN ('04', '10')
+		  </if>
+		  AND a.user_id = #{userId} 
+	</select>
+
+
+
 
 	   	<!-- 완료 프로젝트 리스트 클라이언트 -->		   	
 	<select id="finishProjectListC" resultType="projectVo" parameterType="String">

@@ -196,10 +196,8 @@ function saveImage(){
 		<!-- START: Breadcrumbs-->
 		<br>
 		<div class="row">
-			<div class="col-9 mt-4" style="padding-left: 150px;">
-				<div class="card">
-					<br>
-					<br>
+			<div class="col-8 mt-4">
+				<div class="card"><br><br>
 					<h3 class="card-title" style="text-align: center;">프로젝트 계약서</h3>
 					<div class="card-content">
 						<div class="card-body">
@@ -252,7 +250,7 @@ function saveImage(){
 					</div>
 				</div>
 			</div>
-			<div class="col-12 col-xl-2">
+			<div class="col-3 col-xl-2">
 				<div class="card mb-2" style="margin-top: 25px;">
 					<div class="card-header d-flex justify-content-between align-items-center">
 						<h4 class="card-title">클라이언트 사인</h4>

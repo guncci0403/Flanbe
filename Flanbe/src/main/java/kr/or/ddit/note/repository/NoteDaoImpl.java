@@ -56,7 +56,6 @@ public class NoteDaoImpl implements NoteDao {
 
 	@Override
 	public int insertNote(NoteVo noteVo) {
-		String userid = noteVo.getUser_id();
 		sqlSessionTemplate.insert("note.insertNote", noteVo) ;
 		int n_no = noteVo.getN_no();
 		return n_no; 
@@ -122,8 +121,8 @@ public class NoteDaoImpl implements NoteDao {
 	}
 
 	@Override
-	public List<String> notattenduserList(int p_code) {
-		return sqlSessionTemplate.selectList("note.notattenduserList", p_code);
+	public List<UserVo> notattenduserList(UserVo userVo) {
+		return sqlSessionTemplate.selectList("note.notattenduserList", userVo);
 	}
 
 	@Override
@@ -136,5 +135,13 @@ public class NoteDaoImpl implements NoteDao {
 		// TODO Auto-generated method stub
 		return sqlSessionTemplate.selectOne("note.checkFinishProjectBtnAble", p_code);
 	}
-	
+	@Override
+	public List<NoteVo> calendarListN(int p_code) {
+		return sqlSessionTemplate.selectList("note.calendarListN", p_code);
+	}
+
+	@Override
+	public List<NoteVo> calendarUser(NoteVo noteVo) {
+		return sqlSessionTemplate.selectList("note.calendarUser", noteVo);
+	}
 }

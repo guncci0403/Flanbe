@@ -126,7 +126,10 @@ public class ManageController {
 		int cnt = contractService.updateContract(contract);
 		if(cnt == 1) {
 			ra.addFlashAttribute("msg", "승인되었습니다.");
+			manageService.updateState(contract);
 		} 
 		return "redirect:/manage/requestContractList";
 	}
+	
+	
 }

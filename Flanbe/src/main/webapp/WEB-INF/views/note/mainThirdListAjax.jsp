@@ -22,7 +22,7 @@
                                                 <p class="font-w-500 tx-s-12"><i class="icon-calendar"></i> <span class="task-date">${finishNote.n_sdt} ~ ${finishNote.n_edt}</span></p>                                            
                                                     <p class="font-w-500 tx-s-12" style="font-size:15px"><i></i>&#128106;<span class="task-date"> 작성자 : ${finishNote.user_id}</span></p> 
                                                 <span class="blue evalbar" data-val='${finishNote.progress }%'>${finishNote.progress }%</span>       
-                                                <c:if test="${S_USER.user_id == beforeNote.user_id}">
+                                                <c:if test="${S_USER.user_id == finishNote.user_id}">
                                                 <div class="d-flex">
                                                     <div class="my-auto line-h-1 h5">
                                                         <a class="text-success updatePen" data-no="${finishNote.n_no }"  data-toggle="modal" data-target="#edittask"><i class="icon-pencil"></i></a>

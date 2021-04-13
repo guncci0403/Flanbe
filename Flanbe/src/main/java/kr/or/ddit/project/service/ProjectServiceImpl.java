@@ -1,5 +1,6 @@
 package kr.or.ddit.project.service;
 
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -116,6 +117,7 @@ public class ProjectServiceImpl implements ProjectService {
 		return projectDao.applyList(user_id);
 	}
 
+	/** AS-IS */
 	@Override
 	public List<ProjectVo> ingProjectListC(String user_id) {
 		return projectDao.ingProjectListC(user_id);
@@ -126,6 +128,14 @@ public class ProjectServiceImpl implements ProjectService {
 		return projectDao.ingProjectListP(user_id);
 	}
 
+	/** TO-BE */ 
+	@Override
+	public List<ProjectVo> ingProjectList(Map<String, Object> paramMap) throws SQLException {
+		// TODO Auto-generated method stub
+		return projectDao.ingProjectList(paramMap);
+	}
+	
+	
 	@Override
 	public List<ProjectVo> finishProjectListC(String user_id) {
 		return projectDao.finishProjectListC(user_id);
@@ -347,5 +357,20 @@ public class ProjectServiceImpl implements ProjectService {
 		return projectDao.checkPAttendFinish(p_code);
 	}
 
+	@Override
+	public void getProjectList(Map<String, Object> map) throws SQLException {
+		
+		PageVo pageVo = (PageVo) map.get("pageInfo");
+		String sValue = pageVo.getS_value();
+		map.put("projectList", projectDao.searchProjectid(pageVo));
+		map.put("cnt", projectDao.searchProjectidCnt(sValue));
+	}
 	
 }
+
+
+
+
+
+
+

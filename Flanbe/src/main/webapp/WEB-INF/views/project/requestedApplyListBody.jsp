@@ -35,7 +35,8 @@
 			<div class="col-11  align-self-center">
 				<div class="sub-header mt-3 py-3 align-self-center d-sm-flex w-100 rounded">
 					<div class="w-sm-100 mr-auto">
-						<h4 class="mb-0">지원요청받은 프로젝트</h4>
+						<h4 class="mb-0">지원 요청</h4>
+						<p class="p5-no-partners-info-text" style="color:gray; font-size:15px; font-weight:350;">클라이언트에게 지원을 요청받은 프로젝트를 확인할 수 있습니다.</p>
 					</div>
 				</div>
 			</div>
@@ -43,26 +44,19 @@
 		<div class="row">
 			<div class="col-11 mt-4">
 				<div class="card">
-					<div class="card-header justify-content-between align-items-center">
-					<h4 class="card-title">프로젝트 리스트</h4>
-					</div>
-
 					<div class="card-body">
-
 						<div class="col-12">
 							<div class="col-12 mt-3 pl-lg-0">
-
 								<c:if test="${fn:length(reqapplyList)==0}">
-									<h4 class="mb-0">프로젝트가 없습니다.</h4><br>
+									<p class="mb-0" style="color:#999 !important; line-height:1; font-size: 14px;">지원을 요청받은 프로젝트가 없습니다.</p><br>
 								</c:if>
 								<c:forEach items="${reqapplyList }" var="reqapplyList">
 									<div class="card border h-invoice-list-section">
 										<form id="Applylistform" method="post" action="${cp }/project/deleteapplylist">
 											<input type="hidden" id="p_code" name="p_code" value="${p_code}" />
 											<input type="hidden" name="user_id" value="${S_USER.user_id}" />
-											<div class="card-header border-bottom p-3 d-flex">
-												<span style="margin-right: 10px;">프로젝트 명 : </span>
-												<span style="font-size: 15px;"> ${reqapplyList.p_title } </span>
+											<div class="p-3">
+												<span style="font-size:17px; font-weight:450; color:#2099bb;"> ${reqapplyList.p_title } </span>
 											</div>
 											<div class="card-body p-0">
 												<div class="invoices list">
@@ -71,25 +65,25 @@
 
 														<div class="invoice-content">
 															<div class="invoice-info">
-																<p class="mb-0 small">클라이언트:</p>
+																<p class="mb-0">클라이언트</p>
 																<p class="invoice-no">${reqapplyList.user_id }</p>
 															</div>
 															<div class="invoice-info">
-																<p class="mb-0 small">계약금액:</p>
+																<p class="mb-0">계약금액</p>
 																<p class="cliname">${reqapplyList.p_money }</p>
 															</div>
 															<div class="invoice-info">
-																<p class="mb-0 small">프로젝트 기간:</p>
+																<p class="mb-0">프로젝트 기간</p>
 																<p class="invocie-date">${reqapplyList.period }</p>
 															</div>
 															<div class="invoice-info">
-																<p class="mb-0 small">등록일</p>
+																<p class="mb-0">등록일</p>
 																<p class="invoice-due-date">
 																	<fmt:formatDate value="${reqapplyList.p_regdt }" pattern="yyyy.MM.dd" />
 																</p>
 															</div>
 															<div class="invoice-info">
-																<p class="mb-0 small">마감일</p>
+																<p class="mb-0">마감일</p>
 																<p class="invoice-due-date">
 																	<fmt:formatDate value="${reqapplyList.deadline }" pattern="yyyy.MM.dd" />
 																</p>

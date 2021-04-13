@@ -3,18 +3,21 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <style>
 .menu a, .menu li{
-	cursor:pointer;
-	margin-bottom: 3px;
+   cursor:pointer;
+   margin-bottom: 3px;
 }
 .menu .hide{
-	display:none;
-	padding-left: 12px;
-	font-size: 13px;
-	list-style: none;
-	color: #424242;
+   display:none;
+   padding-left: 12px;
+   font-size: 11px;
+   list-style: none;
+   color: #424242;
 }
-.hide li:hover {
+.hide li a:hover {
     color: royalblue;
+}
+.notes-menu .hide li a:hover:after {
+    background: none;
 }
 </style>
 <script>
@@ -49,45 +52,17 @@ $(function(){
 				<c:when test="${S_USER.purpose == 'C' }">
 					<li class="nav-link active"><a class="nav-link" href="${cp }/project/beforeProjectList"> 검수 중 </a></li>
 					<li class="nav-link active"><a class="nav-link" href="${cp }/project/selectUserProject?user_id=${S_USER.user_id}"> 지원자 모집 중 </a></li>
-<%-- 					<li class="nav-link active"><a class="nav-link" href="${cp }/contract/contractList?p_state=04&user_id=${S_USER.user_id}"> 계약 </a></li> --%>
 					<li class="menu nav-link active">
 						<a class="nav-link"> 계약 </a>
 						<ul class="hide">
 							<li>
-								<c:choose>
-									<c:when test="${type == 's'}">
-<%-- 										<a class="nav-link active" href="${cp }/contract/contractList?type=s&user_id=${S_USER.user_id}"> --%>
-										<a href="${cp }/contract/contractList?type=s&user_id=${S_USER.user_id}">
-									</c:when>
-									<c:otherwise>
-										<a class="nav-link" href="${cp }/contract/contractList?type=s&user_id=${S_USER.user_id}">
-									</c:otherwise>
-								</c:choose>
-								 진행 중인 계약
+								<a href="${cp }/contract/contractList?type=s&user_id=${S_USER.user_id}"> 진행 중인 계약
 							</li>
 							<li>
-								<c:choose>
-									<c:when test="${type == 'f'}">
-										<a href="${cp }/contract/contractList?type=f&user_id=${S_USER.user_id}">
-<%-- 										<a class="nav-link active" href="${cp }/contract/contractList?type=f&user_id=${S_USER.user_id}"> --%>
-									</c:when>
-									<c:otherwise>
-										<a class="nav-link" href="${cp }/contract/contractList?type=f&user_id=${S_USER.user_id}">
-									</c:otherwise>
-								</c:choose>
-							 	 완료된 계약
+								<a href="${cp }/contract/contractList?type=f&user_id=${S_USER.user_id}"> 완료된 계약
 							</li>
 							<li>
-								<c:choose>
-									<c:when test="${type == null}">
-<%-- 										<a class="nav-link active" href="${cp }/contract/calendar"> --%>
-										<a href="${cp }/contract/calendar">
-									</c:when>
-									<c:otherwise>
-										<a class="nav-link" href="${cp }/contract/calendar">
-									</c:otherwise>
-								</c:choose>
-								 미팅 일정
+								<a href="${cp }/contract/calendar"> 미팅 일정
 							</li>
 	                  	</ul>
 	               </li>
@@ -96,45 +71,17 @@ $(function(){
 					<li class="nav-link active"><a class="nav-link" href="${cp }/project/selectLikeList"> 관심 프로젝트 </a></li>
 					<li class="nav-link active"><a class="nav-link" href="${cp }/project/requestedapplylist"> 지원 요청 </a></li>
 					<li class="nav-link active"><a class="nav-link" href="${cp }/project/applyList"> 지원 내역 </a></li>
-<%-- 					<li class="nav-link active"><a class="nav-link" href="${cp }/contract/contractList?p_state=04&user_id=${S_USER.user_id}"> 계약 </a></li> --%>
 					<li class="menu nav-link active">
 						<a class="nav-link"> 계약 </a>
 						<ul class="hide">
 							<li>
-								<c:choose>
-									<c:when test="${type == 's'}">
-<%-- 										<a class="nav-link active" href="${cp }/contract/contractListP?type=s&user_id=${S_USER.user_id}"> --%>
-										<a href="${cp }/contract/contractListP?type=s&user_id=${S_USER.user_id}">
-									</c:when>
-									<c:otherwise>
-										<a class="nav-link" href="${cp }/contract/contractListP?type=s&user_id=${S_USER.user_id}">
-									</c:otherwise>
-								</c:choose> 
-								 진행 중인 계약
+								<a href="${cp }/contract/contractListP?type=s&user_id=${S_USER.user_id}"> 진행 중인 계약
 							</li>
 							<li>
-								<c:choose>
-									<c:when test="${type == 'f'}">
-<%-- 										<a class="nav-link active" href="${cp }/contract/contractListP?type=f&user_id=${S_USER.user_id}"> --%>
-										<a href="${cp }/contract/contractListP?type=f&user_id=${S_USER.user_id}">
-									</c:when>
-									<c:otherwise>
-										<a class="nav-link" href="${cp }/contract/contractListP?type=f&user_id=${S_USER.user_id}">
-									</c:otherwise>
-								</c:choose>
-							 	 완료된 계약
+								<a href="${cp }/contract/contractListP?type=f&user_id=${S_USER.user_id}"> 완료된 계약
 							 </li>
 							<li> 
-								<c:choose>
-									<c:when test="${type == null}">
-										<a href="${cp }/contract/calendar">
-<%-- 										<a class="nav-link active" href="${cp }/contract/calendar"> --%>
-									</c:when>
-									<c:otherwise>
-										<a class="nav-link" href="${cp }/contract/calendar">
-									</c:otherwise>
-								</c:choose>
-								 미팅 일정
+								<a href="${cp }/contract/calendar"> 미팅 일정
 							</li>
 						</ul>
 					</li>

@@ -4,9 +4,16 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <style>
-	.invoice-info {
-		cursor: default !important;
-	}
+.invoice-info {
+	cursor: default !important;
+}
+span:hover {
+    color: #3ba3c7;
+    cursor: pointer;
+}
+.card.border.h-invoice-list-section:hover {
+    background-color: #fcfdffcc;
+}
 </style>
 
 <script>
@@ -280,7 +287,7 @@
                         &nbsp; &nbsp; &nbsp;
                         <select class="form-control col-md-3" name="searchType" id="searchType">
                            <option value="">검색구분</option>
-                           <option value="i">아이디</option>
+                           <option value="i">클라이언트</option>
                            <option value="p">프로젝트명</option>
                         </select>
                         <input class="form-control" type="text" id="kw" name="keyword" placeholder="검색어를 입력하세요." value=""> 
@@ -298,9 +305,8 @@
 
                         <c:forEach items="${projectList }" var="project">
                            <div class="card border h-invoice-list-section">
-                              <div class="card-header border-bottom p-3 d-flex">
-                                 <span style="margin-right: 10px;">프로젝트 명 : </span> 
-                                 <span style="font-size: 15px;"> ${project.p_title } </span>
+                              <div class="p-3">
+                                 <span style="font-size:17px; font-weight:450;"> ${project.p_title } </span>
                               </div>
                               <div class="card-body p-0">
                                  <div class="invoices list">
@@ -308,25 +314,25 @@
                                     <div class="invoice">
                                        <div class="invoice-content">
                                           <div class="invoice-info">
-                                             <p class="mb-0 small">클라이언트:</p>
+                                             <p class="mb-0">클라이언트</p>
                                              <p class="invoice-no">${project.user_id }</p>
                                           </div>
                                           <div class="invoice-info">
-                                             <p class="mb-0 small">계약금액:</p>
+                                             <p class="mb-0">계약금액</p>
                                              <p class="cliname"><fmt:formatNumber value="${project.p_money }"/>원</p>
                                           </div>
                                           <div class="invoice-info">
-                                             <p class="mb-0 small">프로젝트 기간:</p>
+                                             <p class="mb-0">프로젝트 기간</p>
                                              <p class="invocie-date">${project.period }일</p>
                                           </div>
                                           <div class="invoice-info">
-                                             <p class="mb-0 small">등록일</p>
+                                             <p class="mb-0">등록일</p>
                                              <p class="invoice-due-date">
                                                 <fmt:formatDate value="${project.p_regdt }" pattern="yyyy.MM.dd" />
                                              </p>
                                           </div>
                                           <div class="invoice-info">
-                                             <p class="mb-0 small">마감일</p>
+                                             <p class="mb-0">마감일</p>
                                              <p class="invoice-due-date">
                                                 <fmt:formatDate value="${project.deadline }" pattern="yyyy.MM.dd" />
                                              </p>

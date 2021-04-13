@@ -11,26 +11,16 @@
       //문서 로딩이 완료되고 나서 실행되는 영역
       $(function(){
          $('#summernote3').summernote({
-            height:300,width:900,
+            height:300,width:1000,
              popover: {
                  image:[],
                  link:[],
                  air:[]
               },
-            toolbar: [
-                 ['style', ['style']],
-                 ['font', ['bold', 'underline', 'clear']],
-                 
-                 ['fontname', ['fontname']],
-                 ['color', ['color']],
-                 ['para', ['ul', 'ol', 'paragraph']],
-                 ['table', ['table']],
-                 ['view', ['fullscreen', 'codeview']],
-               ]
+            toolbar: []
          });
          
         $("#saveSign").on('click', function() {
-        	alert("여기");
         	saveImage();
         })
         		 
@@ -187,12 +177,11 @@ function saveImage(){
         contentType : false,	// application/x-www-form-urlencoded; 방지!!
         dataType : "json",
         success : function (result) {
-        	alert("파일 불러오기 성공")
         	//성공하면, 그냥 id 만 넣어주면 된다.session 에서 
-        	alert("result 확인 : " + result.user_id)
         	//$('#saveSign').attr("src" , ) 
         	$('#cSign').attr("src" , '/sign/viewSign?id=' + result.user_id ) 
         	//$('#saveSign').attr("src" ,   result.realFileName) 
+        	$('#signmodal').modal('hide');
         },
         error : function(em){
         	alert("오류발생" + em.status)
@@ -220,10 +209,8 @@ function saveImage(){
 		<!-- START: Breadcrumbs-->
 		<br>
 		<div class="row">
-			<div class="col-9 mt-4" style="padding-left: 200px;">
-				<div class="card">
-					<br>
-					<br>
+			<div class="col-8 mt-4">
+				<div class="card"><br><br>
 					<h3 class="card-title" style="text-align: center;">프로젝트 계약서</h3>
 					<div class="card-content">
 						<div class="card-body">
@@ -308,7 +295,7 @@ function saveImage(){
 					</div>
 				</div>
 			</div>
-			<div class="col-12 col-xl-2">
+			<div class="col-3 col-xl-2">
 				<div class="card mb-2" style="margin-top: 25px;">
 					<div class="card-header d-flex justify-content-between align-items-center">
 						<h4 class="card-title">클라이언트 사인</h4>

@@ -343,7 +343,8 @@ public class UserController {
 			filename = UUID.randomUUID().toString() + "."
 					+ originalFilename.substring(originalFilename.lastIndexOf(".") + 1);
 
-			userVo.setPhotoroute("d:\\upload\\" + filename);
+//			userVo.setPhotoroute("d:\\upload\\" + filename);
+			userVo.setPhotoroute("C:\\LastProject\\upload\\" + filename);
 			System.out.println(userVo);
 
 			try {
@@ -366,7 +367,7 @@ public class UserController {
 			updateCnt = 0;
 		}
 		if (updateCnt == 1) {
-			return "redirect:/user/profile";
+			return "redirect:/user/updateInfo";
 		} else {
 			return "redirect:/user/updateInfo";
 		}
@@ -875,7 +876,8 @@ public class UserController {
 
 		if (image.getSize() > 0) {
 			originalImagename = image.getOriginalFilename();
-			imagename = "d:\\fileupload\\"  + UUID.randomUUID().toString() + "."
+			imagename = "C:\\LastProject\\fileupload\\"  + UUID.randomUUID().toString() + "."
+//					imagename = "d:\\fileupload\\"  + UUID.randomUUID().toString() + "."
 						+ originalImagename.substring(originalImagename.lastIndexOf(".") + 1);
 
 			try {
@@ -913,13 +915,15 @@ public class UserController {
 				
 				AttachVo attachVo = new AttachVo();
 				if(num == 1) {
-				attachVo.setNo(maxfileNo);
+					attachVo.setNo(maxfileNo);
+					logger.debug("po_no 여기 확인해야해 : {} " , maxfileNo);
 				}else if(num == 2) {
 					attachVo.setNo(portfoliovo.getPo_no());
 					attachVo.setA_no(maxfileNo);
 				}
 				attachVo.setA_nm(originalFilename);
-				attachVo.setA_route("d:\\fileupload\\" + filename);
+//				attachVo.setA_route("d:\\fileupload\\" + filename);
+				attachVo.setA_route("C:\\LastProject\\fileupload\\" + filename);
 
 				try {
 					files.transferTo(new File(attachVo.getA_route()));				

@@ -61,7 +61,7 @@ public interface EvaluationService {
 	public Map<String, List<EvaluationVo>> selectEvalForPathGraph(String user_id);
 
 	// 유저들의 정보를 조회할것(leftBar 의 hover 할때 user정보를 알려줌)
-	public List<UserVo> userInfoForLeftBarHover(List<UserVo> userList);
+	public List<UserVo> userInfoForLeftBarHover();
 
 	// 전체 평균과 유저들의 정보를 비교하기 위한 전체 평균 값.
 	public EvaluationVo allAverageEval();

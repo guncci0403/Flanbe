@@ -3,8 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-
-        <!-- START: Page CSS-->   
 <!DOCTYPE html>
 <html>
 <link rel="stylesheet" href="${cp }/dist/vendors/bootstrap/css/bootstrap.min.css">
@@ -21,11 +19,25 @@
 <script src="${cp }/dist/vendors/bootstrap/js/bootstrap.bundle.min.js"></script>    
 <script src="${cp }/dist/vendors/slimscroll/jquery.slimscroll.min.js"></script>
 
-        <link rel="stylesheet" href="${cp }/dist/vendors/fullcalendar/core/main.min.css"> 
-        <link rel="stylesheet" href='${cp }/dist/vendors/fullcalendar/daygrid/main.css'/>
-        <link rel="stylesheet" href='${cp }/dist/vendors/fullcalendar/timegrid/main.css'/>
-        <link rel="stylesheet" href='${cp }/dist/vendors/fullcalendar/list/main.css'/> 
+<link rel="stylesheet" href="${cp }/dist/vendors/fullcalendar/core/main.min.css"> 
+<link rel="stylesheet" href='${cp }/dist/vendors/fullcalendar/daygrid/main.css'/>
+<link rel="stylesheet" href='${cp }/dist/vendors/fullcalendar/timegrid/main.css'/>
+<link rel="stylesheet" href='${cp }/dist/vendors/fullcalendar/list/main.css'/> 
+<script type="text/javascript" src="http://jsgetip.appspot.com"></script>
+<script src="${cp }/jacktrip-webrtc-master/client/public/js/room/index.js" charset="utf-8"></script>
 <script>
+//회의방 생성 팝업 이벤트
+	function myFunction() {
+	   var windowpopup;
+	   
+	   var popupWidth = 890;
+	   var popupHeight = 408;
+	   var popupX = (window.screen.width / 2) - (popupWidth / 2);  //만들 팝업창 width 크기의 1/2 만큼 보정값으로 빼주었음
+	   var popupY= (window.screen.height / 2) - (popupHeight / 2);
+	   
+	   window.open('https://192.168.0.107:44300','windowpopup', 
+	            'status=no, height=' + popupHeight  + ', width=' + popupWidth  + ', left='+ popupX + ', top='+ popupY);
+	} 
 	$(function() {
 	    $("#updatemeetingbtn").on("click", function(){
 			$("#meetingform").attr("method", "get");
@@ -97,10 +109,16 @@
     	</div>
     <c:choose>
     <c:when test="${S_USER.purpose == 'C'}">
-    <div class="modal-footer">
-        <button id="updatemeetingbtn" class="btn btn-primary eventbutton">수정</button>
-    </div>
+	    <div class="modal-footer">
+	        <button type="button" id="windowpopup" class="btn btn-primary" onclick="myFunction()">회의방 생성</button>
+	        <button id="updatemeetingbtn" class="btn btn-primary eventbutton">수정</button>
+	    </div>
     </c:when>
+    <c:otherwise>
+	    <div class="modal-footer">
+	    	<button class="btn btn-primary" onclick="window.open('https://192.168.0.107:44300/room/asas')">회의 참가</button>
+	   	</div>
+    </c:otherwise>
     </c:choose>
       		  </form>
 </div>

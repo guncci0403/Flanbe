@@ -303,7 +303,7 @@
                         &nbsp; &nbsp; &nbsp;
                         <select class="form-control col-md-3" name="searchType" id="searchType">
                            <option value="">검색구분</option>
-                           <option value="i">아이디</option>
+                           <option value="i">클라이언트</option>
                            <option value="p">프로젝트명</option>
                         </select>
                         <input class="form-control" type="text" id="kw" name="keyword" placeholder="검색어를 입력하세요." value=""> 
@@ -368,14 +368,28 @@
 			            <ul class="pagination justify-content-center m-0">
 			               <c:set var="cnt" value="${pagination}" />
 			               <li class="page-item">
-			                  <a class="page-link" href="${cp }/project/searchFilter?page=1&pageSize=${pageVo.pageSize}&st=${param.st}&end=${param.end}&state=${param.state}&p_filed=${param.p_filed }">
+			               		<c:choose>
+			               			<c:when test="${state eq 'filed' }">
+			               				<a class="page-link" href="${cp }/project/searchFilter?page=1&pageSize=${pageVo.pageSize}&st=${param.st}&end=${param.end}&state=${param.state}&p_filed=${p_filed }">
+			               			</c:when>
+			               			<c:otherwise>
+			                  			<a class="page-link" href="${cp }/project/searchFilter?page=1&pageSize=${pageVo.pageSize}&st=${param.st}&end=${param.end}&state=${param.state}&p_filed=${param.p_filed }">
+			               			</c:otherwise>
+			               		</c:choose>
 			                     <i class="fas fa-angle-double-left"></i>
 			                  </a>
 			               </li>
 			               <li class="page-item">
 			                  <c:choose>
 			                     <c:when test="${pageVo.page > 1 }">
-			                        <a class="page-link" href="${cp }/project/searchFilter?page=${pageVo.page - 1}&pageSize=${pageVo.pageSize}&st=${param.st}&end=${param.end}&state=${param.state}&p_filed=${param.p_filed }">
+			                     	<c:choose>
+				               			<c:when test="${state eq 'filed' }">
+				               				<a class="page-link" href="${cp }/project/searchFilter?page=${pageVo.page - 1}&pageSize=${pageVo.pageSize}&st=${param.st}&end=${param.end}&state=${param.state}&p_filed=${p_filed }">
+				               			</c:when>
+				               			<c:otherwise>
+				                        	<a class="page-link" href="${cp }/project/searchFilter?page=${pageVo.page - 1}&pageSize=${pageVo.pageSize}&st=${param.st}&end=${param.end}&state=${param.state}&p_filed=${param.p_filed }">
+				                        </c:otherwise>
+			                        </c:choose>
 			                           <i class="fas fa-angle-left"></i>
 			                        </a>
 			                     </c:when>
@@ -390,12 +404,26 @@
 			                  <c:choose>
 			                     <c:when test="${pageVo.page == i}">
 			                        <li class="page-item active">
-			                           <a class="page-link" href="${cp}/project/searchFilter?page=${i}&pageSize=${pageVo.pageSize}&st=${param.st}&end=${param.end}&state=${param.state}&p_filed=${param.p_filed }">${i}</a>
+			                        <c:choose>
+				               			<c:when test="${state eq 'filed' }">
+				               				<a class="page-link" href="${cp}/project/searchFilter?page=${i}&pageSize=${pageVo.pageSize}&st=${param.st}&end=${param.end}&state=${param.state}&p_filed=${p_filed }">${i}</a>
+				               			</c:when>
+				               			<c:otherwise>
+			                           		<a class="page-link" href="${cp}/project/searchFilter?page=${i}&pageSize=${pageVo.pageSize}&st=${param.st}&end=${param.end}&state=${param.state}&p_filed=${param.p_filed }">${i}</a>
+			                           	</c:otherwise>
+			                        </c:choose>
 			                        </li>
 			                     </c:when>
 			                     <c:otherwise>
 			                        <li class="page-item">
-			                           <a class="page-link" href="${cp}/project/searchFilter?page=${i}&pageSize=${pageVo.pageSize}&st=${param.st}&end=${param.end}&state=${param.state}&p_filed=${param.p_filed }">${i}</a>
+			                        	<c:choose>
+				               			<c:when test="${state eq 'filed' }">
+				               				<a class="page-link" href="${cp}/project/searchFilter?page=${i}&pageSize=${pageVo.pageSize}&st=${param.st}&end=${param.end}&state=${param.state}&p_filed=${p_filed }">${i}</a>
+				               			</c:when>
+				               			<c:otherwise>
+			                           		<a class="page-link" href="${cp}/project/searchFilter?page=${i}&pageSize=${pageVo.pageSize}&st=${param.st}&end=${param.end}&state=${param.state}&p_filed=${param.p_filed }">${i}</a>
+			                           	</c:otherwise>
+			                           	</c:choose>
 			                        </li>
 			                     </c:otherwise>
 			                  </c:choose>
@@ -403,7 +431,14 @@
 			               <li class="page-item">
 			                  <c:choose>
 			                     <c:when test="${pageVo.page < pagination }">
-			                        <a class="page-link" href="${cp}/project/searchFilter?page=${pageVo.page + 1}&pageSize=${pageVo.pageSize }&st=${param.st}&end=${param.end}&state=${param.state}&p_filed=${param.p_filed }">
+			                     	<c:choose>
+				               			<c:when test="${state eq 'filed' }">
+				               				<a class="page-link" href="${cp}/project/searchFilter?page=${pageVo.page + 1}&pageSize=${pageVo.pageSize }&st=${param.st}&end=${param.end}&state=${param.state}&p_filed=${p_filed }">
+				               			</c:when>
+				               			<c:otherwise>
+			                        		<a class="page-link" href="${cp}/project/searchFilter?page=${pageVo.page + 1}&pageSize=${pageVo.pageSize }&st=${param.st}&end=${param.end}&state=${param.state}&p_filed=${param.p_filed }">
+			                        	</c:otherwise>
+			                        	</c:choose>
 			                        <i class="fas fa-angle-right"></i>
 			                        </a>
 			                     </c:when>
@@ -415,7 +450,14 @@
 			                  </c:choose>
 			               </li>
 			               <li class="page-item">
-			                  <a class="page-link" href="${cp}/project/searchFilter?page=${pagination}&pageSize=${pageVo.pageSize}&st=${param.st}&end=${param.end}&state=${param.state}&p_filed=${param.p_filed }">
+			               		<c:choose>
+				               			<c:when test="${state eq 'filed' }">
+				               				<a class="page-link" href="${cp}/project/searchFilter?page=${pagination}&pageSize=${pageVo.pageSize}&st=${param.st}&end=${param.end}&state=${param.state}&p_filed=${p_filed }">
+				               			</c:when>
+				               			<c:otherwise>
+			                  				<a class="page-link" href="${cp}/project/searchFilter?page=${pagination}&pageSize=${pageVo.pageSize}&st=${param.st}&end=${param.end}&state=${param.state}&p_filed=${param.p_filed }">
+			                  			</c:otherwise>
+			                  	</c:choose>
 			                     <i class="fas fa-angle-double-right"></i>
 			                  </a>
 			               </li>

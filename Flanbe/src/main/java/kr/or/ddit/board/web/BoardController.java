@@ -172,7 +172,9 @@ public class BoardController {
 					
 					AttachVo attach = new AttachVo();
 					attach.setA_nm(originalFilename);
-					attach.setA_route("d:\\postAttach\\"+filename);
+//					attach.setA_route("d:\\postAttach\\"+filename);
+					attach.setA_route("C:\\LastProject\\postAttach\\"+filename);
+					
 					attach.setNo(seq);
 					
 					try {
@@ -236,7 +238,9 @@ public class BoardController {
 					
 					AttachVo attach = new AttachVo();
 					attach.setA_nm(originalFilename);
-					attach.setA_route("d:\\postAttach\\"+filename);
+//					attach.setA_route("d:\\postAttach\\"+filename);
+					attach.setA_route("C:\\LastProject\\postAttach\\"+filename);
+					
 					attach.setNo(postVo.getP_no());
 					
 					try {
@@ -326,7 +330,8 @@ public class BoardController {
 					
 					AttachVo attach = new AttachVo();
 					attach.setA_nm(originalFilename);
-					attach.setA_route("d:\\postAttach\\"+filename);
+//					attach.setA_route("d:\\postAttach\\"+filename);
+					attach.setA_route("C:\\LastProject\\postAttach\\"+filename);
 					attach.setNo(seq);
 					
 					try {

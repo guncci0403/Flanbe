@@ -1,5 +1,6 @@
 package kr.or.ddit.project.web;
 
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -77,6 +78,7 @@ public class ProjectController {
 	public String insertproject(Model model, UserVo userVo, HttpSession session) {
 		model.addAttribute("alarmList",
 				messageService.alarmMessage(((UserVo) session.getAttribute("S_USER")).getUser_id()));
+		
 		if (((UserVo) session.getAttribute("S_USER")).getPurpose().equals("C")) {
 		} else if (((UserVo) session.getAttribute("S_USER")).getPurpose().equals("P")) {
 			model.addAttribute("pList",
@@ -89,14 +91,13 @@ public class ProjectController {
 	public String insertproject(Model model, ProjectVo projectVo, String ps_no) {
 		String str = ps_no;
 		String[] array = str.split(",");
-
 		int insertCnt = projectService.insertProject(projectVo);
 		for (int i = 0; i < array.length; i++) {
 			String ps = array[i];
 			projectService.insertPskill(ps);
 		}
 		if (insertCnt == 1) {
-			return "redirect:/project/selectProject";
+			return "redirect:/project/beforeProjectList";
 		}
 		return "t/project/insertProject";
 	}
@@ -179,6 +180,94 @@ public class ProjectController {
 		return "project/updateapply";
 	}
 
+	public class SessionException extends Exception {
+		public SessionException() {}
+		public SessionException(String msg) {
+			super(msg);
+		}
+	}
+	
+	
+	/** 컨트롤러 처리 프로세스(파라미터구성 -> 검증 -> 서비스 -> 결과전달) 
+	 *  1. 파라미터 구성(함수파라미터+세션파라미터+기타) 
+	 *  2. 파라미터 검증(메뉴권한, 사용자권한, 주요정보값)
+	 *  3. 서비스호출(트랜잭션 단위에 맞게 호출되어야 함) 
+	 *    - 타입 : C(create,insert) R(read, select) U(update) D(delete) 
+	 *      - 제품판매서비스 : [ 판매마스터관리 + 판매상세관리 + 재고관리 + 전표관리(영수증) ]가 하나의 작업으로 관리 
+	 *    - 서비스 : 2번 이상 호출 가능 ?
+	 *      - 배치처리(100개)의 처리를 일괄로 한다면 -> 각각의 트랜잭션처리를 통해 오류가 일어나는 것은 향후 다시 처리되도록 설계 
+	 *      
+	 *     String[] data = null;
+			   for (String s : data) {
+			   		try {
+						서비스
+					}catch(SQLException e) {
+						
+					}
+				} 
+	 *      
+	 *  4. 클라이언트 전송 자료 구축
+	 *  5. view 페이지 설정    
+	 * @throws SQLException 
+	 *        
+	 */
+	/*
+	@RequestMapping("searchProject")
+	public String searchProject(Model model, @RequestParam(defaultValue = "1") int page,
+			@RequestParam(defaultValue = "5") int pageSize, String sT, String kW, RedirectAttributes ra,
+			HttpSession session) throws SessionException, SQLException {
+		
+		// 1. 파라미터 구성/검증  
+		if (kW.equals("") || sT.equals("")) {
+			ra.addAttribute("page", page);
+			ra.addAttribute("pageSize", pageSize);
+			return "redirect:/project/selectProject";
+		}
+		
+		UserVo userVo = (UserVo) session.getAttribute("S_USER");
+//		if(userVo==null) {
+//			return "redirect:로그인페이지URL";
+//			//throw new SessionException("세션이 존재하지 않습니다.");
+//		}
+
+		String userId = userVo.getUser_id();
+		String purpose = userVo.getPurpose();
+		PageVo pageVo = new PageVo(page, pageSize, kW);
+		
+		//-----------------------------------------------------------------------------------------
+		// 읽지 않은 메세지 리스트 
+		List<MessageVo> alarmMessage = messageService.alarmMessage(userId);
+		
+		// 참여중인 프로젝트 리스트  
+		Map<String,Object> map = new HashMap<>();
+		map.put("userId", userId);
+		map.put("purpose", purpose);
+		map.put("pageInfo", pageVo);
+		
+		logger.debug("진행중 프로젝트 파라미터 : {} ", map);
+		List<ProjectVo> ingProjectList = projectService.ingProjectList(map);
+		
+		// 프로젝트 목록 조회 
+		projectService.getProjectList(map);
+		List<ProjectVo> projectVoList = (List<ProjectVo>) map.get("projectList");
+		int cnt = (int) map.get("cnt");
+		// -------------------------------------------------------------------------------------------
+		
+		// 클라이언트 자료 전송 내역 
+		model.addAttribute("alarmList", alarmMessage);
+		model.addAttribute("pList", ingProjectList);
+		model.addAttribute("pagination", (int) Math.ceil((double) cnt / pageSize));
+		model.addAttribute("pageVo", pageVo);
+		model.addAttribute("sT", sT);
+		model.addAttribute("kW", kW);
+		
+		// view 페이지 설정 
+		return "t/project/projectList";
+		// --------------------------------------------------------------------------------
+	}
+	*/
+	
+	
 	@RequestMapping("searchProject")
 	public String searchProject(Model model, @RequestParam(defaultValue = "1") int page,
 			@RequestParam(defaultValue = "5") int pageSize, String sT, String kW, RedirectAttributes ra,
@@ -594,6 +683,7 @@ public class ProjectController {
 			@RequestParam(defaultValue = "") String end, String p_filed, String state) {
 
 		logger.debug("st : {} , end : {} ", st, end);
+		logger.debug("state : {} ", state);
 		// 필터 - 가격 검색
 		if (state.equals("price")) {
 			logger.debug("진입 1");
@@ -601,7 +691,8 @@ public class ProjectController {
 					+ end + "&state=" + state;
 		} // 체크박스 필터일 때
 		else if (state.equals("filed")) {
-			return "redirect:/project/searchFilterpfiled?page=" + page + "&pageSize=" + pageSize + "&p_filed=" + p_filed
+			logger.debug("filed ㅎㅎ : {} "+ p_filed);
+			return "redirect:/project/searchFilterpfileds?page=" + page + "&pageSize=" + pageSize + "&p_filed=" + p_filed
 					+ "&state=" + state;
 		} // 필터 - 기간 검색
 		else {
@@ -651,6 +742,8 @@ public class ProjectController {
 			}
 			model.addAttribute("state", state);
 			model.addAttribute("chk", p_filed);
+			logger.debug("p_filed 여기 : {} ", p_filed);
+			model.addAttribute("p_filed", p_filed);
 			model.addAllAttributes(projectService.searchFilterPfileds(searchVo));
 		}
 		return "t/project/projectSearch";

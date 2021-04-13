@@ -1,6 +1,8 @@
 package kr.or.ddit.project.repository;
 
+import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -318,6 +320,11 @@ public class ProjectDaoImpl implements ProjectDao{
 	public int checkPAttendFinish(int p_code) {
 		// TODO Auto-generated method stub
 		return template.selectOne("project.checkPAttendFinish", p_code);
+	}
+
+	@Override
+	public List<ProjectVo> ingProjectList(Map<String, Object> paramMap) throws SQLException {
+		return template.selectList("project.ingProjectList", paramMap);
 	}
 	
 	

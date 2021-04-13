@@ -1,10 +1,9 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
-<%@ include file="/WEB-INF/views/common/contractSidebar.jsp"%>
+<%@ include file="/WEB-INF/views/common/projectSidebar.jsp"%>
 
 <link href='${cp }/lib/main.css' rel='stylesheet' />
 <script src='${cp }/lib/main.js'></script>
@@ -107,24 +106,6 @@ html, body {
 	color: #FF0000;
 } /* 일요일 */
 </style>
-<div class="sidebar">
-	<div class="site-width">
-		<!-- START: Menu-->
-		<ul id="side-menu" class="sidebar-menu">
-			<li class="dropdown"><a href="#" style="text-align: center; font-size: 15px;">계약 </a></li>
-		</ul>
-	</div>
-	<div class="site-width">
-		<ul class="list-unstyled inbox-nav  mb-0 mt-2 notes-menu" id="myTab1" role="tablist">
-			<li class="nav-item"><a class="nav-link active" href="${cp }/contract/contractList?p_state=04&user_id=${S_USER.user_id}"> <i class="icon-list">계약 중인 목록 </i>
-			</a></li>
-			<li class="nav-item"><a class="nav-link" href="${cp }/contract/contractList?p_state=06&p_state2=07&p_state3=09&user_id=${S_USER.user_id}"> <i class="icon-star">완료된 계약 목록</i>
-			</a></li>
-			<li class="nav-item"><a class="nav-link" href="#"> <i class="icon-star">일정 등록</i>
-			</a></li>
-		</ul>
-	</div>
-</div>
 <main>
 	<form action="${cp }/project/viewproject" method="get" id="frmView">
 		<input type="hidden" id="calendarList" name="m_no">
@@ -132,9 +113,11 @@ html, body {
 	</form>
 
 	<div class="container-fluid site-width" style="margin-top: 60px;">
-		<div class="col-12 col-md-11 mt-3" style="margin-left: 50px;">
-			<div class="card-body h-100">
-				<div id='calendar' class="h-100"></div>
+		<div class="card mt-4">
+			<div class="col-12 col-md-11 mt-3" style="margin-left: 50px;">
+				<div class="card-body h-100">
+					<div id='calendar' class="h-100"></div>
+				</div>
 			</div>
 		</div>
 	</div>

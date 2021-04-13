@@ -260,8 +260,17 @@ function phonecheck() {
 						</section>
 						<div class="form-group">
 							<a id="updateinfo" class="btn btn-primary pull-right py-2 px-2 rounded ml-auto text-white" style="font-size: 14px; line-height: 1.428; margin-right: 30px;"> <span>수정 완료</span>
-							</a> <a href="${cp }/user/profile" class="btn btn-secondary pull-right py-2 px-2 rounded ml-auto text-white" style="font-size: 14px; line-height: 1.428; margin-right: 10px;"> <span>취소</span>
-							</a> <br>
+							</a>
+							<c:if test="${user.purpose == 'P' }">
+								<a href="${cp }/user/profile" class="btn btn-secondary pull-right py-2 px-2 rounded ml-auto text-white" style="font-size: 14px; line-height: 1.428; margin-right: 10px;"> <span>취소</span>
+								</a>
+							</c:if>
+							<c:if test="${user.purpose == 'C' }">
+								<a href="${cp }/user/intro" class="btn btn-secondary pull-right py-2 px-2 rounded ml-auto text-white" style="font-size: 14px; line-height: 1.428; margin-right: 10px;"> <span>취소</span>
+								</a>
+							</c:if>
+							
+							<br>
 							<br>
 						</div>
 					</form>

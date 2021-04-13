@@ -8,7 +8,7 @@
                 <div class="card">
                     <div class="card-header d-flex justify-content-between align-items-center">                               
                         <h6 class="card-title">${user_id }님의 가장 최근 5번의 프로젝트에서 받은 </h6>
-                        <h6> 💛 : 만족도 , 💙 : 전문성 , ❤ : 평균</h6>                                   
+                        <h6> 💛 : 만족도 , 💙 : 전문성 , 💖: 평균</h6>                                   
                     </div>
                     <div class="card-body">                                      
                         <div class="ct-svg-animation"></div>
@@ -20,12 +20,12 @@
 	                    		<h6> &nbsp; <i class="fas  h5 mr-2 fa-clipboard"></i> ${evalVo.rnum}번째 프로젝트 : ${evalVo.p_title} </h6>
 	                    	</c:forEach>
 	                    </div>
-	                    <div class="CheckedUserList" style="height : 200px;">
+	                    <%-- <div class="CheckedUserList" style="height : 200px;">
 	                    <h5>아이디 검색</h5>
-	                    	<c:forEach items="${allUserList}" var="User">
-	                    		&nbsp;&nbsp;<h6><span class="pathGraphFromOneUser" <c:if test="${User.user_id == user_id }">style="background-color : yellow"</c:if> onclick="pathGraph('${User.user_id}')" data-clickedUser="${User.user_id}">${User.user_id}</span></h6><br>
+	                    	<c:forEach items="${checkedUser}" var="User">
+	                    		&nbsp;&nbsp;<h6><span class="pathGraphFromOneUser" <c:if test="${User == user_id }">style="background-color : yellow"</c:if> onclick="pathGraph('${User}')" data-clickedUser="${User}">${User}</span></h6><br>
 	                    	</c:forEach>
-	                    </div>
+	                    </div> --%>
                     </div>
                 </div>
     	<!--         </div>  -->

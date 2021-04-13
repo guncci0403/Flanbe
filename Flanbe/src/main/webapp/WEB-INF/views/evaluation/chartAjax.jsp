@@ -15,22 +15,22 @@
                                 <h6 class="card-title barChartTitle">
                                	선택 : 
                                 <c:if test="${graphCheck != 1 }">
-                                	<span  class="charKindSelect btn btn-outline-success btn-block rounded-pill shadow" onclick="barGraphModal(1)">평균</span> 
+                                	<span  class="charKindSelect btn btn-outline-success btn-block rounded-pill shadow" onclick="searchGraphAjax(1)">평균</span> 
                                 </c:if>
                                 <c:if test="${graphCheck != 2 }">
-                                	<span class="charKindSelect btn btn-outline-info btn-block rounded-pill shadow" onclick="barGraphModal(2)">전문성</span> 
+                                	<span class="charKindSelect btn btn-outline-info btn-block rounded-pill shadow" onclick="searchGraphAjax(2)">전문성</span> 
                                 </c:if>
                                 <c:if test="${graphCheck != 3 }">
-                                	<span class="charKindSelect btn btn-outline-danger btn-block rounded-pill shadow" onclick="barGraphModal(3)">만족성</span> 
+                                	<span class="charKindSelect btn btn-outline-danger btn-block rounded-pill shadow" onclick="searchGraphAjax(3)">만족성</span> 
                                 </c:if>
                                 <c:if test="${graphCheck != 4 }">
-                                	<span class="charKindSelect btn btn-outline-warning btn-block rounded-pill shadow" onclick="barGraphModal(4)">의사소통</span> 
+                                	<span class="charKindSelect btn btn-outline-warning btn-block rounded-pill shadow" onclick="searchGraphAjax(4)">의사소통</span> 
                                 </c:if>
                                 <c:if test="${graphCheck != 5 }">
-                                	<span class="charKindSelect btn btn-outline-secondary btn-block rounded-pill shadow" onclick="barGraphModal(5)">일정준수</span> 
+                                	<span class="charKindSelect btn btn-outline-secondary btn-block rounded-pill shadow" onclick="searchGraphAjax(5)">일정준수</span> 
                                 </c:if>
                                 <c:if test="${graphCheck != 6 }">
-                                	<span class="charKindSelect btn btn-outline-primary btn-block rounded-pill shadow" onclick="barGraphModal(6)">적극성</span>
+                                	<span class="charKindSelect btn btn-outline-primary btn-block rounded-pill shadow" onclick="searchGraphAjax(6)">적극성</span>
                                 </c:if>
                                 
                                 </h6>                                    
@@ -111,13 +111,16 @@
 	//modal 저장할때 
 	//modal 창에서 비교하기 버튼 클릭하기 두번째 그래프인 bar Chart 에서 위에 각각의 것( 평균 ,전문성 , 만족도 , 의사소통 , 일정준수 , 적극성)들 클릭한 뒤 modal 창에서 비교 버튼 클릭 
 	
-	function searchGraphAjax(){
+	function searchGraphAjax(kindCheck){
 			var CheckedUser = []; 
-			var graphCheck = $('.kindCheck').val();
-			$('.barChk:checked').each(function(){
+		    //2021.04.01
+			var CheckedUser = JSON.parse('${checkUserList}');
+			/* var graphCheck = $('.kindCheck').val(); */
+			var graphCheck = kindCheck
+			/* $('.barChk:checked').each(function(){
 				//alert($(this).val());
 				CheckedUser.push($(this).val());
-			}); 
+			});  */
 			barChartGraph(CheckedUser , graphCheck);
 			$('#barGraphModal').modal('hide');
 			//$('.close').onclick

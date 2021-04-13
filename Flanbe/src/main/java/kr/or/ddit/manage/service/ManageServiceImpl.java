@@ -42,6 +42,14 @@ public class ManageServiceImpl implements ManageService {
 	public List<ContractVo> requestContractList() {
 		return manageDao.requestContractList();
 	}
+
+	@Override
+	public int updateState(ContractVo contract) {
+		int cnt = 0;
+		cnt += manageDao.updateProjectState(contract.getP_code());
+		cnt += manageDao.updatePattendState(contract);
+		return cnt;
+	}
 	
 	
 }

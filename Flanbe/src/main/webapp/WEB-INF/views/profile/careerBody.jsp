@@ -252,13 +252,14 @@ $(function(){
 						<div class="p5-2spanInfo" style="min-height: 200px; height: auto; margin-bottom: 10px !important;">
 							<br>
 							<br>
+							<div id="newCareer">
 							<c:choose>
 								<c:when test="${careerList[0] == null}">
 									<div class="p5-assign-component" style="display: table; width: 100%; height: 100%; text-align: center; margin: 0 auto;">
 										<div style="display: table-cell; vertical-align: middle;">
 											<div>
 												<img src="${cp }/images/profile_employ.png" style="vertical-align: middle;">
-												<p class="p5-no-partners-info-text" style="margin-top: 15px; margin-bottom: 0; color: #999 !important; line-height: 1;">
+												<p class="p5-no-partners-info-text">
 													등록된 <span class="text-center p5-bold" style="font-weight: 500;">'경력'</span>이 없습니다.
 												</p>
 											</div>
@@ -266,7 +267,6 @@ $(function(){
 									</div>
 								</c:when>
 								<c:otherwise>
-									<div id="newCareer">
 										<c:forEach items="${careerList }" var="career" varStatus="loop">
 											<div>
 												<div class="form-row col-10" id="borderdiv">
@@ -303,9 +303,9 @@ $(function(){
 												<br> <br>
 											</div>
 										</c:forEach>
-									</div>
 								</c:otherwise>
 							</c:choose>
+							</div>
 							<!-- END: Card DATA-->
 						</div>
 					</section>

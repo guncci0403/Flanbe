@@ -22,4 +22,7 @@ public interface ManageService {
 	
 	// 승인 요청 받은 계약리스트
 	List<ContractVo> requestContractList();
+	
+	// 계약 완료 후 파트너스 상태 변경
+	int updateState(ContractVo contract);
 }

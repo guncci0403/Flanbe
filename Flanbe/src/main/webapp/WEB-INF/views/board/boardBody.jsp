@@ -231,5 +231,3 @@ $(function(){
             </div>
         </main>
         <!-- END: Content-->
-
-        

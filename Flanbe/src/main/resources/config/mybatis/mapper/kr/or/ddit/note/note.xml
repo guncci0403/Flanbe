@@ -20,47 +20,82 @@
 	
 	<!-- 진행전 노트 리스트 -->
 	<select id="selectNoteListBefore" parameterType="hashMap" resultType="noteVo">
-	    select  rn , n_no , user_id , p_code , n_title , n_cont , category , n_import , to_char(n_regdt , 'YYYY-MM-DD AM HH24:MI:SS' ) n_regdt, n_state , n_gno , n_parent , progress,  to_char(n_sdt , 'YYYY-MM-DD' ) n_sdt, to_char(n_edt , 'YYYY-MM-DD' ) n_edt
+	    select  rn 
+	    , n_no 
+	    , user_id 
+	    , p_code 
+	    , n_title 
+	    , n_cont 
+	    , category 
+	    , n_import 
+	    , to_char(n_regdt , 'YYYY-MM-DD AM HH24:MI:SS' ) n_regdt
+	    , n_state 
+	    , n_gno 
+	    , n_parent 
+	    , progress
+	    , to_char(n_sdt , 'YYYY-MM-DD' ) n_sdt, to_char(n_edt , 'YYYY-MM-DD' ) n_edt
         from
-        (select ROWNUM rn , a.*
-        from
-    	(select * 
-		from note 
-		where n_state = '01'
-		AND n_parent is null
-		<if test="n_title != null and n_title.equals('key')">
-		AND n_import = '01'
-		</if>
-		AND p_code = #{p_code}  
-        order by n_regdt desc) a
-        WHERE ROWNUM &lt;= #{page} * 5)
-        WHERE rn between (#{page} - 1) * 5 + 1 AND #{page} * 5
+	        (select ROWNUM rn , a.*
+	        from
+		    	(select * 
+				from note 
+				where n_state = '01'
+				AND n_parent is null
+				<if test="n_title != null and n_title.equals('key')">
+				AND n_import = '01'
+				</if>
+				AND p_code = #{p_code}  
+		        order by n_regdt desc) a
+		    WHERE ROWNUM &lt;= #{page} * 3)
+		WHERE rn between (#{page} - 1) * 3 + 1 AND #{page} * 3
 	</select>
 
 
 	<!-- 진행중 노트 리스트 -->	
 	<select id="selectNoteListIng" parameterType="hashMap" resultType="noteVo">
-	    select  rn , n_no , user_id , p_code , n_title , n_cont , category , n_import , to_char(n_regdt , 'YYYY-MM-DD AM HH24:MI:SS' ) n_regdt, n_state , n_gno , n_parent , progress, to_char(n_sdt , 'YYYY-MM-DD' ) n_sdt, to_char(n_edt , 'YYYY-MM-DD' ) n_edt 
+	    select  rn 
+	    , n_no 
+	    , user_id 
+	    , p_code 
+	    , n_title 
+	    , n_cont 
+	    , category 
+	    , n_import 
+	    , to_char(n_regdt , 'YYYY-MM-DD AM HH24:MI:SS' ) n_regdt
+	    , n_state 
+	    , n_gno 
+	    , n_parent 
+	    , progress
+	    , to_char(n_sdt , 'YYYY-MM-DD' ) n_sdt
+	    , to_char(n_edt , 'YYYY-MM-DD' ) n_edt 
         from
-        (select ROWNUM rn , a.*
-        from
-    	(select * 
-		from note 
-		where n_state = '02'
-		AND n_parent is null
-		<if test="n_title != null and n_title.equals('key')">
-		AND n_import = '01'
-		</if>
-		AND p_code = #{p_code} 
-        order by n_regdt desc) a
-        WHERE ROWNUM &lt;= #{page} * 5)
-        WHERE rn between (#{page} - 1) * 5 + 1 AND #{page} * 5 
+	        (select ROWNUM rn , a.*
+	        from
+		    	(select * 
+				from note 
+				where n_state = '02'
+				AND n_parent is null
+				<if test="n_title != null and n_title.equals('key')">
+				AND n_import = '01'
+				</if>
+				AND p_code = #{p_code} 
+		        order by n_regdt desc) a
+	        WHERE ROWNUM &lt;= #{page} * 3)
+        WHERE rn between (#{page} - 1) * 3 + 1 AND #{page} * 3 
 	</select>
 	
 	
 	<!-- 진행끝난 노트 리스트 -->
 	<select id="selectNoteListFinish" parameterType="hashMap" resultType="noteVo">
-	    select  rn , n_no , user_id , p_code , n_title , n_cont , category , n_import , to_char(n_regdt , 'YYYY-MM-DD AM HH24:MI:SS' ) n_regdt, n_state , n_gno , n_parent , progress, to_char(n_sdt , 'YYYY-MM-DD' ) n_sdt, to_char(n_edt , 'YYYY-MM-DD' ) n_edt 
+	    select  rn 
+	    , n_no 
+	    , user_id 
+	    , p_code 
+	    , n_title 
+	    , n_cont 
+	    , category 
+	    , n_import 
+	    , to_char(n_regdt , 'YYYY-MM-DD AM HH24:MI:SS' ) n_regdt, n_state , n_gno , n_parent , progress, to_char(n_sdt , 'YYYY-MM-DD' ) n_sdt, to_char(n_edt , 'YYYY-MM-DD' ) n_edt 
         from
         (select ROWNUM rn , a.*
         from
@@ -73,26 +108,46 @@
 		</if>
 		AND p_code = #{p_code} 
         order by n_regdt desc) a
-        WHERE ROWNUM &lt;= #{page} * 5)
-        WHERE rn between (#{page} - 1) * 5 + 1 AND #{page} * 5
+        WHERE ROWNUM &lt;= #{page} * 3)
+        WHERE rn between (#{page} - 1) * 3 + 1 AND #{page} * 3
 	</select>
 
 	<!-- 업무 노트 부모글 -->
 	<insert id="insertNote" parameterType="noteVo" useGeneratedKeys="false">
-		insert into note values (NOTE_SEQ.nextval , #{user_id, jdbcType=VARCHAR} , #{p_code} , #{n_title} , #{n_cont} , #{category}
-        , #{n_import} , sysdate , #{n_state} , NOTE_SEQ.nextval , null ,
-        #{progress} ,  #{n_sdt} , #{n_edt} )
-        
+		insert into note values (NOTE_SEQ.nextval 
+								, #{user_id} 
+								, #{p_code} 
+								, #{n_title} 
+								, #{n_cont} 
+								, #{category}
+        						, #{n_import} 
+        						, sysdate 
+        						, #{n_state} 
+        						, NOTE_SEQ.nextval 
+        						, null 
+        						, #{progress} 
+        						, #{n_sdt} 
+        						, #{n_edt} )        
         <selectKey keyProperty="n_no" resultType="int" order="AFTER">
         	select NOTE_SEQ.currval from dual 
         </selectKey>
-	</insert>
-	
+	</insert>	
 	<!-- 업무 노트 답글 등록하기 -->	
 	<insert id="insertNoteReply" parameterType="noteVo" useGeneratedKeys="false">
-		insert into note values (NOTE_SEQ.nextval , #{user_id} , #{p_code} , #{n_title} , #{n_cont} , #{category}
-        , #{n_import} , sysdate , #{n_state} , #{n_gno} , #{n_parent} ,
-        #{progress} ,  #{n_sdt} , #{n_edt} )
+		insert into note values (NOTE_SEQ.nextval 
+								, #{user_id} 
+								, #{p_code} 
+								, #{n_title} 
+								, #{n_cont} 
+								, #{category}
+        						, #{n_import} 
+        						, sysdate 
+        						, #{n_state} 
+        						, #{n_gno} 
+        						, #{n_parent} 
+        						, #{progress} 
+        						, #{n_sdt} 
+        						, #{n_edt} )
 		  <selectKey keyProperty="n_no" resultType="int" order="AFTER">
         	select NOTE_SEQ.currval from dual 
         </selectKey>
@@ -103,7 +158,7 @@
 	<!-- note 글 한개 조회하기 -->
 	<select id="selectNote" parameterType="int" resultType="noteVo">
 		select n.n_no , n.user_id , n.p_code , n.n_title , n.n_cont , n.category , n.n_import , 
-        to_char(n.n_regdt , 'YYYY-MM-DD AM HH24:MI:SS') n_regdt , n.N_STATE , n.N_GNO , n.N_PARENT , n.progress , to_char( n.n_sdt ,'YYYY-MM-DD AM' ) n_sdt , to_char( n.n_edt ,'YYYY-MM-DD AM' ) n_edt 
+        to_char(n.n_regdt , 'YYYY-MM-DD AM HH24:MI:SS') n_regdt , n.N_STATE , n.N_GNO , n.N_PARENT , n.progress , to_char( n.n_sdt ,'YYYY-MM-DD' ) n_sdt , to_char( n.n_edt ,'YYYY-MM-DD' ) n_edt 
         , g.code_name code_name
 		from note n , comm_code g  
 		where n_no = #{n_no}
@@ -135,7 +190,17 @@
     
     <!-- note 계층형 댓글 리스트 조회하기  -->
     <select id="selectReply" parameterType="int" resultType="replyVo">
-	  select level , r_no , n_no , user_id ,  lpad(' ' , (level - 1)*5 ) || r_cont r_cont, to_char(r_regdt , 'YYYY-MM-DD AM HH24:MI:SS' ) r_regdt , r_gno , r_parent , (SELECT b.user_id FROM reply b WHERE b.r_no = a.r_parent) r_parent_name
+	  select level 
+	  		, r_no 
+	  		, n_no 
+	  		, user_id 
+	  		,  lpad(' ' , (level - 1)*5 ) || r_cont r_cont
+	  		, to_char(r_regdt , 'YYYY-MM-DD AM HH24:MI:SS' ) r_regdt 
+	  		, r_gno 
+	  		, r_parent 
+	  		, 	(SELECT b.user_id 
+	  			FROM reply b 
+	  			WHERE b.r_no = a.r_parent) AS r_parent_name
       from reply a 
       where n_no = #{n_no}
       start with r_parent is null 
@@ -180,6 +245,7 @@
     </delete>
     
     <select id="userList" parameterType="int" resultType="userVo">
+    	/* kr.or.ddit.note.userList */
         select a.user_id , a.user_nm , a.email , a.phone , a.purpose , a.p_state 
         from
         (SELECT u.user_id  , u.user_nm , u.email, u.phone , u.purpose purpose, p.p_state , p.p_code p_code 
@@ -197,13 +263,13 @@
         WHERE a.p_code = #{value} OR a.purpose = 'C'     
     </select>
     
-    <select id="notattenduserList" parameterType="int" resultType="String">
-	    SELECT user_id 
+    <select id="notattenduserList" parameterType="userVo" resultType="userVo">
+		SELECT user_id, user_nm
 		FROM users 
 		WHERE purpose ='P' AND user_id not in (SELECT user_id
 		                        FROM p_attend 
-		                        WHERE p_state = '04' AND p_code = #{value}
-		                        GROUP BY user_id ) 
+		                        WHERE p_state = '04' AND p_code = #{p_code}
+		                        GROUP BY user_id ) AND group_nm = #{group_nm} AND u_div = 'T'
 		ORDER BY user_id
     </select>
     
@@ -223,5 +289,19 @@
         select user_id
         from project 
         where p_code = #{p_code}
+    </select>
+    
+        <!-- 협업툴 달력리스트 모두보기 -->
+    <select id="calendarListN" resultType="noteVo" parameterType="int">
+        SELECT n_no, n_title, n_sdt, n_edt, n_state, p_code
+		FROM note 
+		WHERE p_code = #{p_code}   
+    </select>
+    
+    <!-- 협업툴 달력 내것만 보기 -->
+    <select id="calendarUser" resultType="noteVo" parameterType="noteVo">
+        SELECT n_no, n_title, n_sdt, n_edt, n_state, p_code, user_id
+		FROM note 
+		WHERE p_code = #{p_code} AND user_id = #{user_id}   
     </select>
 </mapper>

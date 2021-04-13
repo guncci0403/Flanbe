@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <style>
-	#messageModalBtn {
- 		border: none;
- 		background: white; 
-	}
+#messageModalBtn {
+ 	border: none;
+ 	background: white; 
+}
 </style>
 
 <script>

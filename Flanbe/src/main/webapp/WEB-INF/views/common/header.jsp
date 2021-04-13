@@ -18,7 +18,7 @@
 					<span class="h4 font-weight-bold align-self-center mb-0"> 프랜비 </span>
 				</a>
 			</div>
-			<div class="navbar-collapse collapse" style="">
+			<div class="navbar-collapse collapse">
 				<ul class="navbar-nav mr-auto">
 				
 					<c:choose>

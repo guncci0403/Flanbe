@@ -1,6 +1,8 @@
 package kr.or.ddit.project.repository;
 
+import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 import kr.or.ddit.common.model.PageVo;
 import kr.or.ddit.common.model.SearchVo;
@@ -49,9 +51,13 @@ public interface ProjectDao {
 	
 	List<ProjectVo> applyList(String user_id); //지원내역 리스트
 	
+	/** AS-IS */ 
 	List<ProjectVo> ingProjectListC(String user_id); //진행중인 프로젝트 리스트 클라이언트
-	
 	List<ProjectVo> ingProjectListP(String user_id); //진행중인 프로젝트 리스트 파트너스	
+	
+	/** TO-BE */
+	List<ProjectVo> ingProjectList(Map<String, Object> paramMap) throws SQLException; 
+	
 	
 	List<ProjectVo> finishProjectListC(String user_id); //완료 프로젝트 리스트 클라이언트
 	
@@ -155,5 +161,7 @@ public interface ProjectDao {
 	public int updateFinishProject(int p_code);
 	
 	//프로젝트에 참가한 회원들의 상태를 확인(모두 완료라면 -> 프로젝트 최종 완료가 가능)
-	public int checkPAttendFinish(int p_code); 
+	public int checkPAttendFinish(int p_code);
+
+	
 }

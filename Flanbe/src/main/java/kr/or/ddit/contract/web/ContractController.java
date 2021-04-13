@@ -118,15 +118,13 @@ public class ContractController {
 	public String selectContractUser(@RequestParam(defaultValue = "1") int page,
 			@RequestParam(defaultValue = "5") int pageSize, ProjectVo projectVo, Model model, String state1,
 			String state2, String state3, String type, HttpSession session) {
-		model.addAttribute("alarmList",
-				messageService.alarmMessage(((UserVo) session.getAttribute("S_USER")).getUser_id()));
+		model.addAttribute("alarmList", messageService.alarmMessage(((UserVo) session.getAttribute("S_USER")).getUser_id()));
 		if (((UserVo) session.getAttribute("S_USER")).getPurpose().equals("C")) {
-			model.addAttribute("pList",
-					projectService.ingProjectListC(((UserVo) session.getAttribute("S_USER")).getUser_id()));
+			model.addAttribute("pList", projectService.ingProjectListC(((UserVo) session.getAttribute("S_USER")).getUser_id()));
 		} else if (((UserVo) session.getAttribute("S_USER")).getPurpose().equals("P")) {
-			model.addAttribute("pList",
-					projectService.ingProjectListP(((UserVo) session.getAttribute("S_USER")).getUser_id()));
+			model.addAttribute("pList", projectService.ingProjectListP(((UserVo) session.getAttribute("S_USER")).getUser_id()));
 		}
+		logger.debug("여기여기여기 : {}", projectVo );
 		model.addAttribute("p_state", projectVo.getP_state());
 		logger.debug("p_state:{}", projectVo.getP_state());
 		logger.debug("userid:{}", projectVo.getUser_id());
@@ -198,8 +196,11 @@ public class ContractController {
 	public String insertContract(Model model, ContractVo contract) {
 		logger.debug("contract : {} ", contract);
 		int cnt = contractService.registContract(contract);
+		// p_code , user_id, p_state
+		model.addAttribute("p_code", contract.getP_code());
+		model.addAttribute("puser_id", contract.getPuser_id());
 		
-		return "redirect:/contract/selectContractUser";
+		return "redirect:/contract/view";
 	}
 	// 계약서 조회 페이지
 	@RequestMapping("view")
@@ -249,7 +250,7 @@ public class ContractController {
 
 		if (updateCnt == 1) {
 			logger.debug("여기 들어왔어?2:{}", updateCnt);
-//	         ra.addFlashAttribute("msg", "수정완료.");
+	         ra.addFlashAttribute("msg", "수정완료.");
 			return "jsonView";
 		}
 		return "meeting/calendar";
