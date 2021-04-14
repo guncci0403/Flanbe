@@ -342,7 +342,7 @@ public class NoteController {
 	private String updateNote(Model model, NoteVo noteVo, String etc) {
 
 		// etc가 null 이 아니면 category 를 직접 입력한것 (select 박스 etc 선택)
-		if (etc != null) {
+		if (noteVo.getCategory().equals("etc")) {
 			noteVo.setCategory(etc);
 		}
 
