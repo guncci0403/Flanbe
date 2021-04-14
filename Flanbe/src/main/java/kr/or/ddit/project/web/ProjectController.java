@@ -525,10 +525,10 @@ public class ProjectController {
 	@RequestMapping(path = "projectOk", method = RequestMethod.POST)
 	public String projectOk(HttpServletRequest request, Model model, PAttendVo pattendVo, String user_nm, RedirectAttributes ra, HttpSession session, MeetingVo meeting) {
 		
-		String api_key = "NCSV6CKUIUNPUQKX";
-	    String api_secret = "LWQOJ358XER2VBMAYJJRD3NJWBJJRUFU";
+//		String api_key = "key";
+//	    String api_secret = "secret";
 //	    Coolsms coolsms = new Coolsms(api_key, api_secret);
-	    
+//	    
 //		HashMap<String, String> set = new HashMap<String, String>();
 //		
 //		set.put("to", projectService.sendPhone(pattendVo.getUser_id())); // 수신번호

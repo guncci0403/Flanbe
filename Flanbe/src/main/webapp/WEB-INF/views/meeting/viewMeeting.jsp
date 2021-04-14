@@ -35,7 +35,7 @@
 	   var popupX = (window.screen.width / 2) - (popupWidth / 2);  //만들 팝업창 width 크기의 1/2 만큼 보정값으로 빼주었음
 	   var popupY= (window.screen.height / 2) - (popupHeight / 2);
 	   
-	   window.open('https://192.168.0.107:44300','windowpopup', 
+	   window.open('https://192.168.0.117:44300','windowpopup', 
 	            'status=no, height=' + popupHeight  + ', width=' + popupWidth  + ', left='+ popupX + ', top='+ popupY);
 	} 
 	$(function() {
@@ -116,7 +116,7 @@
     </c:when>
     <c:otherwise>
 	    <div class="modal-footer">
-	    	<button class="btn btn-primary" onclick="window.open('https://192.168.0.107:44300/room/asas')">회의 참가</button>
+	    	<button class="btn btn-primary" onclick="window.open('https://192.168.0.117:44300/room/asas')">회의 참가</button>
 	   	</div>
     </c:otherwise>
     </c:choose>
